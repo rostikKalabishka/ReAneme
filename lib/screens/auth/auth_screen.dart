@@ -19,90 +19,103 @@ class AuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const RowLogo(),
-        const SizedBox(
-          height: 40,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const RowLogo(),
+          const SizedBox(
+            height: 40,
           ),
-          child: SizedBox(
-            height: 60,
-            child: TextFormField(
-              decoration: const InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                hintText: 'Username',
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
             ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-          ),
-          child: SizedBox(
-            height: 60,
-            child: TextFormField(
-              obscureText: true,
-              decoration: const InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.red,
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  hintText: 'Username',
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                hintText: 'Password',
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 50),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(MainNavigationRouteName.registrationScreen);
-              },
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-              ),
-              child: const Text('Registration'),
+          const SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
             ),
-            SizedBox(
-              height: 50,
-              width: 150,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(MainNavigationRouteName.mainScreen);
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.red,
+            child: SizedBox(
+              height: 60,
+              child: TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  hintText: 'Password',
                 ),
-                child: const Text('Sign in'),
               ),
             ),
-          ],
-        )
+          ),
+          const SizedBox(height: 50),
+          const RowButtonWidget()
+        ],
+      ),
+    );
+  }
+}
+
+class RowButtonWidget extends StatelessWidget {
+  const RowButtonWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamed(MainNavigationRouteName.registrationScreen);
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+          child: const Text('Registration'),
+        ),
+        SizedBox(
+          height: 50,
+          width: 150,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(MainNavigationRouteName.mainScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.red,
+            ),
+            child: const Text('Sign in'),
+          ),
+        ),
       ],
     );
   }

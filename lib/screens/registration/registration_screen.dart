@@ -118,38 +118,49 @@ class AuthWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 50),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('Sign in'),
-              ),
-              SizedBox(
-                height: 50,
-                width: 150,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(MainNavigationRouteName.mainScreen);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.red,
-                  ),
-                  child: const Text('Sign up'),
-                ),
-              ),
-            ],
-          )
+          const RowButtonWidget()
         ],
       ),
+    );
+  }
+}
+
+class RowButtonWidget extends StatelessWidget {
+  const RowButtonWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+          child: const Text('Sign in'),
+        ),
+        SizedBox(
+          height: 50,
+          width: 150,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(MainNavigationRouteName.mainScreen);
+            },
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.red,
+            ),
+            child: const Text('Sign up'),
+          ),
+        ),
+      ],
     );
   }
 }
