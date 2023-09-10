@@ -10,7 +10,7 @@ class MainScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: 150.0,
+            expandedHeight: 80.0,
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -26,7 +26,7 @@ class MainScreen extends StatelessWidget {
           ),
           const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text('Popular Anime'),
             ),
           ),

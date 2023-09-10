@@ -76,6 +76,16 @@ class AuthWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(MainNavigationRouteName.registrationScreen);
+              },
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Registration'),
+            ),
             SizedBox(
               height: 50,
               width: 150,
@@ -91,13 +101,6 @@ class AuthWidget extends StatelessWidget {
                 child: const Text('Sign in'),
               ),
             ),
-            TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-              ),
-              child: const Text('Registration'),
-            )
           ],
         )
       ],
