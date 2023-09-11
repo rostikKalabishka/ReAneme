@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:re_anime/screens/main_screen/home_page/popular_anime/pipular_anime.dart';
 
+import 'coming_son_anime/coming_soon_anime_widget.dart';
+
 class HomePageWidget extends StatelessWidget {
   const HomePageWidget({super.key});
 
@@ -37,25 +39,25 @@ class HomePageWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.all(8.0),
-            child: PopularAnime(),
+            child: ComingSoonAnimeWidget(),
           ),
         ),
 
         const SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.only(top: 16, left: 16, bottom: 16),
             child: Text(
               'Coming Soon',
               style: TextStyle(fontSize: 26),
             ),
           ),
         ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: PopularAnime(),
-          ),
-        ),
+        // SliverToBoxAdapter(
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(8.0),
+        //     child: ComingSoonAnimeWidget(),
+        //   ),
+        // ),
 
         const SliverToBoxAdapter(
           child: Padding(

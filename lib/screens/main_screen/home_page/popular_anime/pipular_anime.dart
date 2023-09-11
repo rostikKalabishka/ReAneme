@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../resources/resources.dart';
 import 'model/popular_anime_model.dart';
 
 class PopularAnime extends StatelessWidget {
