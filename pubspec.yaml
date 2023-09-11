@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   provider: ^6.0.5
   cached_network_image: ^3.2.3
+  intl: ^0.18.1
+  spider: ^4.2.1
 
   cupertino_icons: ^1.0.2
 
@@ -23,7 +25,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
-  uses-material-design: true
+  assets:
+    - assets/images/
 
-assets:
-  - assets/images/anime1.gif
+  uses-material-design: true
