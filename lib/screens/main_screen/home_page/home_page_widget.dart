@@ -10,7 +10,7 @@ class HomePageWidget extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          expandedHeight: 70.0,
+          expandedHeight: 250.0,
           floating: false,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
@@ -27,7 +27,10 @@ class HomePageWidget extends StatelessWidget {
         const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('Trending Anime'),
+            child: Text(
+              'Trending Anime',
+              style: TextStyle(fontSize: 26),
+            ),
           ),
         ),
 
@@ -41,7 +44,10 @@ class HomePageWidget extends StatelessWidget {
         const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('Coming Soon'),
+            child: Text(
+              'Coming Soon',
+              style: TextStyle(fontSize: 26),
+            ),
           ),
         ),
         SliverToBoxAdapter(
@@ -54,7 +60,10 @@ class HomePageWidget extends StatelessWidget {
         const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('Movie'),
+            child: Text(
+              'Movie',
+              style: TextStyle(fontSize: 26),
+            ),
           ),
         ),
         SliverToBoxAdapter(
@@ -67,7 +76,10 @@ class HomePageWidget extends StatelessWidget {
         const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text('TV'),
+            child: Text(
+              'TV',
+              style: TextStyle(fontSize: 26),
+            ),
           ),
         ),
         SliverToBoxAdapter(

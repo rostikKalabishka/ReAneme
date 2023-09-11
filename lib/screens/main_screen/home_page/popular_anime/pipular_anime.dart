@@ -28,7 +28,7 @@ class PopularAnime extends StatelessWidget {
       height: 295,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemExtent: 170,
+          itemExtent: 190,
           itemCount: popularAnimeList.length,
           itemBuilder: (context, int index) {
             final animeList = popularAnimeList[index];
@@ -44,7 +44,7 @@ class PopularAnime extends StatelessWidget {
                   Text(
                     animeList.name,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 1,
                   )
                 ],
               )),
