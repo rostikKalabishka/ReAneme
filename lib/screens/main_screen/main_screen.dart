@@ -1,60 +1,55 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:re_anime/screens/main_screen/popular_anime/pipular_anime.dart';
 
-class MainScreen extends StatelessWidget {
+import 'package:re_anime/screens/main_screen/profile/profile_widget.dart';
+import 'package:re_anime/screens/main_screen/search_anime/search_anime_widget.dart';
+
+import 'home_page/home_page_widget.dart';
+
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedTab = 0;
+  void onSelectTab(int index) {
+    if (_selectedTab == index) return;
+    setState(() {
+      _selectedTab = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 70.0,
-            floating: false,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: CachedNetworkImage(
-                imageUrl:
-                    'https://i.pinimg.com/originals/7c/12/72/7c12727320e9107bd656c581af98067f.gif',
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
-              ),
+        body: IndexedStack(
+          index: _selectedTab,
+          children: const [
+            HomePageWidget(),
+            SearchAnimeWidget(),
+            ProfileWidget(),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Popular Anime1'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business),
+              label: 'Business',
             ),
-          ),
-
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: PopularAnime(),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              label: 'School',
             ),
-          ),
-
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Popular Anime2'),
-            ),
-          ),
-
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Popular Anime3'),
-            ),
-          ),
-          // add Sliver widget
-        ],
-      ),
-    );
+          ],
+          onTap: onSelectTab,
+        ));
   }
 }
+
+//ComingSoonAnimeWidget
