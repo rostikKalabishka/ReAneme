@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'model/popular_anime_model.dart';
 
+//test
 class PopularAnime extends StatelessWidget {
   PopularAnime({super.key});
   var popularAnimeList = [
