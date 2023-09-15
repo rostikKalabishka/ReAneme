@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../widget/text_form_field_widget.dart';
 import '../../../widget/text_widget.dart';
 import '../home_page/popular_anime/model/popular_anime_model.dart';
 
@@ -48,22 +49,12 @@ class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: _searchController,
-        decoration: const InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: 'Search',
-        ),
-      ),
-    );
+    return const Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormFiledWidget(
+          hintText: 'Search...',
+          obscureText: false,
+        ));
   }
 }
 

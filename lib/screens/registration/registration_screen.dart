@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../router/router.dart';
+import '../../widget/text_form_field_widget.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key});
@@ -19,106 +20,65 @@ class AuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const RowLogo(),
-          const SizedBox(
+          RowLogo(),
+          SizedBox(
             height: 40,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
-              height: 60,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
+                height: 60,
+                child: TextFormFiledWidget(
                   hintText: 'Email',
-                ),
-              ),
-            ),
+                  obscureText: false,
+                )),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
           Padding(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
-              height: 60,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
+                height: 60,
+                child: TextFormFiledWidget(
                   hintText: 'Username',
-                ),
-              ),
-            ),
+                  obscureText: false,
+                )),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
           Padding(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
-              height: 60,
-              child: TextFormField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
+                height: 60,
+                child: TextFormFiledWidget(
                   hintText: 'Password',
-                ),
-              ),
-            ),
+                  obscureText: true,
+                )),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
           Padding(
-            padding: const EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
               height: 60,
-              child: TextFormField(
+              child: TextFormFiledWidget(
+                hintText: 'Confirm password',
                 obscureText: true,
-                decoration: const InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.red,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  hintText: 'Confirm password',
-                ),
               ),
             ),
           ),
-          const SizedBox(height: 50),
-          const RowButtonWidget()
+          SizedBox(height: 50),
+          RowButtonWidget()
         ],
       ),
     );
