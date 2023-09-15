@@ -8,7 +8,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color.fromARGB(255, 27, 26, 26),
+      // backgroundColor: Color.fromARGB(255, 27, 26, 26),
       body: SafeArea(child: Center(child: AuthWidget())),
     );
   }
@@ -106,8 +106,8 @@ class RowButtonWidget extends StatelessWidget {
           width: 150,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamed(MainNavigationRouteName.mainScreen);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  MainNavigationRouteName.mainScreen, (route) => false);
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

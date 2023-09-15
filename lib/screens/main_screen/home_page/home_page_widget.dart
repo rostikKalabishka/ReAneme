@@ -38,7 +38,7 @@ class HomePageWidget extends StatelessWidget {
 
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: ComingSoonAnimeWidget(),
           ),
         ),
@@ -52,12 +52,12 @@ class HomePageWidget extends StatelessWidget {
             ),
           ),
         ),
-        // SliverToBoxAdapter(
-        //   child: Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: ComingSoonAnimeWidget(),
-        //   ),
-        // ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: PopularAnime(),
+          ),
+        ),
 
         const SliverToBoxAdapter(
           child: Padding(

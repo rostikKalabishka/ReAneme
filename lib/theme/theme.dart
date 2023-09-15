@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 ThemeData basicTheme() => ThemeData(
-      inputDecorationTheme: InputDecorationTheme(),
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      inputDecorationTheme: const InputDecorationTheme(),
       brightness: Brightness.dark,
       useMaterial3: true,
       primaryColor: primaryColors,

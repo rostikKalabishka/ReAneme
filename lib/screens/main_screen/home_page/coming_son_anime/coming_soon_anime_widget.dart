@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../resources/resources.dart';
 import '../popular_anime/model/popular_anime_model.dart';
 
 class ComingSoonAnimeWidget extends StatelessWidget {
@@ -73,28 +72,3 @@ class ComingSoonAnimeWidget extends StatelessWidget {
     );
   }
 }
-
-  // child: ListView.builder(
-  //         scrollDirection: Axis.horizontal,
-  //         itemExtent: 170,
-  //         itemCount: popularAnimeList.length,
-  //         itemBuilder: (context, int index) {
-  //           final animeList = popularAnimeList[index];
-  //           return Padding(
-  //             padding: const EdgeInsets.all(10),
-  //             child: ClipRRect(
-  //                 child: Column(
-  //               children: [
-  //                 Image(image: AssetImage(animeList.imageSmall)),
-  //                 const SizedBox(
-  //                   height: 10,
-  //                 ),
-  //                 Text(
-  //                   animeList.name,
-  //                   overflow: TextOverflow.ellipsis,
-  //                   maxLines: 2,
-  //                 )
-  //               ],
-  //             )),
-  //           );
-  //         }),
