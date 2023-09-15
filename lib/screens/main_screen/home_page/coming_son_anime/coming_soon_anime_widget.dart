@@ -33,7 +33,6 @@ class ComingSoonAnimeWidget extends StatelessWidget {
             viewportFraction: 0.55,
             aspectRatio: 1,
             enlargeCenterPage: true,
-            initialPage: 2,
             autoPlay: true,
             // autoPlayInterval: const Duration(microseconds: 1),
             autoPlayAnimationDuration: const Duration(seconds: 5),
@@ -50,7 +49,10 @@ class ComingSoonAnimeWidget extends StatelessWidget {
                 children: [
                   Stack(
                     children: [
-                      Image(image: AssetImage(animeList.imageSmall)),
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child:
+                              Image(image: AssetImage(animeList.imageSmall))),
                       Positioned(
                         top: 5,
                         left: 10,

@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 ThemeData basicTheme() => ThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor:
+            Color.fromARGB(255, 194, 81, 73), // Change to your desired color
+      ),
+      splashColor: Colors.transparent,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       inputDecorationTheme: const InputDecorationTheme(),
       brightness: Brightness.dark,

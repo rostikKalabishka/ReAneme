@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class TextWidget extends StatelessWidget {
   final String label;
-  double? fontSize = 16;
-  Color? color;
-  FontWeight? fontWeight;
-  final int maxLines;
-  TextWidget(
+  final double? fontSize;
+  final Color? color;
+  final FontWeight? fontWeight;
+  final int? maxLines;
+  const TextWidget(
       {super.key,
-      required this.maxLines,
+      this.maxLines,
       this.color,
       required this.label,
-      required this.fontSize,
+      this.fontSize = 16,
       this.fontWeight});
 
   @override

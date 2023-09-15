@@ -24,31 +24,33 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: IndexedStack(
-          index: _selectedTab,
-          children: const [
-            HomePageWidget(),
-            SearchAnimeWidget(),
-            ProfileWidget(),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'Profile',
-            ),
-          ],
-          onTap: onSelectTab,
-        ));
+      body: IndexedStack(
+        index: _selectedTab,
+        children: const [
+          HomePageWidget(),
+          SearchAnimeWidget(),
+          ProfileWidget(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTab,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Discover',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Profile',
+          ),
+        ],
+        onTap: onSelectTab,
+      ),
+    );
   }
 }
 

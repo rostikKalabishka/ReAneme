@@ -45,7 +45,7 @@ class HomePageWidget extends StatelessWidget {
 
         const SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.only(top: 16, left: 16, bottom: 16),
+            padding: EdgeInsets.only(left: 16, bottom: 16),
             child: Text(
               'Coming Soon',
               style: TextStyle(fontSize: 26),
