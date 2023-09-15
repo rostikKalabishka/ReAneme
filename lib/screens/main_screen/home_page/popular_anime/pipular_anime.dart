@@ -24,32 +24,36 @@ class PopularAnime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // width: 390,
       height: 295,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemExtent: 190,
-          itemCount: popularAnimeList.length,
-          itemBuilder: (context, int index) {
-            final animeList = popularAnimeList[index];
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: ClipRRect(
-                  child: Column(
-                children: [
-                  Image(image: AssetImage(animeList.imageSmall)),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    animeList.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  )
-                ],
-              )),
-            );
-          }),
+      child: AspectRatio(
+        aspectRatio: 295 / 190,
+        // width: 390,
+
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemExtent: 190,
+            itemCount: popularAnimeList.length,
+            itemBuilder: (context, int index) {
+              final animeList = popularAnimeList[index];
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: ClipRRect(
+                    child: Column(
+                  children: [
+                    Image(image: AssetImage(animeList.imageSmall)),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      animeList.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    )
+                  ],
+                )),
+              );
+            }),
+      ),
     );
   }
 }

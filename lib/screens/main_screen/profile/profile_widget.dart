@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../router/router.dart';
 import '../../../theme/constants.dart';
 import '../../../widget/text_widget.dart';
 
@@ -12,10 +13,15 @@ class ProfileWidget extends StatelessWidget {
       backgroundColor: scaffoldBackgroundColor,
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(MainNavigationRouteName.moreInfo);
+              },
+              icon: const Icon(Icons.settings))
         ],
       ),
-      body: UserInfoWidget(),
+      body: const UserInfoWidget(),
     );
   }
 }
