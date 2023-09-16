@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:re_anime/screens/main_screen/home_page/popular_anime/pipular_anime.dart';
+import 'package:re_anime/theme/constants.dart';
 
 import 'coming_son_anime/coming_soon_anime_widget.dart';
 
@@ -12,6 +13,7 @@ class HomePageWidget extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
+          backgroundColor: Color.fromARGB(255, 7, 10, 5),
           expandedHeight: 250.0,
           floating: false,
           pinned: true,
@@ -19,8 +21,10 @@ class HomePageWidget extends StatelessWidget {
             background: CachedNetworkImage(
               imageUrl:
                   'https://i.pinimg.com/originals/7c/12/72/7c12727320e9107bd656c581af98067f.gif',
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
+              placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.red,
+              )),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               fit: BoxFit.cover,
             ),
@@ -54,7 +58,7 @@ class HomePageWidget extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: PopularAnime(),
           ),
         ),
@@ -70,7 +74,7 @@ class HomePageWidget extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: PopularAnime(),
           ),
         ),
@@ -86,7 +90,7 @@ class HomePageWidget extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: PopularAnime(),
           ),
         ),
