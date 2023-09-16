@@ -14,7 +14,7 @@ AnimeEntity _$AnimeEntityFromJson(Map<String, dynamic> json) => AnimeEntity(
 
 Map<String, dynamic> _$AnimeEntityToJson(AnimeEntity instance) =>
     <String, dynamic>{
-      'data': instance.data,
+      'data': instance.data.map((e) => e.toJson()).toList(),
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
@@ -51,11 +51,12 @@ Map<String, dynamic> _$TitlesToJson(Titles instance) => <String, dynamic>{
     };
 
 PosterImage _$PosterImageFromJson(Map<String, dynamic> json) => PosterImage(
-      tiny: json['tiny'] as String?,
-      small: json['small'] as String?,
+      tiny: json['tiny'] as String,
+      small: json['small'] as String,
       medium: json['medium'] as String,
       large: json['large'] as String?,
       original: json['original'] as String?,
+      meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PosterImageToJson(PosterImage instance) =>
@@ -65,4 +66,69 @@ Map<String, dynamic> _$PosterImageToJson(PosterImage instance) =>
       'medium': instance.medium,
       'large': instance.large,
       'original': instance.original,
+      'meta': instance.meta,
+    };
+
+Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
+      dimensions:
+          Dimensions.fromJson(json['dimensions'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
+      'dimensions': instance.dimensions,
+    };
+
+Dimensions _$DimensionsFromJson(Map<String, dynamic> json) => Dimensions(
+      tiny: Tiny.fromJson(json['tiny'] as Map<String, dynamic>),
+      small: Small.fromJson(json['small'] as Map<String, dynamic>),
+      medium: Medium.fromJson(json['medium'] as Map<String, dynamic>),
+      large: Large.fromJson(json['large'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$DimensionsToJson(Dimensions instance) =>
+    <String, dynamic>{
+      'tiny': instance.tiny,
+      'small': instance.small,
+      'medium': instance.medium,
+      'large': instance.large,
+    };
+
+Tiny _$TinyFromJson(Map<String, dynamic> json) => Tiny(
+      width: json['width'] as int,
+      height: json['height'] as int,
+    );
+
+Map<String, dynamic> _$TinyToJson(Tiny instance) => <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
+    };
+
+Small _$SmallFromJson(Map<String, dynamic> json) => Small(
+      width: json['width'] as int,
+      height: json['height'] as int,
+    );
+
+Map<String, dynamic> _$SmallToJson(Small instance) => <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
+    };
+
+Medium _$MediumFromJson(Map<String, dynamic> json) => Medium(
+      width: json['width'] as int,
+      height: json['height'] as int,
+    );
+
+Map<String, dynamic> _$MediumToJson(Medium instance) => <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
+    };
+
+Large _$LargeFromJson(Map<String, dynamic> json) => Large(
+      width: json['width'] as int,
+      height: json['height'] as int,
+    );
+
+Map<String, dynamic> _$LargeToJson(Large instance) => <String, dynamic>{
+      'width': instance.width,
+      'height': instance.height,
     };

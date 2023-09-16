@@ -11,7 +11,7 @@ class SearchModel extends ChangeNotifier {
   AnimeEntity? get anime => _anime;
 
   Future<void> loadAnime() async {
-    _anime = await _animeApi.getAnime();
+    _anime = await _animeApi.biba();
     notifyListeners();
   }
 }

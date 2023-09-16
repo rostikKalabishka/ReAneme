@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:re_anime/screens/main_screen/profile/profile_widget.dart';
 import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
 import 'package:re_anime/screens/main_screen/search_anime/search_anime_widget.dart';
-import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
+
 import 'home_page/home_page_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -31,10 +30,7 @@ class _MainScreenState extends State<MainScreen> {
         index: _selectedTab,
         children: [
           const HomePageWidget(),
-          ChangeNotifierProvider(
-            create: (context) => searchModel,
-            child: const SearchAnimeWidget(),
-          ),
+          SearchAnimeWidget.create(),
           const ProfileWidget(),
         ],
       ),

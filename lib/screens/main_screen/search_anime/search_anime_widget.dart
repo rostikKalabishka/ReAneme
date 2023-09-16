@@ -21,12 +21,6 @@ class SearchAnimeWidget extends StatefulWidget {
 
 class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
   @override
-  void didChangeDependencies() {
-    context.read<SearchModel>();
-
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +64,7 @@ class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: TextFormFiledWidget(
           hintText: 'Search...',
           obscureText: false,
@@ -87,19 +81,35 @@ class AnimeList extends StatefulWidget {
 
 class _AnimeListState extends State<AnimeList> {
   @override
+  void didChangeDependencies() {
+    final model = context.watch<SearchModel>();
+    model.loadAnime();
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchModel>();
     var anime = model.anime;
+    if (anime == null) {
+      return const Center(
+          child: CircularProgressIndicator(
+        color: Colors.red,
+      ));
+    }
 
-    final popularAnimeList = anime?.data;
+    final popularAnimeList = anime.data;
 
     return Flexible(
       child: ListView.separated(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // itemExtent: 210,
-        itemCount: anime?.data.length ?? 0,
+        itemCount: anime.data.length,
         itemBuilder: (context, int index) {
-          final animeList = popularAnimeList?[index];
+          final animeList = popularAnimeList[index];
+          final tiny = animeList.attributes.posterImage.tiny;
+          final title = animeList.attributes.titles.enJp;
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -114,13 +124,9 @@ class _AnimeListState extends State<AnimeList> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: animeList != null
-                          ? Image(
-                              image: AssetImage(
-                                  animeList.attributes.posterImage.medium),
-                              width: 100,
-                            )
-                          : const SizedBox.shrink(),
+                      child: Image.network(
+                        tiny,
+                      ),
                     ),
                     const SizedBox(
                       width: 10,
@@ -130,14 +136,12 @@ class _AnimeListState extends State<AnimeList> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          animeList != null
-                              ? TextWidget(
-                                  label: animeList.attributes.titles.enJp,
-                                  fontSize: 16,
-                                  maxLines: 1,
-                                  fontWeight: FontWeight.normal,
-                                )
-                              : const SizedBox.shrink(),
+                          TextWidget(
+                            label: title,
+                            fontSize: 16,
+                            maxLines: 1,
+                            fontWeight: FontWeight.normal,
+                          )
                         ],
                       ),
                     )
