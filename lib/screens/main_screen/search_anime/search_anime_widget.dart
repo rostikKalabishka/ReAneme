@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../widget/text_form_field_widget.dart';
 import '../../../widget/text_widget.dart';
-import '../home_page/popular_anime/model/popular_anime_model.dart';
 
-class SearchAnimeWidget extends StatelessWidget {
+import 'model/search_model.dart';
+
+class SearchAnimeWidget extends StatefulWidget {
   const SearchAnimeWidget({super.key});
+
+  @override
+  State<SearchAnimeWidget> createState() => _SearchAnimeWidgetState();
+
+  static Widget create() {
+    return ChangeNotifierProvider(
+      create: (_) => SearchModel(),
+      child: const SearchAnimeWidget(),
+    );
+  }
+}
+
+class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
+  @override
+  void didChangeDependencies() {
+    context.read<SearchModel>();
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,32 +78,28 @@ class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
   }
 }
 
-class AnimeList extends StatelessWidget {
+class AnimeList extends StatefulWidget {
   AnimeList({super.key});
-  final popularAnimeList = [
-    PopularAnimeModel(
-        id: 1,
-        imageSmall: 'assets/images/small.jpg',
-        name: 'Beebop1sssssssssssssssssssssssssssssssssssss'),
-    PopularAnimeModel(
-        id: 2, imageSmall: 'assets/images/small.jpg', name: 'Beebop2'),
-    PopularAnimeModel(
-        id: 3, imageSmall: 'assets/images/small.jpg', name: 'Beebop3'),
-    PopularAnimeModel(
-        id: 4, imageSmall: 'assets/images/small.jpg', name: 'Beebop4'),
-    PopularAnimeModel(
-        id: 5, imageSmall: 'assets/images/small.jpg', name: 'Beebop5'),
-  ];
 
   @override
+  State<AnimeList> createState() => _AnimeListState();
+}
+
+class _AnimeListState extends State<AnimeList> {
+  @override
   Widget build(BuildContext context) {
+    final model = context.watch<SearchModel>();
+    var anime = model.anime;
+
+    final popularAnimeList = anime?.data;
+
     return Flexible(
       child: ListView.separated(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // itemExtent: 210,
-        itemCount: popularAnimeList.length,
+        itemCount: anime?.data.length ?? 0,
         itemBuilder: (context, int index) {
-          final animeList = popularAnimeList[index];
+          final animeList = popularAnimeList?[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -98,10 +114,13 @@ class AnimeList extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image(
-                        image: AssetImage(animeList.imageSmall),
-                        width: 100,
-                      ),
+                      child: animeList != null
+                          ? Image(
+                              image: AssetImage(
+                                  animeList.attributes.posterImage.medium),
+                              width: 100,
+                            )
+                          : const SizedBox.shrink(),
                     ),
                     const SizedBox(
                       width: 10,
@@ -111,12 +130,14 @@ class AnimeList extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextWidget(
-                            label: animeList.name,
-                            fontSize: 16,
-                            maxLines: 1,
-                            fontWeight: FontWeight.normal,
-                          )
+                          animeList != null
+                              ? TextWidget(
+                                  label: animeList.attributes.titles.enJp,
+                                  fontSize: 16,
+                                  maxLines: 1,
+                                  fontWeight: FontWeight.normal,
+                                )
+                              : const SizedBox.shrink(),
                         ],
                       ),
                     )

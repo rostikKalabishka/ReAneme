@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:re_anime/screens/main_screen/home_page/popular_anime/pipular_anime.dart';
-import 'package:re_anime/theme/constants.dart';
 
 import 'coming_son_anime/coming_soon_anime_widget.dart';
 

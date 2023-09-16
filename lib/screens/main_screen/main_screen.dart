@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:re_anime/screens/main_screen/profile/profile_widget.dart';
+import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
 import 'package:re_anime/screens/main_screen/search_anime/search_anime_widget.dart';
-
+import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
 import 'home_page/home_page_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  var searchModel = SearchModel();
   int _selectedTab = 0;
   void onSelectTab(int index) {
     if (_selectedTab == index) return;
@@ -26,10 +29,13 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: IndexedStack(
         index: _selectedTab,
-        children: const [
-          HomePageWidget(),
-          SearchAnimeWidget(),
-          ProfileWidget(),
+        children: [
+          const HomePageWidget(),
+          ChangeNotifierProvider(
+            create: (context) => searchModel,
+            child: const SearchAnimeWidget(),
+          ),
+          const ProfileWidget(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

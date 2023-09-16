@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:re_anime/screens/registration/registration_screen.dart';
 
 import '../screens/auth/auth_screen.dart';
 import '../screens/main_screen/main_screen.dart';
+import '../screens/main_screen/main_screen_model.dart';
 import '../screens/main_screen/more_info/more_info_screen.dart';
 
 abstract class MainNavigationRouteName {
@@ -18,7 +20,8 @@ abstract class MainNavigationRouteName {
 class MainNavigation {
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRouteName.auth: (context) => const AuthScreen(),
-    MainNavigationRouteName.mainScreen: (context) => const MainScreen(),
+    MainNavigationRouteName.mainScreen: (context) => ChangeNotifierProvider(
+        create: (_) => MainScreenModel(), child: const MainScreen()),
     MainNavigationRouteName.registrationScreen: (context) =>
         const RegistrationScreen(),
     MainNavigationRouteName.moreInfo: (context) => const MoreInfoWidget()
