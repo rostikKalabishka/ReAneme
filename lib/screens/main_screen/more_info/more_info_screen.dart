@@ -35,43 +35,14 @@ class ColumnButtonWidget extends StatefulWidget {
 }
 
 class _ColumnButtonWidgetState extends State<ColumnButtonWidget> {
-  Future<AnimeEntity> biba() async {
-    final dio = Dio();
-    try {
-      final response = await dio.get('https://kitsu.io/api/edge/anime');
-      final json = response.data;
-      print('API Response: $json'); // Добавьте эту строку для проверки ответа
-
-      if (json != null && json is Map<String, dynamic>) {
-        final apiResponse = AnimeEntity.fromJson(json);
-        print(apiResponse);
-        return apiResponse;
-      } else {
-        print('Error: Invalid JSON data');
-        throw Exception('Incorrect JSON data');
-      }
-    } catch (e) {
-      print('There was an error: $e');
-      throw e; //
-    }
-  }
-
-  @override
-  void didChangeDependencies() {
-    final model = context.watch<SearchModel>();
-    print('SearchModel updated: ${model.anime}');
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchModel>();
-    final anime = model.anime?.data[0].attributes.titles.en;
+    // final anime = model.anime?.data[0].attributes.titles.en;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          anime != null ? Text(anime) : Text('Pisya'),
           TextButton(
               onPressed: () {
                 model.loadAnime();
@@ -80,9 +51,7 @@ class _ColumnButtonWidgetState extends State<ColumnButtonWidget> {
                 label: 'Switch to manga',
               )),
           TextButton(
-              onPressed: () {
-                biba();
-              },
+              onPressed: () {},
               child: const TextWidget(
                 label: 'Logout',
               ))

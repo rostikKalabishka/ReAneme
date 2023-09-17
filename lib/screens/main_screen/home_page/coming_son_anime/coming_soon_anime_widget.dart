@@ -53,7 +53,7 @@ class _ComingSoonAnimeWidgetState extends State<ComingSoonAnimeWidget> {
             scrollPhysics: const BouncingScrollPhysics(),
             pauseAutoPlayOnTouch: false),
         itemBuilder: (context, int index, realIndex) {
-          final animeList = model.anime!.data[index];
+          final animeList = model.anime?.data[index];
 
           if (animeList == null) {
             return const SizedBox.shrink();

@@ -38,7 +38,7 @@ class AnimeApi {
       }
     } catch (e) {
       print('There was an error: $e');
-      throw e;
+      throw Exception(e);
     }
   }
 

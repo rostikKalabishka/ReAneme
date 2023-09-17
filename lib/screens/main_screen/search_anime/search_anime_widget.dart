@@ -80,6 +80,19 @@ class AnimeList extends StatefulWidget {
 }
 
 class _AnimeListState extends State<AnimeList> {
+  final controller = ScrollController();
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      if (controller.position.maxScrollExtent == controller.offset) {
+        print('object');
+        context.watch<SearchModel>().loadPage();
+      }
+    });
+    super.initState();
+  }
+
   @override
   void didChangeDependencies() {
     final model = context.watch<SearchModel>();
@@ -89,9 +102,15 @@ class _AnimeListState extends State<AnimeList> {
   }
 
   @override
+  void deactivate() {
+    controller.dispose();
+    super.deactivate();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchModel>();
-    var anime = model.anime;
+    var anime = model.animeList;
     if (anime == null) {
       return const Center(
           child: CircularProgressIndicator(
@@ -99,57 +118,71 @@ class _AnimeListState extends State<AnimeList> {
       ));
     }
 
-    final popularAnimeList = anime.data;
+    final popularAnimeList = anime;
 
     return Flexible(
       child: ListView.separated(
+        controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // itemExtent: 210,
-        itemCount: anime.data.length,
+        itemCount: anime.length + 1,
         itemBuilder: (context, int index) {
-          final animeList = popularAnimeList[index];
-          final tiny = animeList.attributes.posterImage.tiny;
-          final title = animeList.attributes.titles.enJp;
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        tiny,
+          if (index < popularAnimeList.length) {
+            // model.showAnimeAtIndex(index);
+            final animeList = popularAnimeList[index];
+            final tiny = animeList.attributes.posterImage.tiny;
+            final title = animeList.attributes.titles.enJp;
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          tiny,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextWidget(
-                            label: title,
-                            fontSize: 16,
-                            maxLines: 1,
-                            fontWeight: FontWeight.normal,
-                          )
-                        ],
+                      const SizedBox(
+                        width: 10,
                       ),
-                    )
-                  ],
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              label: title,
+                              fontSize: 16,
+                              maxLines: 1,
+                              fontWeight: FontWeight.normal,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
+            );
+          } else {
+            // model.loadPage();
+
+            return const Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: Colors.red,
+              )),
+            );
+          }
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider();
