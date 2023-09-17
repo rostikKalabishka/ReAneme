@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 
 import '../entity/anime/anime_entity.dart';
+import '../entity/tranding_anime/tranding_anime_entity.dart';
 
 class AllUrl {
   static String baseUrl = 'https://kitsu.io/api/edge/anime';
+  static String trendingUrl = 'https://kitsu.io/api/edge/trending/anime';
 }
 
 class AnimeApi {
@@ -24,6 +26,37 @@ class AnimeApi {
 
         if (json != null && json is Map<String, dynamic>) {
           final apiResponse = AnimeEntity.fromJson(json);
+          return apiResponse;
+        } else {
+          print('Error: Invalid JSON data');
+          throw Exception('Incorrect JSON data');
+        }
+      } else {
+        print('Error: ${response.statusCode}');
+        throw Exception(
+            'HTTP request failed with status ${response.statusCode}');
+      }
+    } catch (e) {
+      print('There was an error: $e');
+      throw e;
+    }
+  }
+
+  Future<TrendingAnimeEntity> getTrendingAnime() async {
+    try {
+      final response = await dio.get(
+        AllUrl.trendingUrl,
+        // queryParameters: {
+        //   'page[limit]': limit.toString(),
+        //   'page[offset]': offset.toString()
+        // }
+      );
+
+      if (response.statusCode == 200) {
+        final json = response.data;
+
+        if (json != null && json is Map<String, dynamic>) {
+          final apiResponse = TrendingAnimeEntity.fromJson(json);
           return apiResponse;
         } else {
           print('Error: Invalid JSON data');

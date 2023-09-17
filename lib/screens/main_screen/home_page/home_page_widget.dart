@@ -42,7 +42,7 @@ class HomePageWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ComingSoonAnimeWidget(),
+            child: ComingSoonAnimeWidget.create(),
           ),
         ),
 

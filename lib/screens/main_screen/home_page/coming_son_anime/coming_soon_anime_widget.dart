@@ -1,34 +1,47 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../popular_anime/model/popular_anime_model.dart';
+import 'models/coming_soon_anime_model.dart';
 
-class ComingSoonAnimeWidget extends StatelessWidget {
+class ComingSoonAnimeWidget extends StatefulWidget {
   ComingSoonAnimeWidget({super.key});
-  var popularAnimeList = [
-    PopularAnimeModel(
-        id: 1,
-        imageSmall: 'assets/images/small.jpg',
-        name: 'Beebop1sssssssssssssssssssssssssssssssssssss'),
-    PopularAnimeModel(
-        id: 2, imageSmall: 'assets/images/small.jpg', name: 'Beebop2'),
-    PopularAnimeModel(
-        id: 3, imageSmall: 'assets/images/small.jpg', name: 'Beebop3'),
-    PopularAnimeModel(
-        id: 4, imageSmall: 'assets/images/small.jpg', name: 'Beebop4'),
-    PopularAnimeModel(
-        id: 5, imageSmall: 'assets/images/small.jpg', name: 'Beebop5'),
-  ];
+  static Widget create() {
+    return ChangeNotifierProvider(
+      create: (_) => ComingSoonAnimeModel(),
+      child: ComingSoonAnimeWidget(),
+    );
+  }
 
+  @override
+  State<ComingSoonAnimeWidget> createState() => _ComingSoonAnimeWidgetState();
+}
+
+class _ComingSoonAnimeWidgetState extends State<ComingSoonAnimeWidget> {
   final CarouselController _carouselController = CarouselController();
+
   final Cubic customCurves = const Cubic(0.0, 0.0, 0.0, 0.0);
+
+  @override
+  void didChangeDependencies() {
+    final model = context.watch<ComingSoonAnimeModel>();
+    model.setup();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<ComingSoonAnimeModel>();
+    final anime = model.anime;
+    if (anime == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return SizedBox(
       height: 350,
       child: CarouselSlider.builder(
         carouselController: _carouselController,
-        itemCount: popularAnimeList.length,
+        itemCount: model.anime?.data.length,
         options: CarouselOptions(
             viewportFraction: 0.55,
             aspectRatio: 1,
@@ -40,7 +53,12 @@ class ComingSoonAnimeWidget extends StatelessWidget {
             scrollPhysics: const BouncingScrollPhysics(),
             pauseAutoPlayOnTouch: false),
         itemBuilder: (context, int index, realIndex) {
-          final animeList = popularAnimeList[index];
+          final animeList = model.anime!.data[index];
+
+          if (animeList == null) {
+            return const SizedBox.shrink();
+          }
+          final medium = animeList.attributes.posterImage.medium;
           return Padding(
             padding: const EdgeInsets.all(10),
             child: ClipRRect(
@@ -51,13 +69,11 @@ class ComingSoonAnimeWidget extends StatelessWidget {
                     children: [
                       ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child:
-                              Image(image: AssetImage(animeList.imageSmall))),
-                      Positioned(
-                        top: 5,
-                        left: 10,
+                          child: Image.network(medium)),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, left: 10),
                         child: Text(
-                          animeList.name,
+                          animeList.attributes.titles.enJp,
                           style: const TextStyle(fontSize: 20),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,

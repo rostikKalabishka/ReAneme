@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:re_anime/domain/anime_api/anime_api.dart';
+import 'package:re_anime/domain/entity/tranding_anime/tranding_anime_entity.dart';
 
 import '../../../../domain/entity/anime/anime_entity.dart';
 
@@ -13,11 +14,11 @@ class SearchModel extends ChangeNotifier {
 
   Future<void> setup() async {
     await loadAnime();
-    notifyListeners();
   }
 
   Future<void> loadAnime() async {
     _anime = await _animeApi.getAnime(limit, offset);
+
     notifyListeners();
   }
 }
