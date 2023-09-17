@@ -19,6 +19,8 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_dotenv: ^5.1.0
   json_annotation: ^4.8.1
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.9.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

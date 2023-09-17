@@ -23,19 +23,19 @@ class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
   @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
-            const TextWidget(
+            TextWidget(
               label: 'Discover',
               fontSize: 32,
               maxLines: 1,
             ),
-            const SearchAnimeTextField(),
+            SearchAnimeTextField(),
             AnimeList()
           ],
         ),
@@ -73,7 +73,7 @@ class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
 }
 
 class AnimeList extends StatefulWidget {
-  AnimeList({super.key});
+  const AnimeList({super.key});
 
   @override
   State<AnimeList> createState() => _AnimeListState();
@@ -83,7 +83,7 @@ class _AnimeListState extends State<AnimeList> {
   @override
   void didChangeDependencies() {
     final model = context.watch<SearchModel>();
-    model.loadAnime();
+    model.setup();
 
     super.didChangeDependencies();
   }
