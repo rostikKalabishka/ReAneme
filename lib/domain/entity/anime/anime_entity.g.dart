@@ -18,16 +18,19 @@ Map<String, dynamic> _$AnimeEntityToJson(AnimeEntity instance) =>
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
+      type: json['type'] as String,
       attributes:
           Attributes.fromJson(json['attributes'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+      'type': instance.type,
       'attributes': instance.attributes,
     };
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
       titles: Titles.fromJson(json['titles'] as Map<String, dynamic>),
+      subtype: json['subtype'] as String,
       posterImage: json['posterImage'] == null
           ? null
           : PosterImage.fromJson(json['posterImage'] as Map<String, dynamic>),
@@ -36,6 +39,7 @@ Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
     <String, dynamic>{
       'titles': instance.titles,
+      'subtype': instance.subtype,
       'posterImage': instance.posterImage,
     };
 

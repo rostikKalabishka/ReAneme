@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:re_anime/screens/main_screen/home_page/popular_anime/pipular_anime.dart';
 
+import 'anime_tv/anime_tv_widget.dart';
 import 'coming_son_anime/coming_soon_anime_widget.dart';
 
 class HomePageWidget extends StatelessWidget {
@@ -90,7 +91,7 @@ class HomePageWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: PopularAnime(),
+            child: AnimeTVWidget.create(),
           ),
         ),
 

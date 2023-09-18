@@ -6,11 +6,11 @@ import '../popular_anime/model/popular_anime_model.dart';
 import 'models/coming_soon_anime_model.dart';
 
 class ComingSoonAnimeWidget extends StatefulWidget {
-  ComingSoonAnimeWidget({super.key});
+  const ComingSoonAnimeWidget({super.key});
   static Widget create() {
     return ChangeNotifierProvider(
       create: (_) => ComingSoonAnimeModel(),
-      child: ComingSoonAnimeWidget(),
+      child: const ComingSoonAnimeWidget(),
     );
   }
 
@@ -23,11 +23,18 @@ class _ComingSoonAnimeWidgetState extends State<ComingSoonAnimeWidget> {
 
   final Cubic customCurves = const Cubic(0.0, 0.0, 0.0, 0.0);
 
+  // @override
+  // void didChangeDependencies() {
+  //   final model = context.watch<ComingSoonAnimeModel>();
+  //   model.setup();
+  //   super.didChangeDependencies();
+  // }
+
   @override
-  void didChangeDependencies() {
-    final model = context.watch<ComingSoonAnimeModel>();
+  void initState() {
+    final model = context.read<ComingSoonAnimeModel>();
     model.setup();
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
@@ -35,7 +42,10 @@ class _ComingSoonAnimeWidgetState extends State<ComingSoonAnimeWidget> {
     final model = context.watch<ComingSoonAnimeModel>();
     final anime = model.anime;
     if (anime == null) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+          child: CircularProgressIndicator(
+        color: Colors.red,
+      ));
     }
     return SizedBox(
       height: 350,

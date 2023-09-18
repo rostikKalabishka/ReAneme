@@ -6,7 +6,7 @@ import '../../../../domain/entity/anime/anime_entity.dart';
 
 class SearchModel extends ChangeNotifier {
   final _animeApi = AnimeApi();
-  int limit = 20;
+  int limit = 10;
   var offset = 0;
   AnimeEntity? _anime;
   final _animeList = <Data>[];
@@ -14,6 +14,7 @@ class SearchModel extends ChangeNotifier {
   Timer? searchDebounce;
   List<Data> get animeList => List.unmodifiable(_animeList);
   bool isLoading = false;
+
   Future<void> setup() async {
     await clearResults();
   }
@@ -22,6 +23,8 @@ class SearchModel extends ChangeNotifier {
     offset = 0;
     _animeList.clear();
     await loadAnime(offset);
+    isLoading = true;
+    notifyListeners();
   }
 
   Future<void> searchAnime(String text) async {
@@ -35,7 +38,7 @@ class SearchModel extends ChangeNotifier {
   }
 
   Future<void> loadPage(ScrollController controller) async {
-    if (isLoading) return; // Если загрузка уже выполняется, выходим
+    if (isLoading) return;
     isLoading = true;
     await loadAnime(offset);
     controller.addListener(() {
@@ -49,15 +52,17 @@ class SearchModel extends ChangeNotifier {
 
   Future<void> loadAnime(int offset) async {
     final query = _searchQuery;
+
     if (query == null) {
       var newItems = await _animeApi.getAnime(limit, offset);
       _animeList.addAll(newItems.data);
     } else {
       var searchAnime = await _animeApi.searchAnime(query, limit, offset);
+      // offset = 0;
       _animeList.addAll(searchAnime.data);
     }
 
+    isLoading = true;
     notifyListeners();
-    isLoading = false; // Сброс флага после загрузки
   }
 }

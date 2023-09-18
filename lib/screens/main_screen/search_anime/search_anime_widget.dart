@@ -25,14 +25,18 @@ class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
     return const Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 10,
             ),
-            TextWidget(
-              label: 'Discover',
-              fontSize: 32,
-              maxLines: 1,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: TextWidget(
+                label: 'Discover',
+                fontSize: 32,
+                maxLines: 1,
+              ),
             ),
             SearchAnimeTextField(),
             AnimeList()
@@ -117,15 +121,15 @@ class _AnimeListState extends State<AnimeList> {
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // itemExtent: 210,
-        itemCount: anime.length,
+        itemCount: anime.length + 1,
         itemBuilder: (context, int index) {
           if (index < popularAnimeList.length) {
             // model.showAnimeAtIndex(index);
             final animeList = popularAnimeList[index];
             final posterImage = animeList.attributes.posterImage;
-            if (posterImage == null) return SizedBox.shrink();
+            if (posterImage == null) return const SizedBox.shrink();
             final tiny = posterImage.tiny;
-            if (tiny == null && tiny == '') return SizedBox.shrink();
+            if (tiny == null && tiny == '') return const SizedBox.shrink();
             final titleEnJp = animeList.attributes.titles.enJp;
             final titleEn = animeList.attributes.titles.en;
             return Padding(
@@ -171,8 +175,6 @@ class _AnimeListState extends State<AnimeList> {
               ),
             );
           } else {
-            // model.loadPage();
-
             return const Padding(
               padding: EdgeInsets.all(10),
               child: Center(

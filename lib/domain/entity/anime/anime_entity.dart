@@ -20,13 +20,13 @@ class AnimeEntity {
 @JsonSerializable()
 class Data {
   // final String id;
-  // final String type;
+  final String type;
   // final Links links;
   final Attributes attributes;
   // final Relationships relationships;
   Data({
     // required this.id,
-    // required this.type,
+    required this.type,
     // required this.links,
     required this.attributes,
     // required this.relationships,
@@ -65,7 +65,7 @@ class Attributes {
   // final int ratingRank;
   // final String ageRating;
   // final String ageRatingGuide;
-  // final String subtype;
+  final String subtype;
   // final String status;
   // final String tba;
   final PosterImage? posterImage;
@@ -94,7 +94,7 @@ class Attributes {
     // required this.ratingRank,
     // required this.ageRating,
     // required this.ageRatingGuide,
-    // required this.subtype,
+    required this.subtype,
     // required this.status,
     // required this.tba,
     required this.posterImage,
