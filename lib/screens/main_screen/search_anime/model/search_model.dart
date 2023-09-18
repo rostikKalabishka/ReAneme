@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:re_anime/domain/anime_api/anime_api.dart';
 
@@ -12,7 +11,6 @@ class SearchModel extends ChangeNotifier {
   AnimeEntity? _anime;
   final _animeList = <Data>[];
   String? _searchQuery;
-  // AnimeEntity? get anime => _anime;
   Timer? searchDebounce;
   List<Data> get animeList => List.unmodifiable(_animeList);
 
@@ -27,22 +25,21 @@ class SearchModel extends ChangeNotifier {
 
   Future<void> searchAnime(String text) async {
     searchDebounce?.cancel();
-    searchDebounce = Timer(const Duration(milliseconds: 300), () async {
+    searchDebounce = Timer(const Duration(milliseconds: 200), () async {
       final searchQuery = text.isNotEmpty ? text : null;
       if (_searchQuery == searchQuery) return;
-      clearResults();
       _searchQuery = searchQuery;
+      await clearResults();
     });
   }
 
   Future<void> loadPage(ScrollController controller) async {
-    loadAnime(offset);
+    await loadAnime(offset);
     controller.addListener(() {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
         print(offset);
         offset += limit;
         loadAnime(offset);
-        clearResults();
       }
     });
   }
