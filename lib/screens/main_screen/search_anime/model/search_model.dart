@@ -13,12 +13,13 @@ class SearchModel extends ChangeNotifier {
   String? _searchQuery;
   Timer? searchDebounce;
   List<Data> get animeList => List.unmodifiable(_animeList);
-
+  bool isLoading = false;
   Future<void> setup() async {
     await clearResults();
   }
 
   Future<void> clearResults() async {
+    offset = 0;
     _animeList.clear();
     await loadAnime(offset);
   }
@@ -34,6 +35,8 @@ class SearchModel extends ChangeNotifier {
   }
 
   Future<void> loadPage(ScrollController controller) async {
+    if (isLoading) return; // Если загрузка уже выполняется, выходим
+    isLoading = true;
     await loadAnime(offset);
     controller.addListener(() {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
@@ -55,5 +58,6 @@ class SearchModel extends ChangeNotifier {
     }
 
     notifyListeners();
+    isLoading = false; // Сброс флага после загрузки
   }
 }
