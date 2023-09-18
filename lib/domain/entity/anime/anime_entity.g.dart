@@ -40,7 +40,7 @@ Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
 
 Titles _$TitlesFromJson(Map<String, dynamic> json) => Titles(
       en: json['en'] as String?,
-      enJp: json['en_jp'] as String,
+      enJp: json['en_jp'] as String?,
       jaJp: json['ja_jp'] as String?,
     );
 
@@ -51,9 +51,9 @@ Map<String, dynamic> _$TitlesToJson(Titles instance) => <String, dynamic>{
     };
 
 PosterImage _$PosterImageFromJson(Map<String, dynamic> json) => PosterImage(
-      tiny: json['tiny'] as String,
-      small: json['small'] as String,
-      medium: json['medium'] as String,
+      tiny: json['tiny'] as String?,
+      small: json['small'] as String?,
+      medium: json['medium'] as String?,
       large: json['large'] as String?,
       original: json['original'] as String?,
       meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),

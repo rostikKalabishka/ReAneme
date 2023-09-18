@@ -114,7 +114,7 @@ class Attributes {
 class Titles {
   final String? en;
   @JsonKey(name: 'en_jp')
-  final String enJp;
+  final String? enJp;
   @JsonKey(name: 'ja_jp')
   final String? jaJp;
   Titles({
@@ -170,9 +170,9 @@ class Titles {
 // }
 @JsonSerializable()
 class PosterImage {
-  final String tiny;
-  final String small;
-  final String medium;
+  final String? tiny;
+  final String? small;
+  final String? medium;
   final String? large;
   final String? original;
   final Meta meta;

@@ -5,16 +5,19 @@ class TextFormFiledWidget extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
   final bool obscureText;
-  const TextFormFiledWidget({
-    Key? key,
-    required this.hintText,
-    this.controller,
-    required this.obscureText,
-  }) : super(key: key);
+  final Function(String)? onChanged;
+  const TextFormFiledWidget(
+      {Key? key,
+      required this.hintText,
+      this.controller,
+      required this.obscureText,
+      this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        onChanged: onChanged,
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(

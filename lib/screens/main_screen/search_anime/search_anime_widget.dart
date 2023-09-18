@@ -21,7 +21,6 @@ class SearchAnimeWidget extends StatefulWidget {
 
 class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
   @override
-  @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
@@ -52,20 +51,28 @@ class SearchAnimeTextField extends StatefulWidget {
 }
 
 class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
-  final _searchController = TextEditingController();
-  // var _filterAnime = <PopularAnimeModel>[];
-  void _searchAnime() {}
-  @override
-  void initState() {
-    _searchController.addListener(_searchAnime);
-    super.initState();
-  }
+  // final _searchController = TextEditingController();
+
+  // // var _filterAnime = <PopularAnimeModel>[];
+  // void _searchAnime() {}
+  // @override
+  // void initState() {
+  //   _searchController.addListener(_searchAnime);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    final model = context.watch<SearchModel>();
+    if (model == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return Padding(
         padding: EdgeInsets.all(8.0),
         child: TextFormFiledWidget(
+          onChanged: model.searchAnime,
           hintText: 'Search...',
           obscureText: false,
         ));
@@ -115,7 +122,8 @@ class _AnimeListState extends State<AnimeList> {
             // model.showAnimeAtIndex(index);
             final animeList = popularAnimeList[index];
             final tiny = animeList.attributes.posterImage.tiny;
-            final title = animeList.attributes.titles.enJp;
+            final titleEnJp = animeList.attributes.titles.enJp;
+            final titleEn = animeList.attributes.titles.en;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
@@ -130,9 +138,11 @@ class _AnimeListState extends State<AnimeList> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          tiny,
-                        ),
+                        child: tiny != null
+                            ? Image.network(
+                                tiny,
+                              )
+                            : const SizedBox.shrink(),
                       ),
                       const SizedBox(
                         width: 10,
@@ -143,7 +153,7 @@ class _AnimeListState extends State<AnimeList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                              label: title,
+                              label: titleEnJp ?? titleEn ?? ' ',
                               fontSize: 16,
                               maxLines: 1,
                               fontWeight: FontWeight.normal,
