@@ -16,10 +16,13 @@ class AnimeApi {
     int offset,
   ) async {
     try {
-      final response = await dio.get(AllUrl.baseUrl, queryParameters: {
-        'page[limit]': limit.toString(),
-        'page[offset]': offset.toString()
-      });
+      final response = await dio.get(
+        AllUrl.baseUrl,
+        queryParameters: {
+          'page[limit]': limit.toString(),
+          'page[offset]': offset.toString()
+        },
+      );
 
       if (response.statusCode == 200) {
         final json = response.data;

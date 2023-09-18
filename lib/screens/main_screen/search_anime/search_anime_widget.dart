@@ -81,35 +81,46 @@ class AnimeList extends StatefulWidget {
 
 class _AnimeListState extends State<AnimeList> {
   final controller = ScrollController();
-
+  var offset = 0;
   @override
   void initState() {
+    final model = context.read<SearchModel>();
+    model.loadAnime(offset);
     controller.addListener(() {
-      if (controller.position.maxScrollExtent == controller.offset) {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
         print('object');
-        context.watch<SearchModel>().loadPage();
+        offset += 10;
+        model.loadAnime(offset);
       }
     });
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    final model = context.watch<SearchModel>();
-    model.setup();
+  // @override
+  // void initState() {
+  //   final model = context.read<SearchModel>();
+  //   model.setup();
+  //   super.initState();
+  // }
 
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   final model = context.read<SearchModel>();
+  //   model.setup();
 
-  @override
-  void deactivate() {
-    controller.dispose();
-    super.deactivate();
-  }
+  //   super.didChangeDependencies();
+  // }
+
+  // @override
+  // void deactivate() {
+  //   controller.dispose();
+  //   super.deactivate();
+  // }
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchModel>();
+
     var anime = model.animeList;
     if (anime == null) {
       return const Center(

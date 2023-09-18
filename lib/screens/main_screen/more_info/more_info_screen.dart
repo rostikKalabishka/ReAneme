@@ -44,9 +44,7 @@ class _ColumnButtonWidgetState extends State<ColumnButtonWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextButton(
-              onPressed: () {
-                model.loadAnime();
-              },
+              onPressed: () {},
               child: const TextWidget(
                 label: 'Switch to manga',
               )),

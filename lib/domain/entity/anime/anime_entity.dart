@@ -202,14 +202,14 @@ class Meta {
 @JsonSerializable()
 class Dimensions {
   final Tiny tiny;
-  final Small small;
-  final Medium medium;
-  final Large large;
+  // final Small small;
+  // final Medium medium;
+  // final Large large;
   Dimensions({
     required this.tiny,
-    required this.small,
-    required this.medium,
-    required this.large,
+    // required this.small,
+    // required this.medium,
+    // required this.large,
   });
   factory Dimensions.fromJson(Map<String, dynamic> json) =>
       _$DimensionsFromJson(json);
@@ -218,8 +218,8 @@ class Dimensions {
 
 @JsonSerializable()
 class Tiny {
-  final int width;
-  final int height;
+  final int? width;
+  final int? height;
   Tiny({
     required this.width,
     required this.height,
@@ -240,41 +240,41 @@ class Tiny {
 //   Map<String, dynamic> toJson() => _$HeightToJson(this);
 // }
 
-@JsonSerializable()
-class Small {
-  final int width;
-  final int height;
-  Small({
-    required this.width,
-    required this.height,
-  });
-  factory Small.fromJson(Map<String, dynamic> json) => _$SmallFromJson(json);
-  Map<String, dynamic> toJson() => _$SmallToJson(this);
-}
+// @JsonSerializable()
+// class Small {
+//   final int width;
+//   final int height;
+//   Small({
+//     required this.width,
+//     required this.height,
+//   });
+//   factory Small.fromJson(Map<String, dynamic> json) => _$SmallFromJson(json);
+//   Map<String, dynamic> toJson() => _$SmallToJson(this);
+// }
 
-@JsonSerializable()
-class Medium {
-  final int width;
-  final int height;
-  Medium({
-    required this.width,
-    required this.height,
-  });
-  factory Medium.fromJson(Map<String, dynamic> json) => _$MediumFromJson(json);
-  Map<String, dynamic> toJson() => _$MediumToJson(this);
-}
+// @JsonSerializable()
+// class Medium {
+//   final int width;
+//   final int height;
+//   Medium({
+//     required this.width,
+//     required this.height,
+//   });
+//   factory Medium.fromJson(Map<String, dynamic> json) => _$MediumFromJson(json);
+//   Map<String, dynamic> toJson() => _$MediumToJson(this);
+// }
 
-@JsonSerializable()
-class Large {
-  final int width;
-  final int height;
-  Large({
-    required this.width,
-    required this.height,
-  });
-  factory Large.fromJson(Map<String, dynamic> json) => _$LargeFromJson(json);
-  Map<String, dynamic> toJson() => _$LargeToJson(this);
-}
+// @JsonSerializable()
+// class Large {
+//   final int width;
+//   final int height;
+//   Large({
+//     required this.width,
+//     required this.height,
+//   });
+//   factory Large.fromJson(Map<String, dynamic> json) => _$LargeFromJson(json);
+//   Map<String, dynamic> toJson() => _$LargeToJson(this);
+// }
 
 // @JsonSerializable()
 // class CoverImage {
@@ -485,6 +485,7 @@ class Large {
 
 // }
 
+// @JsonSerializable()
 // class Links {
 //   final String first;
 //   final String prev;
@@ -496,4 +497,7 @@ class Large {
 //     required this.next,
 //     required this.last,
 //   });
+
+//   factory Links.fromJson(Map<String, dynamic> json) => _$LinksFromJson(json);
+//   Map<String, dynamic> toJson() => _$LinksToJson(this);
 // }

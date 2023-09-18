@@ -80,55 +80,19 @@ Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
 
 Dimensions _$DimensionsFromJson(Map<String, dynamic> json) => Dimensions(
       tiny: Tiny.fromJson(json['tiny'] as Map<String, dynamic>),
-      small: Small.fromJson(json['small'] as Map<String, dynamic>),
-      medium: Medium.fromJson(json['medium'] as Map<String, dynamic>),
-      large: Large.fromJson(json['large'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DimensionsToJson(Dimensions instance) =>
     <String, dynamic>{
       'tiny': instance.tiny,
-      'small': instance.small,
-      'medium': instance.medium,
-      'large': instance.large,
     };
 
 Tiny _$TinyFromJson(Map<String, dynamic> json) => Tiny(
-      width: json['width'] as int,
-      height: json['height'] as int,
+      width: json['width'] as int?,
+      height: json['height'] as int?,
     );
 
 Map<String, dynamic> _$TinyToJson(Tiny instance) => <String, dynamic>{
-      'width': instance.width,
-      'height': instance.height,
-    };
-
-Small _$SmallFromJson(Map<String, dynamic> json) => Small(
-      width: json['width'] as int,
-      height: json['height'] as int,
-    );
-
-Map<String, dynamic> _$SmallToJson(Small instance) => <String, dynamic>{
-      'width': instance.width,
-      'height': instance.height,
-    };
-
-Medium _$MediumFromJson(Map<String, dynamic> json) => Medium(
-      width: json['width'] as int,
-      height: json['height'] as int,
-    );
-
-Map<String, dynamic> _$MediumToJson(Medium instance) => <String, dynamic>{
-      'width': instance.width,
-      'height': instance.height,
-    };
-
-Large _$LargeFromJson(Map<String, dynamic> json) => Large(
-      width: json['width'] as int,
-      height: json['height'] as int,
-    );
-
-Map<String, dynamic> _$LargeToJson(Large instance) => <String, dynamic>{
       'width': instance.width,
       'height': instance.height,
     };
