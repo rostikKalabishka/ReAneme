@@ -68,7 +68,7 @@ class Attributes {
   // final String subtype;
   // final String status;
   // final String tba;
-  final PosterImage posterImage;
+  final PosterImage? posterImage;
   // final CoverImage coverImage;
   // final int episodeCount;
   // final int episodeLength;
@@ -175,7 +175,7 @@ class PosterImage {
   final String? medium;
   final String? large;
   final String? original;
-  final Meta meta;
+  final Meta? meta;
   PosterImage({
     required this.tiny,
     required this.small,
@@ -191,7 +191,7 @@ class PosterImage {
 
 @JsonSerializable()
 class Meta {
-  final Dimensions dimensions;
+  final Dimensions? dimensions;
   Meta({
     required this.dimensions,
   });
@@ -201,7 +201,7 @@ class Meta {
 
 @JsonSerializable()
 class Dimensions {
-  final Tiny tiny;
+  final Tiny? tiny;
   // final Small small;
   // final Medium medium;
   // final Large large;

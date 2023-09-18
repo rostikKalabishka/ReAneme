@@ -64,13 +64,14 @@ class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchModel>();
+
     if (model == null) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
     return Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: TextFormFiledWidget(
           onChanged: model.searchAnime,
           hintText: 'Search...',
@@ -116,12 +117,15 @@ class _AnimeListState extends State<AnimeList> {
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // itemExtent: 210,
-        itemCount: anime.length + 1,
+        itemCount: anime.length,
         itemBuilder: (context, int index) {
           if (index < popularAnimeList.length) {
             // model.showAnimeAtIndex(index);
             final animeList = popularAnimeList[index];
-            final tiny = animeList.attributes.posterImage.tiny;
+            final posterImage = animeList.attributes.posterImage;
+            if (posterImage == null) return SizedBox.shrink();
+            final tiny = posterImage.tiny;
+            if (tiny == null && tiny == '') return SizedBox.shrink();
             final titleEnJp = animeList.attributes.titles.enJp;
             final titleEn = animeList.attributes.titles.en;
             return Padding(

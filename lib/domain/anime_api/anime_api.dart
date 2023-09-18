@@ -14,8 +14,8 @@ class AnimeApi {
 
   Future<AnimeEntity> searchAnime(
     String text,
-    //   int limit,
-    // int offset,
+    int limit,
+    int offset,
   ) async {
     final finalUrl = '${AllUrl.baseUrl}/anime';
     try {
@@ -23,8 +23,8 @@ class AnimeApi {
         finalUrl,
         queryParameters: {
           'filter[text]': text,
-          //  'page[limit]': limit.toString(),
-          //         'page[offset]': offset.toString()
+          'page[limit]': limit.toString(),
+          'page[offset]': offset.toString()
         },
       );
 

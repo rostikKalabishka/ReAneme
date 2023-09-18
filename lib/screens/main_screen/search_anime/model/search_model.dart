@@ -7,7 +7,7 @@ import '../../../../domain/entity/anime/anime_entity.dart';
 
 class SearchModel extends ChangeNotifier {
   final _animeApi = AnimeApi();
-  int limit = 10;
+  int limit = 20;
   var offset = 0;
   AnimeEntity? _anime;
   final _animeList = <Data>[];
@@ -17,18 +17,17 @@ class SearchModel extends ChangeNotifier {
   List<Data> get animeList => List.unmodifiable(_animeList);
 
   Future<void> setup() async {
-    _animeList.clear();
-    loadAnime(offset);
+    await clearResults();
   }
 
-  void clearResults() {
+  Future<void> clearResults() async {
     _animeList.clear();
-    _searchQuery = null;
+    await loadAnime(offset);
   }
 
   Future<void> searchAnime(String text) async {
     searchDebounce?.cancel();
-    searchDebounce = Timer(const Duration(milliseconds: 200), () async {
+    searchDebounce = Timer(const Duration(milliseconds: 300), () async {
       final searchQuery = text.isNotEmpty ? text : null;
       if (_searchQuery == searchQuery) return;
       clearResults();
@@ -38,13 +37,12 @@ class SearchModel extends ChangeNotifier {
 
   Future<void> loadPage(ScrollController controller) async {
     loadAnime(offset);
-
     controller.addListener(() {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
         print(offset);
         offset += limit;
-
         loadAnime(offset);
+        clearResults();
       }
     });
   }
@@ -52,13 +50,10 @@ class SearchModel extends ChangeNotifier {
   Future<void> loadAnime(int offset) async {
     final query = _searchQuery;
     if (query == null) {
-      _animeList.clear();
       var newItems = await _animeApi.getAnime(limit, offset);
       _animeList.addAll(newItems.data);
     } else {
-      _animeList.clear();
-
-      var searchAnime = await _animeApi.searchAnime(query);
+      var searchAnime = await _animeApi.searchAnime(query, limit, offset);
       _animeList.addAll(searchAnime.data);
     }
 

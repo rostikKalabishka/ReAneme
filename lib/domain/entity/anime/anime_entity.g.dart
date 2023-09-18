@@ -28,8 +28,9 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
       titles: Titles.fromJson(json['titles'] as Map<String, dynamic>),
-      posterImage:
-          PosterImage.fromJson(json['posterImage'] as Map<String, dynamic>),
+      posterImage: json['posterImage'] == null
+          ? null
+          : PosterImage.fromJson(json['posterImage'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
@@ -56,7 +57,9 @@ PosterImage _$PosterImageFromJson(Map<String, dynamic> json) => PosterImage(
       medium: json['medium'] as String?,
       large: json['large'] as String?,
       original: json['original'] as String?,
-      meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),
+      meta: json['meta'] == null
+          ? null
+          : Meta.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PosterImageToJson(PosterImage instance) =>
@@ -70,8 +73,9 @@ Map<String, dynamic> _$PosterImageToJson(PosterImage instance) =>
     };
 
 Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
-      dimensions:
-          Dimensions.fromJson(json['dimensions'] as Map<String, dynamic>),
+      dimensions: json['dimensions'] == null
+          ? null
+          : Dimensions.fromJson(json['dimensions'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
@@ -79,7 +83,9 @@ Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
     };
 
 Dimensions _$DimensionsFromJson(Map<String, dynamic> json) => Dimensions(
-      tiny: Tiny.fromJson(json['tiny'] as Map<String, dynamic>),
+      tiny: json['tiny'] == null
+          ? null
+          : Tiny.fromJson(json['tiny'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DimensionsToJson(Dimensions instance) =>
