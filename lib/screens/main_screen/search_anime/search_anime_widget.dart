@@ -121,7 +121,7 @@ class _AnimeListState extends State<AnimeList> {
         controller: controller,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // itemExtent: 210,
-        itemCount: anime.length + 1,
+        itemCount: anime.length,
         itemBuilder: (context, int index) {
           if (index < popularAnimeList.length) {
             // model.showAnimeAtIndex(index);
