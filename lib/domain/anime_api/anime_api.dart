@@ -13,9 +13,7 @@ class AnimeApi {
   final Dio dio = Dio();
 
   Future<AnimeEntity> getAnimeType(
-    // String text,
     int limit,
-    // int offset,
   ) async {
     final finalUrl = '${AllUrl.baseUrl}/anime';
     try {
@@ -32,8 +30,6 @@ class AnimeApi {
         if (json != null && json is Map<String, dynamic>) {
           final apiResponse = AnimeEntity.fromJson(json);
 
-          // final apiResponse = json['data'] as Map<String, dynamic>;
-          // final type = apiResponse['type'] as Map<String, dynamic>;
           return apiResponse;
         } else {
           print('Error: Invalid JSON data');
