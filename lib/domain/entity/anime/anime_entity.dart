@@ -5,11 +5,11 @@ part 'anime_entity.g.dart';
 @JsonSerializable(explicitToJson: true)
 class AnimeEntity {
   final List<Data> data;
-  // final Meta meta;
+  final MetaCount meta;
   // final Links links;
   AnimeEntity({
     required this.data,
-    // required this.meta,
+    required this.meta,
     // required this.links,
   });
   factory AnimeEntity.fromJson(Map<String, dynamic> json) =>
@@ -476,14 +476,16 @@ class Tiny {
 //       _$AnimeStaffFromJson(json);
 //   Map<String, dynamic> toJson() => _$AnimeStaffToJson(this);
 // }
-
-// class Meta {
-//   final int count;
-//   Meta({
-//     required this.count,
-//   });
-
-// }
+@JsonSerializable()
+class MetaCount {
+  late final int count;
+  MetaCount({
+    required this.count,
+  });
+  factory MetaCount.fromJson(Map<String, dynamic> json) =>
+      _$MetaCountFromJson(json);
+  Map<String, dynamic> toJson() => _$MetaCountToJson(this);
+}
 
 // @JsonSerializable()
 // class Links {

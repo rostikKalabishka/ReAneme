@@ -10,11 +10,13 @@ AnimeEntity _$AnimeEntityFromJson(Map<String, dynamic> json) => AnimeEntity(
       data: (json['data'] as List<dynamic>)
           .map((e) => Data.fromJson(e as Map<String, dynamic>))
           .toList(),
+      meta: MetaCount.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnimeEntityToJson(AnimeEntity instance) =>
     <String, dynamic>{
       'data': instance.data.map((e) => e.toJson()).toList(),
+      'meta': instance.meta.toJson(),
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
@@ -105,4 +107,12 @@ Tiny _$TinyFromJson(Map<String, dynamic> json) => Tiny(
 Map<String, dynamic> _$TinyToJson(Tiny instance) => <String, dynamic>{
       'width': instance.width,
       'height': instance.height,
+    };
+
+MetaCount _$MetaCountFromJson(Map<String, dynamic> json) => MetaCount(
+      count: json['count'] as int,
+    );
+
+Map<String, dynamic> _$MetaCountToJson(MetaCount instance) => <String, dynamic>{
+      'count': instance.count,
     };

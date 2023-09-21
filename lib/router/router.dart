@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
-import 'package:re_anime/screens/registration/registration_screen.dart';
+import 'package:re_anime/screens/auth/registration/registration_screen.dart';
 
 import '../screens/auth/auth_screen.dart';
 import '../screens/main_screen/main_screen.dart';

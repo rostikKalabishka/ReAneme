@@ -47,24 +47,8 @@ class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
   }
 }
 
-class SearchAnimeTextField extends StatefulWidget {
+class SearchAnimeTextField extends StatelessWidget {
   const SearchAnimeTextField({super.key});
-
-  @override
-  State<SearchAnimeTextField> createState() => _SearchAnimeTextFieldState();
-}
-
-class _SearchAnimeTextFieldState extends State<SearchAnimeTextField> {
-  // final _searchController = TextEditingController();
-
-  // // var _filterAnime = <PopularAnimeModel>[];
-  // void _searchAnime() {}
-  // @override
-  // void initState() {
-  //   _searchController.addListener(_searchAnime);
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final model = context.watch<SearchModel>();
@@ -129,7 +113,10 @@ class _AnimeListState extends State<AnimeList> {
             final posterImage = animeList.attributes.posterImage;
             if (posterImage == null) return const SizedBox.shrink();
             final tiny = posterImage.tiny;
-            if (tiny == null && tiny == '') return const SizedBox.shrink();
+            if (tiny == null &&
+                tiny ==
+                    'https://media.kitsu.io/anime/poster_images/12843/tiny.jpg')
+              return const SizedBox.shrink();
             final titleEnJp = animeList.attributes.titles.enJp;
             final titleEn = animeList.attributes.titles.en;
             return Padding(
@@ -149,6 +136,10 @@ class _AnimeListState extends State<AnimeList> {
                         child: tiny != null
                             ? Image.network(
                                 tiny,
+                                errorBuilder: (BuildContext context,
+                                    Object error, StackTrace? stackTrace) {
+                                  return const Text('Зображення не знайдено');
+                                },
                               )
                             : const SizedBox.shrink(),
                       ),

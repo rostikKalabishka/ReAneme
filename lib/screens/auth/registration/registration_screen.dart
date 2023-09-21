@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../router/router.dart';
-import '../../widget/text_form_field_widget.dart';
+import '../../../domain/services/auth_services.dart';
+import '../../../router/router.dart';
+import '../../../widget/text_form_field_widget.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key});
@@ -20,6 +21,8 @@ class AuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _passwordTextEditingController;
+    var _emailTextEditingController;
     return const SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,8 +113,7 @@ class RowButtonWidget extends StatelessWidget {
           width: 150,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  MainNavigationRouteName.mainScreen, (route) => false);
+// AuthServices().registration(context, email, password)
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
