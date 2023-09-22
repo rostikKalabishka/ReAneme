@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:re_anime/screens/main_screen/profile/profile_widget.dart';
 import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
@@ -25,32 +26,40 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _selectedTab,
-        children: [
-          const HomePageWidget(),
-          SearchAnimeWidget.create(),
-          const ProfileWidget(),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedTab,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Discover',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'Profile',
-          ),
-        ],
-        onTap: onSelectTab,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: SearchModel(),
+          child: const SearchAnimeWidget(),
+        )
+      ],
+      child: Scaffold(
+        body: IndexedStack(
+          index: _selectedTab,
+          children: const [
+            HomePageWidget(),
+            SearchAnimeWidget(),
+            ProfileWidget(),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedTab,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Discover',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'Profile',
+            ),
+          ],
+          onTap: onSelectTab,
+        ),
       ),
     );
   }

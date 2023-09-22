@@ -2,24 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../widget/text_form_field_widget.dart';
 import '../../../widget/text_widget.dart';
-
 import 'model/search_model.dart';
 
-class SearchAnimeWidget extends StatefulWidget {
+// static Widget create() {
+//   return ChangeNotifierProvider(
+//     create: (_) => SearchModel(),
+//     child: const SearchAnimeWidget(),
+//   );
+// }
+
+class SearchAnimeWidget extends StatelessWidget {
   const SearchAnimeWidget({super.key});
-
-  @override
-  State<SearchAnimeWidget> createState() => _SearchAnimeWidgetState();
-
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => SearchModel(),
-      child: const SearchAnimeWidget(),
-    );
-  }
-}
-
-class _SearchAnimeWidgetState extends State<SearchAnimeWidget> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

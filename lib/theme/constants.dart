@@ -5,3 +5,4 @@ Color secondHalfOfTheLogoColors = Colors.white;
 Color primaryColors = Colors.red;
 Color textColor = Colors.white;
 Color scaffoldBackgroundColor = Color.fromARGB(255, 27, 26, 26);
+Color scaffoldMessenger = Color.fromARGB(255, 65, 62, 62);

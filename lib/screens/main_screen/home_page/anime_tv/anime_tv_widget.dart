@@ -7,13 +7,6 @@ import 'model/anime_tv_model.dart';
 class AnimeTVWidget extends StatefulWidget {
   const AnimeTVWidget({Key? key}) : super(key: key);
 
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => AnimeMovieModel(),
-      child: const AnimeTVWidget(),
-    );
-  }
-
   @override
   State<AnimeTVWidget> createState() => _AnimeTVWidgetState();
 }
@@ -28,7 +21,7 @@ class _AnimeTVWidgetState extends State<AnimeTVWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AnimeMovieModel>();
+    final model = context.read<AnimeMovieModel>();
     final popularAnimeList = model.animeMovieList;
     return SizedBox(
       height: 310, // Set a fixed height for the Container

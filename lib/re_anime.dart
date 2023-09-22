@@ -33,11 +33,18 @@ class ReAnime extends StatelessWidget {
           body: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                log("${snapshot.data!.email}");
-                return const MainScreen();
-              } else {
-                return const AuthScreen();
+              try {
+                if (snapshot.hasData) {
+                  log("${snapshot.data?.email}");
+                  return const MainScreen();
+                } else {
+                  return const AuthScreen();
+                }
+              } catch (e) {
+                log("$e");
+                return const ScaffoldMessenger(
+                  child: Text('Error'),
+                );
               }
             },
           ),

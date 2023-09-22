@@ -7,12 +7,12 @@ import 'models/coming_soon_anime_model.dart';
 
 class ComingSoonAnimeWidget extends StatefulWidget {
   const ComingSoonAnimeWidget({super.key});
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => ComingSoonAnimeModel(),
-      child: const ComingSoonAnimeWidget(),
-    );
-  }
+  // static Widget create() {
+  //   return ChangeNotifierProvider(
+  //     create: (_) => ComingSoonAnimeModel(),
+  //     child: const ComingSoonAnimeWidget(),
+  //   );
+  // }
 
   @override
   State<ComingSoonAnimeWidget> createState() => _ComingSoonAnimeWidgetState();
