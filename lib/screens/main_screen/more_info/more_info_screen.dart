@@ -5,6 +5,7 @@ import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dar
 
 import '../../../domain/entity/anime/anime_entity.dart';
 import '../../../widget/text_widget.dart';
+import 'model_more_info/more_info_model.dart';
 
 class MoreInfoWidget extends StatelessWidget {
   const MoreInfoWidget({super.key});
@@ -27,17 +28,11 @@ class MoreInfoWidget extends StatelessWidget {
   }
 }
 
-class ColumnButtonWidget extends StatefulWidget {
+class ColumnButtonWidget extends StatelessWidget {
   const ColumnButtonWidget({super.key});
-
-  @override
-  State<ColumnButtonWidget> createState() => _ColumnButtonWidgetState();
-}
-
-class _ColumnButtonWidgetState extends State<ColumnButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<SearchModel>();
+    final model = context.read<MoreInfoModel>();
     // final anime = model.anime?.data[0].attributes.titles.en;
     return Center(
       child: Column(
@@ -49,7 +44,9 @@ class _ColumnButtonWidgetState extends State<ColumnButtonWidget> {
                 label: 'Switch to manga',
               )),
           TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                await model.logout(context);
+              },
               child: const TextWidget(
                 label: 'Logout',
               ))

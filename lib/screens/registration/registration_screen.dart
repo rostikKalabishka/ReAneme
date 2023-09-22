@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:re_anime/screens/registration/registration_models/registration_models.dart';
 
-import '../../../domain/services/auth_services.dart';
-import '../../../router/router.dart';
-import '../../../widget/text_form_field_widget.dart';
+import '../../domain/services/auth_services.dart';
+import '../../router/router.dart';
+import '../../widget/text_form_field_widget.dart';
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key});
@@ -29,6 +31,7 @@ class _AuthWidgetState extends State<AuthWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<RegistrationModels>();
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -113,19 +116,18 @@ class _AuthWidgetState extends State<AuthWidget> {
                   onPressed: () async {
                     var email = _emailController.text;
                     var password = _passwordController.text;
-                    await AuthServices()
-                        .registration(email: email, password: password)
-                        .then((value) => {
-                              if (email.isNotEmpty &&
-                                  email != null &&
-                                  password.isNotEmpty &&
-                                  password != null)
-                                {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      MainNavigationRouteName.mainScreen,
-                                      (route) => false)
-                                }
-                            });
+                    await model.registration(context, email, password);
+                    // .then((value) => {
+                    //       if (email.isNotEmpty &&
+                    //           email != null &&
+                    //           password.isNotEmpty &&
+                    //           password != null)
+                    //         {
+                    //           Navigator.of(context).pushNamedAndRemoveUntil(
+                    //               MainNavigationRouteName.mainScreen,
+                    //               (route) => false)
+                    //         }
+                    //     });
                     print(email);
                     print(password);
                   },

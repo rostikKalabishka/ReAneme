@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../router/router.dart';
 import '../../widget/text_form_field_widget.dart';
+import 'model/auth_screen_model.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key});
@@ -20,13 +22,16 @@ class AuthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    final model = context.read<AuthScreenModel>();
+    final _emailTextEditingController = TextEditingController();
+    final _passwordTextEditingController = TextEditingController();
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RowLogo(),
-          SizedBox(
+          const RowLogo(),
+          const SizedBox(
             height: 40,
           ),
           Padding(
@@ -36,11 +41,12 @@ class AuthWidget extends StatelessWidget {
             child: SizedBox(
                 height: 60,
                 child: TextFormFiledWidget(
+                  controller: _emailTextEditingController,
                   hintText: 'Username',
                   obscureText: false,
                 )),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 15,
@@ -48,59 +54,93 @@ class AuthWidget extends StatelessWidget {
             child: SizedBox(
               height: 60,
               child: TextFormFiledWidget(
+                controller: _passwordTextEditingController,
                 hintText: 'Password',
                 obscureText: true,
               ),
             ),
           ),
-          SizedBox(height: 50),
-          RowButtonWidget()
+          const SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(MainNavigationRouteName.registrationScreen);
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Registration'),
+              ),
+              SizedBox(
+                height: 50,
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final email = _emailTextEditingController.text;
+                    final password = _passwordTextEditingController.text;
+
+                    await model.login(context, email, password);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.red,
+                  ),
+                  child: const Text('Sign in'),
+                ),
+              ),
+            ],
+          )
+          // RowButtonWidget()
         ],
       ),
     );
   }
 }
 
-class RowButtonWidget extends StatelessWidget {
-  const RowButtonWidget({
-    super.key,
-  });
+// class RowButtonWidget extends StatelessWidget {
+//   const RowButtonWidget({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context)
-                .pushNamed(MainNavigationRouteName.registrationScreen);
-          },
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: const Text('Registration'),
-        ),
-        SizedBox(
-          height: 50,
-          width: 150,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  MainNavigationRouteName.mainScreen, (route) => false);
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.red,
-            ),
-            child: const Text('Sign in'),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         TextButton(
+//           onPressed: () {
+//             Navigator.of(context)
+//                 .pushNamed(MainNavigationRouteName.registrationScreen);
+//           },
+//           style: TextButton.styleFrom(
+//             foregroundColor: Colors.white,
+//           ),
+//           child: const Text('Registration'),
+//         ),
+//         SizedBox(
+//           height: 50,
+//           width: 150,
+//           child: ElevatedButton(
+//             onPressed: () {
+//               Navigator.of(context).pushNamedAndRemoveUntil(
+//                   MainNavigationRouteName.mainScreen, (route) => false);
+//             },
+//             style: ElevatedButton.styleFrom(
+//               foregroundColor: Colors.white,
+//               backgroundColor: Colors.red,
+//             ),
+//             child: const Text('Sign in'),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class RowLogo extends StatelessWidget {
   const RowLogo({super.key});
