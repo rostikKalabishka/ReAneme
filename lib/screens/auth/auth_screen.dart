@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../router/router.dart';
 import '../../widget/text_form_field_widget.dart';
 import 'model/auth_screen_model.dart';
 
@@ -23,8 +22,8 @@ class AuthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<AuthScreenModel>();
-    final _emailTextEditingController = TextEditingController();
-    final _passwordTextEditingController = TextEditingController();
+    final emailTextEditingController = TextEditingController();
+    final passwordTextEditingController = TextEditingController();
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,26 +34,26 @@ class AuthWidget extends StatelessWidget {
             height: 40,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
                 height: 60,
                 child: TextFormFiledWidget(
-                  controller: _emailTextEditingController,
+                  controller: emailTextEditingController,
                   hintText: 'Username',
                   obscureText: false,
                 )),
           ),
           const SizedBox(height: 30),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
               height: 60,
               child: TextFormFiledWidget(
-                controller: _passwordTextEditingController,
+                controller: passwordTextEditingController,
                 hintText: 'Password',
                 obscureText: true,
               ),
@@ -67,8 +66,7 @@ class AuthWidget extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(MainNavigationRouteName.registrationScreen);
+                  model.NavigatorToMainScreen(context);
                 },
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.white,
@@ -80,8 +78,8 @@ class AuthWidget extends StatelessWidget {
                 width: 150,
                 child: ElevatedButton(
                   onPressed: () async {
-                    final email = _emailTextEditingController.text;
-                    final password = _passwordTextEditingController.text;
+                    final email = emailTextEditingController.text;
+                    final password = passwordTextEditingController.text;
 
                     await model.login(context, email, password);
                   },
@@ -100,47 +98,6 @@ class AuthWidget extends StatelessWidget {
     );
   }
 }
-
-// class RowButtonWidget extends StatelessWidget {
-//   const RowButtonWidget({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         TextButton(
-//           onPressed: () {
-//             Navigator.of(context)
-//                 .pushNamed(MainNavigationRouteName.registrationScreen);
-//           },
-//           style: TextButton.styleFrom(
-//             foregroundColor: Colors.white,
-//           ),
-//           child: const Text('Registration'),
-//         ),
-//         SizedBox(
-//           height: 50,
-//           width: 150,
-//           child: ElevatedButton(
-//             onPressed: () {
-//               Navigator.of(context).pushNamedAndRemoveUntil(
-//                   MainNavigationRouteName.mainScreen, (route) => false);
-//             },
-//             style: ElevatedButton.styleFrom(
-//               foregroundColor: Colors.white,
-//               backgroundColor: Colors.red,
-//             ),
-//             child: const Text('Sign in'),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 class RowLogo extends StatelessWidget {
   const RowLogo({super.key});

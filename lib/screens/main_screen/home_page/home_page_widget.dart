@@ -13,14 +13,16 @@ class HomePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final animeMovieModel = AnimeMovieModel();
+    final comingSoonAnimeModel = ComingSoonAnimeModel();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: ComingSoonAnimeModel(),
+          value: comingSoonAnimeModel,
           child: const ComingSoonAnimeWidget(),
         ),
         ChangeNotifierProvider.value(
-          value: AnimeMovieModel(),
+          value: animeMovieModel,
           child: const AnimeTVWidget(),
         )
       ],

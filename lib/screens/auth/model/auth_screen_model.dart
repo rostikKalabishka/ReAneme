@@ -7,6 +7,10 @@ import '../../../router/router.dart';
 class AuthScreenModel extends ChangeNotifier {
   final _authServices = AuthServices();
 
+  void NavigatorToMainScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(MainNavigationRouteName.registrationScreen);
+  }
+
   Future<String?> login(
       BuildContext context, String email, String password) async {
     if (email.isNotEmpty && password.isNotEmpty) {
