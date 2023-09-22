@@ -21,6 +21,7 @@ dependencies:
   json_annotation: ^4.8.1
   firebase_core: ^2.15.1
   firebase_auth: ^4.9.0
+  cloud_firestore: ^4.9.2
   cupertino_icons: ^1.0.2
   transparent_image: ^2.0.1
 

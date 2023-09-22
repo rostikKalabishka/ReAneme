@@ -68,7 +68,8 @@ class SearchModel extends ChangeNotifier {
       _animeList.addAll(newItems.data);
     } else {
       print('fetch');
-      final searchAnime = await _animeApi.searchAnime(query, limit, offset);
+      final searchAnime =
+          await _animeApi.searchAnime(query.trim(), limit, offset);
       // offset = 0;
       _animeList.addAll(searchAnime.data);
     }

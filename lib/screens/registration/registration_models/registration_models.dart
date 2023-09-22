@@ -17,11 +17,13 @@ class RegistrationModels extends ChangeNotifier {
         password != null &&
         password.isNotEmpty) {
       return await authServices
-          .registration(email: email, password: password)
+          .registration(email: email.trim(), password: password.trim())
           .then((value) {
         Navigator.of(context).pushNamedAndRemoveUntil(
             MainNavigationRouteName.mainScreen, (route) => false);
+        return 'auth';
       });
     }
+    return 'no auth';
   }
 }

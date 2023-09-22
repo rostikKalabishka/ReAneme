@@ -113,10 +113,7 @@ class _AnimeListState extends State<AnimeList> {
             final posterImage = animeList.attributes.posterImage;
             if (posterImage == null) return const SizedBox.shrink();
             final tiny = posterImage.tiny;
-            if (tiny == null &&
-                tiny ==
-                    'https://media.kitsu.io/anime/poster_images/12843/tiny.jpg')
-              return const SizedBox.shrink();
+            if (tiny == null) return const SizedBox.shrink();
             final titleEnJp = animeList.attributes.titles.enJp;
             final titleEn = animeList.attributes.titles.en;
             return Padding(
