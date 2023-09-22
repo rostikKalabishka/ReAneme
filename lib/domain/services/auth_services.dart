@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter/material.dart';
-// import 'package:re_anime/router/router.dart';
 
 class AuthServices {
   final _firebaseAuth = FirebaseAuth.instance;
+
+// _firebaseAuth.currentUser;
 
   Future<String?> registration({
     required String email,
@@ -17,6 +14,7 @@ class AuthServices {
         email: email,
         password: password,
       );
+      // user = email;
       return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -40,6 +38,7 @@ class AuthServices {
         email: email,
         password: password,
       );
+      // user = email;
       return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

@@ -21,7 +21,7 @@ class _AnimeTVWidgetState extends State<AnimeTVWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<AnimeMovieModel>();
+    final model = context.watch<AnimeMovieModel>();
     final popularAnimeList = model.animeMovieList;
     return SizedBox(
       height: 310, // Set a fixed height for the Container
@@ -61,7 +61,7 @@ class _AnimeTVWidgetState extends State<AnimeTVWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextWidget(
-                            label: title ?? titleEnJp ?? ' negro',
+                            label: title ?? titleEnJp ?? 'None',
                             fontSize: 16,
                             maxLines: 1,
                             fontWeight: FontWeight.normal,

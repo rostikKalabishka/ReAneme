@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:re_anime/theme/constants.dart';
 
@@ -22,12 +20,15 @@ class AuthScreenModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: scaffoldMessenger,
-          content: Text(
-            message,
-            style: const TextStyle(color: Colors.white),
+          content: Center(
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ),
       );
     }
+    return 'boba';
   }
 }

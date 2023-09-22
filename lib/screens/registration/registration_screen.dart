@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:re_anime/screens/registration/registration_models/registration_models.dart';
 
-import '../../domain/services/auth_services.dart';
-import '../../router/router.dart';
 import '../../widget/text_form_field_widget.dart';
 
+//
+
 class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({Key? key});
+  const RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class RegistrationScreen extends StatelessWidget {
 }
 
 class AuthWidget extends StatefulWidget {
-  const AuthWidget({Key? key});
+  const AuthWidget({super.key});
 
   @override
   State<AuthWidget> createState() => _AuthWidgetState();
@@ -37,12 +37,12 @@ class _AuthWidgetState extends State<AuthWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RowLogo(),
-          SizedBox(
+          const RowLogo(),
+          const SizedBox(
             height: 40,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
@@ -53,8 +53,8 @@ class _AuthWidgetState extends State<AuthWidget> {
                   obscureText: false,
                 )),
           ),
-          SizedBox(height: 30),
-          Padding(
+          const SizedBox(height: 30),
+          const Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
@@ -65,9 +65,9 @@ class _AuthWidgetState extends State<AuthWidget> {
                   obscureText: false,
                 )),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
@@ -78,7 +78,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                   obscureText: true,
                 )),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           const Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 15,
@@ -91,7 +91,7 @@ class _AuthWidgetState extends State<AuthWidget> {
               ),
             ),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           // RowButtonWidget(
           //   email: _emailController.text,
           //   password: _passwordController.text,
@@ -117,17 +117,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     var email = _emailController.text;
                     var password = _passwordController.text;
                     await model.registration(context, email, password);
-                    // .then((value) => {
-                    //       if (email.isNotEmpty &&
-                    //           email != null &&
-                    //           password.isNotEmpty &&
-                    //           password != null)
-                    //         {
-                    //           Navigator.of(context).pushNamedAndRemoveUntil(
-                    //               MainNavigationRouteName.mainScreen,
-                    //               (route) => false)
-                    //         }
-                    //     });
+
                     print(email);
                     print(password);
                   },
@@ -145,62 +135,6 @@ class _AuthWidgetState extends State<AuthWidget> {
     );
   }
 }
-
-// class RowButtonWidget extends StatelessWidget {
-//   const RowButtonWidget({
-//     super.key,
-//     required this.email,
-//     required this.password,
-//   });
-//   final String email;
-//   final String password;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         TextButton(
-//           onPressed: () {
-//             Navigator.of(context).pop();
-//           },
-//           style: TextButton.styleFrom(
-//             foregroundColor: Colors.white,
-//           ),
-//           child: const Text('Sign in'),
-//         ),
-//         SizedBox(
-//           height: 50,
-//           width: 150,
-//           child: ElevatedButton(
-//             onPressed: () async {
-//               await AuthServices()
-//                   .registration(email: email, password: password)
-//                   .then((value) => {
-//                         if (email.isNotEmpty &&
-//                             email != null &&
-//                             password.isNotEmpty &&
-//                             password != null)
-//                           {
-//                             Navigator.of(context).pushNamedAndRemoveUntil(
-//                                 MainNavigationRouteName.mainScreen,
-//                                 (route) => false)
-//                           }
-//                       });
-//               print(email);
-//               print(password);
-//             },
-//             style: ElevatedButton.styleFrom(
-//               foregroundColor: Colors.white,
-//               backgroundColor: Colors.red,
-//             ),
-//             child: const Text('Sign up'),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 class RowLogo extends StatelessWidget {
   const RowLogo({super.key});

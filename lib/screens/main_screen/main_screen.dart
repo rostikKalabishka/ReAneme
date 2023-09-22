@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:re_anime/screens/main_screen/profile/model/profile_model.dart';
 
 import 'package:re_anime/screens/main_screen/profile/profile_widget.dart';
 import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
@@ -16,6 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   var searchModel = SearchModel();
+  var profileModel = ProfileModel();
   int _selectedTab = 0;
   void onSelectTab(int index) {
     if (_selectedTab == index) return;
@@ -29,8 +31,12 @@ class _MainScreenState extends State<MainScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: SearchModel(),
+          value: searchModel,
           child: const SearchAnimeWidget(),
+        ),
+        ChangeNotifierProvider.value(
+          value: profileModel,
+          child: const ProfileWidget(),
         )
       ],
       child: Scaffold(

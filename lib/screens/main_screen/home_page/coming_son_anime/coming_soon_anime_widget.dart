@@ -2,17 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../popular_anime/model/popular_anime_model.dart';
 import 'models/coming_soon_anime_model.dart';
 
 class ComingSoonAnimeWidget extends StatefulWidget {
   const ComingSoonAnimeWidget({super.key});
-  // static Widget create() {
-  //   return ChangeNotifierProvider(
-  //     create: (_) => ComingSoonAnimeModel(),
-  //     child: const ComingSoonAnimeWidget(),
-  //   );
-  // }
 
   @override
   State<ComingSoonAnimeWidget> createState() => _ComingSoonAnimeWidgetState();
@@ -22,13 +15,6 @@ class _ComingSoonAnimeWidgetState extends State<ComingSoonAnimeWidget> {
   final CarouselController _carouselController = CarouselController();
 
   final Cubic customCurves = const Cubic(0.0, 0.0, 0.0, 0.0);
-
-  // @override
-  // void didChangeDependencies() {
-  //   final model = context.watch<ComingSoonAnimeModel>();
-  //   model.setup();
-  //   super.didChangeDependencies();
-  // }
 
   @override
   void initState() {

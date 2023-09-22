@@ -4,13 +4,6 @@ import '../../../widget/text_form_field_widget.dart';
 import '../../../widget/text_widget.dart';
 import 'model/search_model.dart';
 
-// static Widget create() {
-//   return ChangeNotifierProvider(
-//     create: (_) => SearchModel(),
-//     child: const SearchAnimeWidget(),
-//   );
-// }
-
 class SearchAnimeWidget extends StatelessWidget {
   const SearchAnimeWidget({super.key});
   @override
@@ -72,11 +65,10 @@ class _AnimeListState extends State<AnimeList> {
   final controller = ScrollController();
 
   @override
-  void initState() {
-    final model = context.read<SearchModel>();
+  void didChangeDependencies() {
+    final model = context.watch<SearchModel>();
     model.loadPage(controller);
-
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -122,17 +114,14 @@ class _AnimeListState extends State<AnimeList> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: tiny != null
-                            ? Image.network(
-                                tiny,
-                                errorBuilder: (BuildContext context,
-                                    Object error, StackTrace? stackTrace) {
-                                  return const Text('Зображення не знайдено');
-                                },
-                              )
-                            : const SizedBox.shrink(),
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            tiny,
+                            errorBuilder: (BuildContext context, Object error,
+                                StackTrace? stackTrace) {
+                              return const Text('Image not found');
+                            },
+                          )),
                       const SizedBox(
                         width: 10,
                       ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../router/router.dart';
 import '../../../theme/constants.dart';
 import '../../../widget/text_widget.dart';
 import '../home_page/popular_anime/model/popular_anime_model.dart';
+import 'model/profile_model.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -89,11 +91,18 @@ class UserNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: TextWidget(
-        label: 'Username',
-        fontSize: 22,
-      ),
+    final model = context.watch<ProfileModel>();
+    model.getUser();
+    return Center(
+      child: model.user != null
+          ? TextWidget(
+              label: '${model.user}',
+              fontSize: 22,
+            )
+          : const TextWidget(
+              label: 'None',
+              fontSize: 22,
+            ),
     );
   }
 }
