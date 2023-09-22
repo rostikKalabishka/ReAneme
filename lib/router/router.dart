@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
 import 'package:re_anime/screens/auth/registration/registration_screen.dart';
 
+import '../domain/services/auth_services.dart';
 import '../screens/auth/auth_screen.dart';
+import '../screens/auth/registration/registration_models/registration_models.dart';
 import '../screens/main_screen/main_screen.dart';
 import '../screens/main_screen/main_screen_model.dart';
 import '../screens/main_screen/more_info/more_info_screen.dart';
@@ -23,8 +25,8 @@ class MainNavigation {
     MainNavigationRouteName.auth: (context) => const AuthScreen(),
     MainNavigationRouteName.mainScreen: (context) => ChangeNotifierProvider(
         create: (_) => MainScreenModel(), child: const MainScreen()),
-    MainNavigationRouteName.registrationScreen: (context) =>
-        const RegistrationScreen(),
+    MainNavigationRouteName.registrationScreen: (context) => Provider(
+        create: (_) => AuthServices(), child: const RegistrationScreen()),
     MainNavigationRouteName.moreInfo: (context) => ChangeNotifierProvider(
         create: (_) => SearchModel(), child: const MoreInfoWidget())
   };

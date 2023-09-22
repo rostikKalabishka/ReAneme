@@ -1,21 +1,22 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:re_anime/router/router.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/material.dart';
+// import 'package:re_anime/router/router.dart';
 
 class AuthServices {
-  Future<String?> registration(
-      // String login,
-      BuildContext context,
-      String email,
-      String password) async {
+  final _firebaseAuth = FirebaseAuth.instance;
+
+  Future<String?> registration({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            MainNavigationRouteName.mainScreen, (route) => false);
-      });
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -30,13 +31,15 @@ class AuthServices {
     }
   }
 
-  Future<String?> login(
-      // String login,
-      String email,
-      String password) async {
+  Future<String?> login({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application
+         android:usesCleartextTraffic="true"
         android:label="re_anime"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

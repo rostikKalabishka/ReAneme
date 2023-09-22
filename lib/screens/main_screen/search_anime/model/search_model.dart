@@ -64,7 +64,6 @@ class SearchModel extends ChangeNotifier {
     final query = _searchQuery;
 
     if (query == null) {
-      print('biba');
       final newItems = await _animeApi.getAnime(limit, offset);
       _animeList.addAll(newItems.data);
     } else {

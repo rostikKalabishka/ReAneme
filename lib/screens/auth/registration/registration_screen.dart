@@ -16,14 +16,20 @@ class RegistrationScreen extends StatelessWidget {
   }
 }
 
-class AuthWidget extends StatelessWidget {
+class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key});
 
   @override
+  State<AuthWidget> createState() => _AuthWidgetState();
+}
+
+class _AuthWidgetState extends State<AuthWidget> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController _passwordTextEditingController;
-    var _emailTextEditingController;
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,6 +45,7 @@ class AuthWidget extends StatelessWidget {
             child: SizedBox(
                 height: 60,
                 child: TextFormFiledWidget(
+                  controller: _emailController,
                   hintText: 'Email',
                   obscureText: false,
                 )),
@@ -63,12 +70,13 @@ class AuthWidget extends StatelessWidget {
             child: SizedBox(
                 height: 60,
                 child: TextFormFiledWidget(
+                  controller: _passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 )),
           ),
           SizedBox(height: 30),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
@@ -81,51 +89,116 @@ class AuthWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 50),
-          RowButtonWidget()
+          // RowButtonWidget(
+          //   email: _emailController.text,
+          //   password: _passwordController.text,
+          // )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Sign in'),
+              ),
+              SizedBox(
+                height: 50,
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    var email = _emailController.text;
+                    var password = _passwordController.text;
+                    await AuthServices()
+                        .registration(email: email, password: password)
+                        .then((value) => {
+                              if (email.isNotEmpty &&
+                                  email != null &&
+                                  password.isNotEmpty &&
+                                  password != null)
+                                {
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      MainNavigationRouteName.mainScreen,
+                                      (route) => false)
+                                }
+                            });
+                    print(email);
+                    print(password);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.red,
+                  ),
+                  child: const Text('Sign up'),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
   }
 }
 
-class RowButtonWidget extends StatelessWidget {
-  const RowButtonWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: const Text('Sign in'),
-        ),
-        SizedBox(
-          height: 50,
-          width: 150,
-          child: ElevatedButton(
-            onPressed: () {
-// AuthServices().registration(context, email, password)
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.red,
-            ),
-            child: const Text('Sign up'),
-          ),
-        ),
-      ],
-    );
-  }
-}
+// class RowButtonWidget extends StatelessWidget {
+//   const RowButtonWidget({
+//     super.key,
+//     required this.email,
+//     required this.password,
+//   });
+//   final String email;
+//   final String password;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         TextButton(
+//           onPressed: () {
+//             Navigator.of(context).pop();
+//           },
+//           style: TextButton.styleFrom(
+//             foregroundColor: Colors.white,
+//           ),
+//           child: const Text('Sign in'),
+//         ),
+//         SizedBox(
+//           height: 50,
+//           width: 150,
+//           child: ElevatedButton(
+//             onPressed: () async {
+//               await AuthServices()
+//                   .registration(email: email, password: password)
+//                   .then((value) => {
+//                         if (email.isNotEmpty &&
+//                             email != null &&
+//                             password.isNotEmpty &&
+//                             password != null)
+//                           {
+//                             Navigator.of(context).pushNamedAndRemoveUntil(
+//                                 MainNavigationRouteName.mainScreen,
+//                                 (route) => false)
+//                           }
+//                       });
+//               print(email);
+//               print(password);
+//             },
+//             style: ElevatedButton.styleFrom(
+//               foregroundColor: Colors.white,
+//               backgroundColor: Colors.red,
+//             ),
+//             child: const Text('Sign up'),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class RowLogo extends StatelessWidget {
   const RowLogo({super.key});
