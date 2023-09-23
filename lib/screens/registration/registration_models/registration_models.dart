@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:re_anime/domain/services/auth_services.dart';
 
@@ -8,8 +6,7 @@ import '../../../theme/constants.dart';
 
 class RegistrationModels extends ChangeNotifier {
   final authServices = AuthServices();
-  TextEditingController? passwordEditingController;
-  TextEditingController? emailEditingController;
+
   final _authServices = AuthServices();
 
   Future<String?> registration(

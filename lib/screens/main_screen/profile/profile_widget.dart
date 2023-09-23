@@ -1,11 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../router/router.dart';
 import '../../../theme/constants.dart';
 import '../../../widget/text_widget.dart';
 import '../home_page/popular_anime/model/popular_anime_model.dart';
-import 'model/profile_model.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -86,17 +85,23 @@ class ImageProfileWidget extends StatelessWidget {
   }
 }
 
-class UserNameWidget extends StatelessWidget {
+class UserNameWidget extends StatefulWidget {
   const UserNameWidget({super.key});
 
   @override
+  State<UserNameWidget> createState() => _UserNameWidgetState();
+}
+
+class _UserNameWidgetState extends State<UserNameWidget> {
+  @override
   Widget build(BuildContext context) {
-    final model = context.watch<ProfileModel>();
-    model.getUser();
+    // final model = context.read<ProfileModel>();
+    final user = FirebaseAuth.instance.currentUser;
+
     return Center(
-      child: model.user != null
+      child: user != null
           ? TextWidget(
-              label: '${model.user}',
+              label: '${user.email}',
               fontSize: 22,
             )
           : const TextWidget(

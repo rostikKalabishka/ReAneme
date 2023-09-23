@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:re_anime/screens/main_screen/search_anime/model/search_model.dart';
 
-import '../../../domain/entity/anime/anime_entity.dart';
 import '../../../widget/text_widget.dart';
 import 'model_more_info/more_info_model.dart';
 

@@ -6,6 +6,7 @@ import 'package:re_anime/screens/registration/registration_screen.dart';
 import '../screens/auth/auth_screen.dart';
 import '../screens/auth/model/auth_screen_model.dart';
 
+import '../screens/main_screen/more_info/model_more_info/more_info_model.dart';
 import '../screens/registration/registration_models/registration_models.dart';
 import '../screens/main_screen/main_screen.dart';
 
@@ -30,6 +31,9 @@ class MainNavigation {
         ChangeNotifierProvider(
             create: (_) => RegistrationModels(),
             child: const RegistrationScreen()),
-    MainNavigationRouteName.moreInfo: (context) => const MoreInfoWidget()
+    MainNavigationRouteName.moreInfo: (context) => ChangeNotifierProvider(
+          child: const MoreInfoWidget(),
+          create: (_) => MoreInfoModel(),
+        )
   };
 }
