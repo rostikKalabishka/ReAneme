@@ -1,20 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class AuthServices {
   final _firebaseAuth = FirebaseAuth.instance;
-
+// final _fireStore =FirebaseFire
 // _firebaseAuth.currentUser;
 
-  Future<String?> registration({
-    required String email,
-    required String password,
-  }) async {
+  Future<String?> registration(
+      {required String email,
+      required String password,
+      required String username}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      addUserDetails(email, username);
       // user = email;
       return 'Success';
     } on FirebaseAuthException catch (e) {
@@ -28,6 +31,13 @@ class AuthServices {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  Future addUserDetails(String email, String username) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'username': username,
+      'email': email,
+    });
   }
 
   Future<String?> login({

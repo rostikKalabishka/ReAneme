@@ -28,6 +28,13 @@ class AuthWidget extends StatefulWidget {
 class _AuthWidgetState extends State<AuthWidget> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _usernameController = TextEditingController();
+
+  bool passwordConfirmed() {
+    return _passwordController.text.trim() ==
+        _confirmPasswordController.text.trim();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +61,14 @@ class _AuthWidgetState extends State<AuthWidget> {
                 )),
           ),
           const SizedBox(height: 30),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
                 height: 60,
                 child: TextFormFiledWidget(
+                  controller: _usernameController,
                   hintText: 'Username',
                   obscureText: false,
                 )),
@@ -79,13 +87,14 @@ class _AuthWidgetState extends State<AuthWidget> {
                 )),
           ),
           const SizedBox(height: 30),
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(
               height: 60,
               child: TextFormFiledWidget(
+                controller: _confirmPasswordController,
                 hintText: 'Confirm password',
                 obscureText: true,
               ),
@@ -114,9 +123,13 @@ class _AuthWidgetState extends State<AuthWidget> {
                 width: 150,
                 child: ElevatedButton(
                   onPressed: () async {
-                    var email = _emailController.text;
-                    var password = _passwordController.text;
-                    await model.registration(context, email, password);
+                    var email = _emailController.text.trim();
+                    var password = _passwordController.text.trim();
+                    var username = _usernameController.text.trim();
+                    if (passwordConfirmed()) {
+                      await model.registration(
+                          context, email, password, username);
+                    }
 
                     print(email);
                     print(password);

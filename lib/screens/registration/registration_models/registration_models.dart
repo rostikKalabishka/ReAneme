@@ -9,11 +9,11 @@ class RegistrationModels extends ChangeNotifier {
 
   final _authServices = AuthServices();
 
-  Future<String?> registration(
-      BuildContext context, String email, String password) async {
+  Future<String?> registration(BuildContext context, String email,
+      String password, String username) async {
     if (email.isNotEmpty && password.isNotEmpty) {
       final message = await _authServices.registration(
-          email: email.trim(), password: password.trim());
+          email: email.trim(), password: password.trim(), username: username);
 
       if (message!.contains('Success')) {
         Navigator.of(context).pushNamedAndRemoveUntil(

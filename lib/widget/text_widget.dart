@@ -6,8 +6,10 @@ class TextWidget extends StatelessWidget {
   final Color? color;
   final FontWeight? fontWeight;
   final int? maxLines;
+  final TextAlign? textAlign;
   const TextWidget(
       {super.key,
+      this.textAlign,
       this.maxLines,
       this.color,
       required this.label,
@@ -17,6 +19,7 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
+      textAlign: textAlign,
       label,
       maxLines: maxLines,
       style: TextStyle(

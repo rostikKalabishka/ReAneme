@@ -44,38 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDqMm_Wlche_aHT6NNhfu2AiqKOMYR0TKM',
-    appId: '1:580311443434:web:da019674d28b93d0f87493',
-    messagingSenderId: '580311443434',
-    projectId: 'reanime-47292',
-    authDomain: 'reanime-47292.firebaseapp.com',
-    storageBucket: 'reanime-47292.appspot.com',
-    measurementId: 'G-HD3Q3G632C',
+    apiKey: 'AIzaSyBLfdwCvy25yvwt2BTI5_xDwQXolsjH2es',
+    appId: '1:215414974777:web:2097daf963d5d4dfce60e8',
+    messagingSenderId: '215414974777',
+    projectId: 'reanime2-7a26b',
+    authDomain: 'reanime2-7a26b.firebaseapp.com',
+    storageBucket: 'reanime2-7a26b.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCMoLdzcTo7xgLfBKnSJ1b7Mfo5w2axPF0',
-    appId: '1:580311443434:android:4b558265cfca52e4f87493',
-    messagingSenderId: '580311443434',
-    projectId: 'reanime-47292',
-    storageBucket: 'reanime-47292.appspot.com',
+    apiKey: 'AIzaSyCY_2MpiLNlgAGKWNVC68zop59mVoBEguU',
+    appId: '1:215414974777:android:affb9e0785f0b576ce60e8',
+    messagingSenderId: '215414974777',
+    projectId: 'reanime2-7a26b',
+    storageBucket: 'reanime2-7a26b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCHwilobMuGnooD6s6Rbz4_sdElUvawtg8',
-    appId: '1:580311443434:ios:99f92e93dacbeeebf87493',
-    messagingSenderId: '580311443434',
-    projectId: 'reanime-47292',
-    storageBucket: 'reanime-47292.appspot.com',
+    apiKey: 'AIzaSyANyZrnGPdPlUC3OUG6Usyh9y_4aciqspY',
+    appId: '1:215414974777:ios:f7099a6d115c558fce60e8',
+    messagingSenderId: '215414974777',
+    projectId: 'reanime2-7a26b',
+    storageBucket: 'reanime2-7a26b.appspot.com',
     iosBundleId: 'com.example.reAnime',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCHwilobMuGnooD6s6Rbz4_sdElUvawtg8',
-    appId: '1:580311443434:ios:0b5c80d7d47359c4f87493',
-    messagingSenderId: '580311443434',
-    projectId: 'reanime-47292',
-    storageBucket: 'reanime-47292.appspot.com',
+    apiKey: 'AIzaSyANyZrnGPdPlUC3OUG6Usyh9y_4aciqspY',
+    appId: '1:215414974777:ios:83970b97a1421a76ce60e8',
+    messagingSenderId: '215414974777',
+    projectId: 'reanime2-7a26b',
+    storageBucket: 'reanime2-7a26b.appspot.com',
     iosBundleId: 'com.example.reAnime.RunnerTests',
   );
 }

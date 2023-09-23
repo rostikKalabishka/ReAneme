@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "580311443434",
-    "project_id": "reanime-47292",
-    "storage_bucket": "reanime-47292.appspot.com"
+    "project_number": "215414974777",
+    "project_id": "reanime2-7a26b",
+    "storage_bucket": "reanime2-7a26b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:580311443434:android:4b558265cfca52e4f87493",
+        "mobilesdk_app_id": "1:215414974777:android:affb9e0785f0b576ce60e8",
         "android_client_info": {
           "package_name": "com.example.re_anime"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCMoLdzcTo7xgLfBKnSJ1b7Mfo5w2axPF0"
+          "current_key": "AIzaSyCY_2MpiLNlgAGKWNVC68zop59mVoBEguU"
         }
       ],
       "services": {

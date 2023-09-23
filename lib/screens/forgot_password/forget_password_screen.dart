@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:re_anime/widget/text_widget.dart';
 
 import '../../widget/text_form_field_widget.dart';
 import 'model/forget_password_model.dart';
@@ -38,7 +39,22 @@ class AuthWidget extends StatelessWidget {
         children: [
           const RowLogo(),
           const SizedBox(
-            height: 40,
+            height: 20,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 15,
+            ),
+            child: TextWidget(
+                fontWeight: FontWeight.normal,
+                textAlign: TextAlign.center,
+                fontSize: 21,
+                maxLines: 2,
+                label:
+                    'Enter your email and we will send you a password reset link'),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
