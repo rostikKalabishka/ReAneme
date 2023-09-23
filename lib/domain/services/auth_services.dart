@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthServices {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -51,6 +52,10 @@ class AuthServices {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  Future passwordReset(BuildContext context, {required String email}) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email.trim());
   }
 
   Future<void> singOut() async {

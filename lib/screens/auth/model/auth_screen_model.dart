@@ -7,8 +7,12 @@ import '../../../router/router.dart';
 class AuthScreenModel extends ChangeNotifier {
   final _authServices = AuthServices();
 
-  void NavigatorToMainScreen(BuildContext context) {
+  void navigatorToMainScreen(BuildContext context) {
     Navigator.of(context).pushNamed(MainNavigationRouteName.registrationScreen);
+  }
+
+  void navigatorToForgetPassword(BuildContext context) {
+    Navigator.of(context).pushNamed(MainNavigationRouteName.forgetPassword);
   }
 
   Future<String?> login(
