@@ -31,7 +31,9 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
+      synopsis: json['synopsis'] as String?,
       titles: Titles.fromJson(json['titles'] as Map<String, dynamic>),
+      averageRating: json['averageRating'] as String?,
       subtype: json['subtype'] as String,
       posterImage: json['posterImage'] == null
           ? null
@@ -40,7 +42,9 @@ Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
 
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
     <String, dynamic>{
+      'synopsis': instance.synopsis,
       'titles': instance.titles,
+      'averageRating': instance.averageRating,
       'subtype': instance.subtype,
       'posterImage': instance.posterImage,
     };

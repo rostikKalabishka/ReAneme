@@ -96,6 +96,7 @@ class _UserNameWidgetState extends State<UserNameWidget> {
   @override
   Widget build(BuildContext context) {
     // final model = context.read<ProfileModel>();
+    // FirebaseFirestore.instance.collection('users').get().
     final user = FirebaseAuth.instance.currentUser;
 
     return Center(
@@ -194,13 +195,13 @@ class YourFavoriteWidget extends StatelessWidget {
             children: [
               Image.asset(
                 anime.imageSmall,
-                height: 150, // Высота изображения
-                width: 150, // Ширина изображения
-                fit: BoxFit.cover, // Масштабирование изображения
+                height: 150,
+                width: 150,
+                fit: BoxFit.cover,
               ),
               Text(
                 anime.name,
-                style: TextStyle(fontSize: 16), // Размер шрифта
+                style: const TextStyle(fontSize: 16),
               ),
             ],
           );

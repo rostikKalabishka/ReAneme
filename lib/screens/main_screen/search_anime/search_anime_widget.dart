@@ -101,6 +101,8 @@ class _AnimeListState extends State<AnimeList> {
             if (tiny == null) return const SizedBox.shrink();
             final titleEnJp = animeList.attributes.titles.enJp;
             final titleEn = animeList.attributes.titles.en;
+            final assessment = animeList.attributes.averageRating;
+            final synopsis = animeList.attributes.synopsis;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
@@ -131,9 +133,31 @@ class _AnimeListState extends State<AnimeList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
+                              label: '$assessment %' ?? 'none',
+                              fontSize: 16,
+                              maxLines: 1,
+                              color: (assessment != null)
+                                  ? (double.parse(assessment) > 70
+                                      ? Colors.green
+                                      : (double.parse(assessment) <= 50
+                                          ? Colors.red
+                                          : Colors.yellow))
+                                  : Colors.black,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            TextWidget(
                               label: titleEnJp ?? titleEn ?? ' ',
                               fontSize: 16,
                               maxLines: 1,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextWidget(
+                              label: synopsis ?? 'no synopsis',
+                              fontSize: 14,
+                              maxLines: 5,
                               fontWeight: FontWeight.normal,
                             )
                           ],

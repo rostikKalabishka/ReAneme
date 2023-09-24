@@ -50,12 +50,12 @@ class Attributes {
   // final String createdAt;
   // final String updatedAt;
   // final String slug;
-  // final String synopsis;
+  final String? synopsis;
   // final int coverImageTopOffset;
   final Titles titles;
   // final String canonicalTitle;
   // final List<String> abbreviatedTitles;
-  // final String averageRating;
+  final String? averageRating;
   // final RatingFrequencies ratingFrequencies;
   // final int userCount;
   // final int favoritesCount;
@@ -79,12 +79,12 @@ class Attributes {
     // required this.createdAt,
     // required this.updatedAt,
     // required this.slug,
-    // required this.synopsis,
+    required this.synopsis,
     // required this.coverImageTopOffset,
     required this.titles,
     // required this.canonicalTitle,
     // required this.abbreviatedTitles,
-    // required this.averageRating,
+    required this.averageRating,
     // required this.ratingFrequencies,
     // required this.userCount,
     // required this.favoritesCount,
