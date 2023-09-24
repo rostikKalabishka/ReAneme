@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../entity/anime/anime_entity.dart';
+import '../entity/anime_details/anime_details_entity.dart';
 import '../entity/tranding_anime/tranding_anime_entity.dart';
 
 class AllUrl {
@@ -120,19 +121,19 @@ class AnimeApi {
     }
   }
 
-  Future<Data> getAnimeDetails(int offset) async {
-    final finalUrl = '${AllUrl.baseUrl}/anime';
+  Future<AnimeDetailsEntity> getAnimeDetails(String animeId) async {
+    final finalUrl = '${AllUrl.baseUrl}/anime/$animeId';
     try {
       final response = await dio.get(
         finalUrl,
-        queryParameters: {'page[offset]': offset.toString()},
+        // queryParameters: {'page[offset]': offset.toString()},
       );
 
       if (response.statusCode == 200) {
         final json = response.data;
 
-        if (json != null && json is Map<String, dynamic>) {
-          final apiResponse = Data.fromJson(json);
+        if (json != null) {
+          final apiResponse = AnimeDetailsEntity.fromJson(json);
           log('$apiResponse');
           return apiResponse;
         } else {
