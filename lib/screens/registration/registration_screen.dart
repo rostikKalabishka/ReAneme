@@ -62,7 +62,7 @@ class _AuthWidgetState extends State<AuthWidget> {
           ),
           const SizedBox(height: 30),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
             ),
             child: SizedBox(

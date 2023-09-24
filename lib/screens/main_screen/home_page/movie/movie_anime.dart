@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../widget/text_widget.dart';
-import 'model/anime_tv_model.dart';
+import 'movie_anime_model/movie_anime_model.dart';
 
-class AnimeTVWidget extends StatefulWidget {
-  const AnimeTVWidget({Key? key}) : super(key: key);
+class AnimeMovieWidget extends StatefulWidget {
+  const AnimeMovieWidget({Key? key}) : super(key: key);
 
   @override
-  State<AnimeTVWidget> createState() => _AnimeTVWidgetState();
+  State<AnimeMovieWidget> createState() => _AnimeMovieWidgetState();
 }
 
-class _AnimeTVWidgetState extends State<AnimeTVWidget> {
+class _AnimeMovieWidgetState extends State<AnimeMovieWidget> {
   @override
   void initState() {
-    final model = context.read<AnimeTVModel>();
+    final model = context.read<AnimeMovieModel>();
     model.setup();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AnimeTVModel>();
+    final model = context.watch<AnimeMovieModel>();
     final popularAnimeList = model.animeMovieList;
     return SizedBox(
       height: 310, // Set a fixed height for the Container

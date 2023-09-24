@@ -133,7 +133,7 @@ class _AnimeListState extends State<AnimeList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                              label: '$assessment %' ?? 'none',
+                              label: '$assessment %',
                               fontSize: 16,
                               maxLines: 1,
                               color: (assessment != null)

@@ -7,14 +7,17 @@ import 'anime_tv/anime_tv_widget.dart';
 import 'anime_tv/model/anime_tv_model.dart';
 import 'coming_son_anime/coming_soon_anime_widget.dart';
 import 'coming_son_anime/models/coming_soon_anime_model.dart';
+import 'movie/movie_anime.dart';
+import 'movie/movie_anime_model/movie_anime_model.dart';
 
 class HomePageWidget extends StatelessWidget {
   const HomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final animeMovieModel = AnimeMovieModel();
+    final animeTVModel = AnimeTVModel();
     final comingSoonAnimeModel = ComingSoonAnimeModel();
+    final animeMovieModel = AnimeMovieModel();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
@@ -22,8 +25,12 @@ class HomePageWidget extends StatelessWidget {
           child: const ComingSoonAnimeWidget(),
         ),
         ChangeNotifierProvider.value(
-          value: animeMovieModel,
+          value: animeTVModel,
           child: const AnimeTVWidget(),
+        ),
+        ChangeNotifierProvider.value(
+          value: animeMovieModel,
+          child: const AnimeMovieWidget(),
         )
       ],
       child: CustomScrollView(
@@ -91,7 +98,7 @@ class HomePageWidget extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: PopularAnime(),
+              child: AnimeMovieWidget(),
             ),
           ),
 

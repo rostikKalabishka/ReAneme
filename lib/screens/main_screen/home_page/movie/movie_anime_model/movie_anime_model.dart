@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../../domain/anime_api/anime_api.dart';
 import '../../../../../domain/entity/anime/anime_entity.dart';
 
-class AnimeTVModel extends ChangeNotifier {
+class AnimeMovieModel extends ChangeNotifier {
   final int limit = 20;
   final AnimeApi _animeApi = AnimeApi();
   AnimeEntity? _anime;
@@ -13,15 +13,16 @@ class AnimeTVModel extends ChangeNotifier {
   get animeMovieList => _animeMovieList;
 
   Future<void> setup() async {
-    await _loadTrendingAnime();
+    await _loadMovieAnime();
   }
 
-  Future<void> _loadTrendingAnime() async {
+  Future<void> _loadMovieAnime() async {
     final animeResponse = await _animeApi.getAnimeType(limit);
     final animeData = animeResponse.data;
     _anime = animeResponse;
 
-    final items = animeData.where((e) => e.attributes.subtype == 'TV').toList();
+    final items =
+        animeData.where((e) => e.attributes.subtype == 'movie').toList();
 
     _animeMovieList.addAll(items);
 
