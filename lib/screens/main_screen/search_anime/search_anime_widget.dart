@@ -105,65 +105,68 @@ class _AnimeListState extends State<AnimeList> {
             final synopsis = animeList.attributes.synopsis;
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ClipRRect(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            tiny,
-                            errorBuilder: (BuildContext context, Object error,
-                                StackTrace? stackTrace) {
-                              return const Text('Image not found');
-                            },
-                          )),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextWidget(
-                              label: '$assessment %',
-                              fontSize: 16,
-                              maxLines: 1,
-                              color: (assessment != null)
-                                  ? (double.parse(assessment) > 70
-                                      ? Colors.green
-                                      : (double.parse(assessment) <= 50
-                                          ? Colors.red
-                                          : Colors.yellow))
-                                  : Colors.black,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            TextWidget(
-                              label: titleEnJp ?? titleEn ?? ' ',
-                              fontSize: 16,
-                              maxLines: 1,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextWidget(
-                              label: synopsis ?? 'no synopsis',
-                              fontSize: 14,
-                              maxLines: 5,
-                              fontWeight: FontWeight.normal,
-                            )
-                          ],
+              child: GestureDetector(
+                onTap: () => model.onAnimeTap(context, index),
+                child: ClipRRect(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              tiny,
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return const Text('Image not found');
+                              },
+                            )),
+                        const SizedBox(
+                          width: 10,
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextWidget(
+                                label: '$assessment %',
+                                fontSize: 16,
+                                maxLines: 1,
+                                color: (assessment != null)
+                                    ? (double.parse(assessment) > 70
+                                        ? Colors.green
+                                        : (double.parse(assessment) <= 50
+                                            ? Colors.red
+                                            : Colors.yellow))
+                                    : Colors.black,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              TextWidget(
+                                label: titleEnJp ?? titleEn ?? ' ',
+                                fontSize: 16,
+                                maxLines: 1,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextWidget(
+                                label: synopsis ?? 'no synopsis',
+                                fontSize: 14,
+                                maxLines: 5,
+                                fontWeight: FontWeight.normal,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

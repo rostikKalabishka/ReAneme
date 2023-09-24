@@ -3,7 +3,7 @@ part 'tranding_anime_entity.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class TrendingAnimeEntity {
-  final List<Data> data;
+  final List<DataTrending> data;
   TrendingAnimeEntity({
     required this.data,
   });
@@ -13,21 +13,22 @@ class TrendingAnimeEntity {
 }
 
 @JsonSerializable()
-class Data {
+class DataTrending {
   // final String id;
   // final String type;
   // final Links links;
-  final Attributes attributes;
+  final AttributesTrending attributes;
   // final Relationships relationships;
-  Data({
+  DataTrending({
     // required this.id,
     // required this.type,
     // required this.links,
     required this.attributes,
     // required this.relationships,
   });
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
-  Map<String, dynamic> toJson() => _$DataToJson(this);
+  factory DataTrending.fromJson(Map<String, dynamic> json) =>
+      _$DataTrendingFromJson(json);
+  Map<String, dynamic> toJson() => _$DataTrendingToJson(this);
 }
 
 // @JsonSerializable()
@@ -41,7 +42,7 @@ class Data {
 // }
 
 @JsonSerializable()
-class Attributes {
+class AttributesTrending {
   // final String createdAt;
   // final String updatedAt;
   // final String slug;
@@ -70,7 +71,7 @@ class Attributes {
   // final String youtubeVideoId;
   // final String showType;
   // final bool nsfw;
-  Attributes({
+  AttributesTrending({
     // required this.createdAt,
     // required this.updatedAt,
     // required this.slug,
@@ -100,9 +101,9 @@ class Attributes {
     // required this.showType,
     // required this.nsfw,
   });
-  factory Attributes.fromJson(Map<String, dynamic> json) =>
-      _$AttributesFromJson(json);
-  Map<String, dynamic> toJson() => _$AttributesToJson(this);
+  factory AttributesTrending.fromJson(Map<String, dynamic> json) =>
+      _$AttributesTrendingFromJson(json);
+  Map<String, dynamic> toJson() => _$AttributesTrendingToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

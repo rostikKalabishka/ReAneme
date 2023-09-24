@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../entity/anime/anime_entity.dart';
@@ -118,6 +120,36 @@ class AnimeApi {
     }
   }
 
+  Future<Data> getAnimeDetails(int offset) async {
+    final finalUrl = '${AllUrl.baseUrl}/anime';
+    try {
+      final response = await dio.get(
+        finalUrl,
+        queryParameters: {'page[offset]': offset.toString()},
+      );
+
+      if (response.statusCode == 200) {
+        final json = response.data;
+
+        if (json != null && json is Map<String, dynamic>) {
+          final apiResponse = Data.fromJson(json);
+          log('$apiResponse');
+          return apiResponse;
+        } else {
+          log('Error: Invalid JSON data');
+          throw Exception('Incorrect JSON data');
+        }
+      } else {
+        log('Error: ${response.statusCode}');
+        throw Exception(
+            'HTTP request failed with status ${response.statusCode}');
+      }
+    } catch (e) {
+      log('There was an error: $e');
+      throw Exception(e);
+    }
+  }
+
   Future<TrendingAnimeEntity> getTrendingAnime() async {
     try {
       final response = await dio.get(
@@ -135,16 +167,16 @@ class AnimeApi {
           final apiResponse = TrendingAnimeEntity.fromJson(json);
           return apiResponse;
         } else {
-          print('Error: Invalid JSON data');
+          log('Error: Invalid JSON data');
           throw Exception('Incorrect JSON data');
         }
       } else {
-        print('Error: ${response.statusCode}');
+        log('Error: ${response.statusCode}');
         throw Exception(
             'HTTP request failed with status ${response.statusCode}');
       }
     } catch (e) {
-      print('There was an error: $e');
+      log('There was an error: $e');
       throw e;
     }
   }

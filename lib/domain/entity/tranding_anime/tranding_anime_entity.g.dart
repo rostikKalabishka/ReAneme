@@ -9,7 +9,7 @@ part of 'tranding_anime_entity.dart';
 TrendingAnimeEntity _$TrendingAnimeEntityFromJson(Map<String, dynamic> json) =>
     TrendingAnimeEntity(
       data: (json['data'] as List<dynamic>)
-          .map((e) => Data.fromJson(e as Map<String, dynamic>))
+          .map((e) => DataTrending.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -19,22 +19,24 @@ Map<String, dynamic> _$TrendingAnimeEntityToJson(
       'data': instance.data.map((e) => e.toJson()).toList(),
     };
 
-Data _$DataFromJson(Map<String, dynamic> json) => Data(
-      attributes:
-          Attributes.fromJson(json['attributes'] as Map<String, dynamic>),
+DataTrending _$DataTrendingFromJson(Map<String, dynamic> json) => DataTrending(
+      attributes: AttributesTrending.fromJson(
+          json['attributes'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+Map<String, dynamic> _$DataTrendingToJson(DataTrending instance) =>
+    <String, dynamic>{
       'attributes': instance.attributes,
     };
 
-Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
+AttributesTrending _$AttributesTrendingFromJson(Map<String, dynamic> json) =>
+    AttributesTrending(
       titles: Titles.fromJson(json['titles'] as Map<String, dynamic>),
       posterImage:
           PosterImage.fromJson(json['posterImage'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
+Map<String, dynamic> _$AttributesTrendingToJson(AttributesTrending instance) =>
     <String, dynamic>{
       'titles': instance.titles,
       'posterImage': instance.posterImage,

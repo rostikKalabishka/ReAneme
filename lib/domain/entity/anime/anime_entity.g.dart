@@ -10,31 +10,35 @@ AnimeEntity _$AnimeEntityFromJson(Map<String, dynamic> json) => AnimeEntity(
       data: (json['data'] as List<dynamic>)
           .map((e) => Data.fromJson(e as Map<String, dynamic>))
           .toList(),
-      meta: MetaCount.fromJson(json['meta'] as Map<String, dynamic>),
+      meta: json['meta'] == null
+          ? null
+          : MetaCount.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnimeEntityToJson(AnimeEntity instance) =>
     <String, dynamic>{
       'data': instance.data.map((e) => e.toJson()).toList(),
-      'meta': instance.meta.toJson(),
+      'meta': instance.meta?.toJson(),
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
-      type: json['type'] as String,
+      id: json['id'] as String?,
+      type: json['type'] as String?,
       attributes:
           Attributes.fromJson(json['attributes'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+      'id': instance.id,
       'type': instance.type,
-      'attributes': instance.attributes,
+      'attributes': instance.attributes.toJson(),
     };
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
       synopsis: json['synopsis'] as String?,
       titles: Titles.fromJson(json['titles'] as Map<String, dynamic>),
       averageRating: json['averageRating'] as String?,
-      subtype: json['subtype'] as String,
+      subtype: json['subtype'] as String?,
       posterImage: json['posterImage'] == null
           ? null
           : PosterImage.fromJson(json['posterImage'] as Map<String, dynamic>),

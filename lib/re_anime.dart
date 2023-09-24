@@ -24,6 +24,7 @@ class ReAnime extends StatelessWidget {
             create: (_) => MainScreenModel(), child: const MainScreen())
       ],
       child: MaterialApp(
+        onGenerateRoute: mainNavigation.onGenerateRoute,
         // initialRoute: MainNavigationRouteName.auth,
         routes: mainNavigation.routes,
         debugShowCheckedModeBanner: false,

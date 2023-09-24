@@ -5,7 +5,7 @@ part 'anime_entity.g.dart';
 @JsonSerializable(explicitToJson: true)
 class AnimeEntity {
   final List<Data> data;
-  final MetaCount meta;
+  final MetaCount? meta;
   // final Links links;
   AnimeEntity({
     required this.data,
@@ -17,15 +17,15 @@ class AnimeEntity {
   Map<String, dynamic> toJson() => _$AnimeEntityToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Data {
-  // final String id;
-  final String type;
+  final String? id;
+  final String? type;
   // final Links links;
   final Attributes attributes;
   // final Relationships relationships;
   Data({
-    // required this.id,
+    required this.id,
     required this.type,
     // required this.links,
     required this.attributes,
@@ -65,7 +65,7 @@ class Attributes {
   // final int ratingRank;
   // final String ageRating;
   // final String ageRatingGuide;
-  final String subtype;
+  final String? subtype;
   // final String status;
   // final String tba;
   final PosterImage? posterImage;
@@ -478,7 +478,7 @@ class Tiny {
 // }
 @JsonSerializable()
 class MetaCount {
-  late final int count;
+  final int count;
   MetaCount({
     required this.count,
   });

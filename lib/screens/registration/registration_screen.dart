@@ -130,9 +130,6 @@ class _AuthWidgetState extends State<AuthWidget> {
                       await model.registration(
                           context, email, password, username);
                     }
-
-                    print(email);
-                    print(password);
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,

@@ -7,6 +7,8 @@ import '../screens/auth/auth_screen.dart';
 import '../screens/auth/model/auth_screen_model.dart';
 
 import '../screens/forgot_password/forget_password_screen.dart';
+import '../screens/main_screen/anime_details/anime_details.dart';
+import '../screens/main_screen/anime_details/anime_details_model/anime_details_model.dart';
 import '../screens/main_screen/more_info/model_more_info/more_info_model.dart';
 import '../screens/registration/registration_models/registration_models.dart';
 import '../screens/main_screen/main_screen.dart';
@@ -19,6 +21,7 @@ abstract class MainNavigationRouteName {
   static const forgetPassword = 'auth/forget_password';
   static const registrationScreen = 'registration';
   static const signUp = 'sign_up';
+  static const animeDetails = 'main_screen/anime_details';
   // static const account = 'account';
   static const moreInfo = 'main_screen/more_info';
 }
@@ -39,4 +42,22 @@ class MainNavigation {
     MainNavigationRouteName.forgetPassword: (context) =>
         const ForgetPasswordScreen(),
   };
+
+// AnimeDetails
+  Route<Object> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case MainNavigationRouteName.animeDetails:
+        final argument = settings.arguments;
+        final animeId = argument is String ? argument : '0';
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => AnimeDetailsModel(animeId),
+            child: const AnimeDetails(),
+          ),
+        );
+      default:
+        const widget = Text('Navigator error');
+        return MaterialPageRoute(builder: (context) => widget);
+    }
+  }
 }

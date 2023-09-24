@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:re_anime/domain/anime_api/anime_api.dart';
 
 import '../../../../domain/entity/anime/anime_entity.dart';
+import '../../../../router/router.dart';
 
 class SearchModel extends ChangeNotifier {
   final _animeApi = AnimeApi();
@@ -60,6 +61,12 @@ class SearchModel extends ChangeNotifier {
     });
   }
 
+  void onAnimeTap(BuildContext context, int index) {
+    final id = _animeList[index].id;
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteName.animeDetails, arguments: id);
+  }
+
   Future<void> loadAnime(int offset) async {
     final query = _searchQuery;
 
@@ -67,7 +74,6 @@ class SearchModel extends ChangeNotifier {
       final newItems = await _animeApi.getAnime(limit, offset);
       _animeList.addAll(newItems.data);
     } else {
-      print('fetch');
       final searchAnime =
           await _animeApi.searchAnime(query.trim(), limit, offset);
       // offset = 0;
