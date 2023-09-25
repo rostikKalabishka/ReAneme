@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'anime_details_entity.g.dart';
@@ -47,7 +45,7 @@ class Attributes {
   // final String updatedAt;
   // final String slug;
   // final String synopsis;
-  // final String description;
+  final String description;
   // final int coverImageTopOffset;
   final Titles titles;
   // final String canonicalTitle;
@@ -56,7 +54,7 @@ class Attributes {
   // final RatingFrequencies ratingFrequencies;
   // final int userCount;
   // final int favoritesCount;
-  // final String startDate;
+  final String? startDate;
   // final String endDate;
   // final NextRelease nextRelease;
   // final int popularityRank;
@@ -67,7 +65,7 @@ class Attributes {
   // final String status;
   // final Tba tba;
   // final PosterImage posterImage;
-  // final CoverImage coverImage;
+  final CoverImage? coverImage;
   // final int episodeCount;
   // final int episodeLength;
   // final int totalLength;
@@ -79,7 +77,7 @@ class Attributes {
     // required this.updatedAt,
     // required this.slug,
     // required this.synopsis,
-    // required this.description,
+    required this.description,
     // required this.coverImageTopOffset,
     required this.titles,
     // required this.canonicalTitle,
@@ -88,7 +86,7 @@ class Attributes {
     // required this.ratingFrequencies,
     // required this.userCount,
     // required this.favoritesCount,
-    // required this.startDate,
+    required this.startDate,
     // required this.endDate,
     // required this.nextRelease,
     // required this.popularityRank,
@@ -99,7 +97,7 @@ class Attributes {
     // required this.status,
     // required this.tba,
     // required this.posterImage,
-    // required this.coverImage,
+    required this.coverImage,
     // required this.episodeCount,
     // required this.episodeLength,
     // required this.totalLength,
@@ -174,120 +172,136 @@ class Titles {
 // class NextRelease {}
 
 // class Tba {}
-
+// @JsonSerializable()
 // class PosterImage {
-//   final String tiny;
-//   final String large;
-//   final String small;
-//   final String medium;
-//   final String original;
+//   final String? tiny;
+//   final String? large;
+//   final String? small;
+//   final String? medium;
+//   // final String? original;
 //   final Meta meta;
 //   PosterImage({
 //     required this.tiny,
 //     required this.large,
 //     required this.small,
 //     required this.medium,
-//     required this.original,
+//     // required this.original,
 //     required this.meta,
 //   });
-
+//   factory PosterImage.fromJson(Map<String, dynamic> json) =>
+//       _$PosterImageFromJson(json);
+//   Map<String, dynamic> toJson() => _$PosterImageToJson(this);
 // }
 
-// class Meta {
-//   final Dimensions dimensions;
-//   Meta({
-//     required this.dimensions,
-//   });
+@JsonSerializable()
+class Meta {
+  final DimensionsCoverImage dimensions;
+  Meta({
+    required this.dimensions,
+  });
 
-  
-// }
+  factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
+  Map<String, dynamic> toJson() => _$MetaToJson(this);
+}
 
-// class Dimensions {
-//   final Tiny tiny;
-//   final Large large;
-//   final Small small;
-//   final Medium medium;
-//   Dimensions({
-//     required this.tiny,
-//     required this.large,
-//     required this.small,
-//     required this.medium,
-//   });
+@JsonSerializable()
+class Dimensions {
+  final Tiny? tiny;
+  final Large? large;
+  final Small? small;
+  final Medium? medium;
+  Dimensions({
+    required this.tiny,
+    required this.large,
+    required this.small,
+    required this.medium,
+  });
+  factory Dimensions.fromJson(Map<String, dynamic> json) =>
+      _$DimensionsFromJson(json);
+  Map<String, dynamic> toJson() => _$DimensionsToJson(this);
+}
 
-  
-// }
+@JsonSerializable()
+class Tiny {
+  final int? width;
+  final int? height;
+  Tiny({
+    required this.width,
+    required this.height,
+  });
+  factory Tiny.fromJson(Map<String, dynamic> json) => _$TinyFromJson(json);
+  Map<String, dynamic> toJson() => _$TinyToJson(this);
+}
 
-// class Tiny {
-//   final int width;
-//   final int height;
-//   Tiny({
-//     required this.width,
-//     required this.height,
-//   });
+@JsonSerializable()
+class Large {
+  final int? width;
+  final int? height;
+  Large({
+    required this.width,
+    required this.height,
+  });
+  factory Large.fromJson(Map<String, dynamic> json) => _$LargeFromJson(json);
+  Map<String, dynamic> toJson() => _$LargeToJson(this);
+}
 
-// }
+@JsonSerializable()
+class Small {
+  final int? width;
+  final int? height;
+  Small({
+    required this.width,
+    required this.height,
+  });
+  factory Small.fromJson(Map<String, dynamic> json) => _$SmallFromJson(json);
+  Map<String, dynamic> toJson() => _$SmallToJson(this);
+}
 
-// class Large {
-//   final int width;
-//   final int height;
-//   Large({
-//     required this.width,
-//     required this.height,
-//   });
+@JsonSerializable()
+class Medium {
+  final int? width;
+  final int? height;
+  Medium({
+    required this.width,
+    required this.height,
+  });
+  factory Medium.fromJson(Map<String, dynamic> json) => _$MediumFromJson(json);
+  Map<String, dynamic> toJson() => _$MediumToJson(this);
+}
 
-// }
+@JsonSerializable()
+class CoverImage {
+  final String? tiny;
+  final String? large;
+  final String? small;
+  // final String? original;
+  final Meta? meta;
+  CoverImage({
+    required this.tiny,
+    required this.large,
+    required this.small,
+    // required this.original,
+    required this.meta,
+  });
+  factory CoverImage.fromJson(Map<String, dynamic> json) =>
+      _$CoverImageFromJson(json);
+  Map<String, dynamic> toJson() => _$CoverImageToJson(this);
+}
 
-// class Small {
-//   final int width;
-//   final int height;
-//   Small({
-//     required this.width,
-//     required this.height,
-//   });
-
- 
-// }
-
-// class Medium {
-//   final int width;
-//   final int height;
-//   Medium({
-//     required this.width,
-//     required this.height,
-//   });
-
-  
-// }
-
-// class CoverImage {
-//   final String tiny;
-//   final String large;
-//   final String small;
-//   final String original;
-//   final Meta meta;
-//   CoverImage({
-//     required this.tiny,
-//     required this.large,
-//     required this.small,
-//     required this.original,
-//     required this.meta,
-//   });
-
-  
-// }
-
-// class Dimensions {
-//   final Tiny tiny;
-//   final Large large;
-//   final Small small;
-//   Dimensions({
-//     required this.tiny,
-//     required this.large,
-//     required this.small,
-//   });
-
-  
-// }
+@JsonSerializable()
+class DimensionsCoverImage {
+  final Tiny tiny;
+  final Large large;
+  final Small small;
+  DimensionsCoverImage({
+    required this.tiny,
+    required this.large,
+    required this.small,
+  });
+  factory DimensionsCoverImage.fromJson(Map<String, dynamic> json) =>
+      _$DimensionsCoverImageFromJson(json);
+  Map<String, dynamic> toJson() => _$DimensionsCoverImageToJson(this);
+}
 
 // class Relationships {
 //   final Genres genres;

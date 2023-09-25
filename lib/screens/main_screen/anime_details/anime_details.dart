@@ -20,8 +20,25 @@ class _AnimeDetailsState extends State<AnimeDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<AnimeDetailsModel>();
+    final titlesEn = model.animeEntity?.data.attributes.titles.en;
+    final titlesEnJp = model.animeEntity?.data.attributes.titles.enJp;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: titlesEn != null
+            ? Text(
+                titlesEn,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )
+            : titlesEnJp != null
+                ? Text(
+                    titlesEnJp,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                : const Text('Loading...'),
+      ),
       body: const SafeArea(child: Details()),
     );
   }
@@ -50,12 +67,50 @@ class _DetailsState extends State<Details> {
       );
     }
     final title = model.animeEntity?.data.attributes.titles.en;
-    return ListView(
-      children: [
-        Center(
-          child: title != null ? Text('${title}') : const SizedBox.shrink(),
-        )
-      ],
+    final tiny = model.animeEntity?.data.attributes.coverImage?.tiny;
+    final small = model.animeEntity?.data.attributes.coverImage?.small;
+
+    final description = model.animeEntity?.data.attributes.description;
+
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.6,
+            child: tiny != null
+                ? Image.network(
+                    tiny,
+                    fit: BoxFit.cover,
+                  )
+                : small != null
+                    ? Image.network(
+                        small,
+                        fit: BoxFit.cover,
+                      )
+                    : const SizedBox.shrink(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: title != null
+                ? Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
+          const Text('Description'),
+          description != null
+              ? Text(
+                  description,
+                  maxLines: 12,
+                  overflow: TextOverflow.ellipsis,
+                )
+              : const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 }
