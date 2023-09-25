@@ -20,8 +20,9 @@ class _AnimeDetailsState extends State<AnimeDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: Details()),
+    return Scaffold(
+      appBar: AppBar(),
+      body: const SafeArea(child: Details()),
     );
   }
 }

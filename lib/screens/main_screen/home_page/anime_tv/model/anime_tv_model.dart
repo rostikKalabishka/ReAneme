@@ -7,23 +7,15 @@ class AnimeTVModel extends ChangeNotifier {
   final int limit = 20;
   final AnimeApi _animeApi = AnimeApi();
   AnimeEntity? _anime;
-  final _animeMovieList = [];
 
   AnimeEntity? get anime => _anime;
-  get animeMovieList => _animeMovieList;
 
   Future<void> setup() async {
     await _loadTrendingAnime();
   }
 
   Future<void> _loadTrendingAnime() async {
-    final animeResponse = await _animeApi.getAnimeType(limit);
-    final animeData = animeResponse.data;
-    _anime = animeResponse;
-
-    final items = animeData.where((e) => e.attributes.subtype == 'TV').toList();
-
-    _animeMovieList.addAll(items);
+    _anime = await _animeApi.getAnimeType(limit, 'TV');
 
     notifyListeners();
   }

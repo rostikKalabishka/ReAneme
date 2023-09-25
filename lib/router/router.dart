@@ -50,8 +50,8 @@ class MainNavigation {
         final argument = settings.arguments;
         final animeId = argument is String ? argument : '0';
         return MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => AnimeDetailsModel(animeId),
+          builder: (context) => ChangeNotifierProvider.value(
+            value: AnimeDetailsModel(animeId),
             child: const AnimeDetails(),
           ),
         );

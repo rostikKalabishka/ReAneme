@@ -15,15 +15,14 @@ class AllUrl {
 class AnimeApi {
   final Dio dio = Dio();
 
-  Future<AnimeEntity> getAnimeType(
-    int limit,
-  ) async {
+  Future<AnimeEntity> getAnimeType(int limit, String subtype) async {
     final finalUrl = '${AllUrl.baseUrl}/anime';
     try {
       final response = await dio.get(
         finalUrl,
         queryParameters: {
           'page[limit]': limit.toString(),
+          'filter[subtype]': subtype,
         },
       );
 
@@ -134,7 +133,7 @@ class AnimeApi {
 
         if (json != null) {
           final apiResponse = AnimeDetailsEntity.fromJson(json);
-          log('$apiResponse');
+
           return apiResponse;
         } else {
           log('Error: Invalid JSON data');

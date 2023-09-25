@@ -22,17 +22,25 @@ class _AnimeMovieWidgetState extends State<AnimeMovieWidget> {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AnimeMovieModel>();
-    final popularAnimeList = model.animeMovieList;
+    final anime = model.anime;
+    if (anime == null) {
+      return const Center(
+        child: CircularProgressIndicator(
+          color: Colors.red,
+        ),
+      );
+    }
+
     return SizedBox(
       height: 310, // Set a fixed height for the Container
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: popularAnimeList.length,
+        itemCount: model.anime?.data.length,
         itemBuilder: (context, int index) {
-          final animeList = popularAnimeList[index];
-          final small = animeList.attributes.posterImage?.small;
-          final title = animeList.attributes.titles.en;
-          final titleEnJp = animeList.attributes.titles.enJp;
+          final animeList = model.anime?.data[index];
+          final small = animeList?.attributes.posterImage?.small;
+          final title = animeList?.attributes.titles.en;
+          final titleEnJp = animeList?.attributes.titles.enJp;
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
