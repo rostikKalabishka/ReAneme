@@ -11,7 +11,6 @@ class SearchModel extends ChangeNotifier {
   final _animeApi = AnimeApi();
   int limit = 10;
   var offset = 0;
-  AnimeEntity? _anime;
   final _animeList = <Data>[];
   int count = 0;
   String? _searchQuery;
@@ -28,7 +27,6 @@ class SearchModel extends ChangeNotifier {
     _animeList.clear();
     await loadAnime(offset);
     isLoading = true;
-    // notifyListeners();
   }
 
   Future<void> searchAnime(String text) async {
@@ -50,12 +48,11 @@ class SearchModel extends ChangeNotifier {
 
     controller.addListener(() {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
-        print(offset);
-
-        if (count < limit && !isLoading) {
+        if (count > limit && isLoading) {
           offset += limit;
           loadAnime(offset);
         }
+        isLoading = false;
       }
     });
   }
@@ -71,21 +68,21 @@ class SearchModel extends ChangeNotifier {
 
     if (query == null) {
       final newItems = await _animeApi.getAnime(limit, offset);
-      newItems.meta.count;
+
       _animeList.addAll(newItems.data);
 
       count = newItems.meta.count;
     } else {
       final searchAnime =
           await _animeApi.searchAnime(query.trim(), limit, offset);
-      // offset = 0;
+
       _animeList.addAll(searchAnime.data);
 
       count = searchAnime.meta.count;
     }
 
     isLoading = true;
-
+    log('$count');
     notifyListeners();
   }
 }

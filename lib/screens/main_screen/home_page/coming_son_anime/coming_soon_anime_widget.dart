@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 
 import 'models/coming_soon_anime_model.dart';
 
-class ComingSoonAnimeWidget extends StatefulWidget {
-  const ComingSoonAnimeWidget({super.key});
+class TrendingAnimeWidget extends StatefulWidget {
+  const TrendingAnimeWidget({super.key});
 
   @override
-  State<ComingSoonAnimeWidget> createState() => _ComingSoonAnimeWidgetState();
+  State<TrendingAnimeWidget> createState() => _TrendingAnimeWidgetState();
 }
 
-class _ComingSoonAnimeWidgetState extends State<ComingSoonAnimeWidget> {
+class _TrendingAnimeWidgetState extends State<TrendingAnimeWidget> {
   final CarouselController _carouselController = CarouselController();
 
   final Cubic customCurves = const Cubic(0.0, 0.0, 0.0, 0.0);

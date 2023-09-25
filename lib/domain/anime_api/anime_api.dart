@@ -15,7 +15,10 @@ class AllUrl {
 class AnimeApi {
   final Dio dio = Dio();
 
-  Future<AnimeEntity> getAnimeType(int limit, String subtype) async {
+  Future<AnimeEntity> getAnimeType(
+    int limit,
+    String subtype,
+  ) async {
     final finalUrl = '${AllUrl.baseUrl}/anime';
     try {
       final response = await dio.get(
@@ -23,6 +26,39 @@ class AnimeApi {
         queryParameters: {
           'page[limit]': limit.toString(),
           'filter[subtype]': subtype,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final json = response.data;
+
+        if (json != null && json is Map<String, dynamic>) {
+          final apiResponse = AnimeEntity.fromJson(json);
+
+          return apiResponse;
+        } else {
+          print('Error: Invalid JSON data');
+          throw Exception('Incorrect JSON data');
+        }
+      } else {
+        print('Error: ${response.statusCode}');
+        throw Exception(
+            'HTTP request failed with status ${response.statusCode}');
+      }
+    } catch (e) {
+      print('There was an error: $e');
+      throw Exception(e);
+    }
+  }
+
+  Future<AnimeEntity> getStatus(int limit, String current) async {
+    final finalUrl = '${AllUrl.baseUrl}/anime';
+    try {
+      final response = await dio.get(
+        finalUrl,
+        queryParameters: {
+          'page[limit]': limit.toString(),
+          'filter[status]': current
         },
       );
 

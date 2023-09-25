@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:re_anime/screens/main_screen/home_page/popular_anime/pipular_anime.dart';
 
+import 'anime_ongoing/anime_ongoing.dart';
+import 'anime_ongoing/anime_ongoing_model/anime_ongoing_model.dart';
 import 'anime_tv/anime_tv_widget.dart';
 import 'anime_tv/model/anime_tv_model.dart';
 import 'coming_son_anime/coming_soon_anime_widget.dart';
@@ -18,11 +20,12 @@ class HomePageWidget extends StatelessWidget {
     final animeTVModel = AnimeTVModel();
     final comingSoonAnimeModel = ComingSoonAnimeModel();
     final animeMovieModel = AnimeMovieModel();
+    final animeOngoingModel = AnimeOngoingModel();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
           value: comingSoonAnimeModel,
-          child: const ComingSoonAnimeWidget(),
+          child: const TrendingAnimeWidget(),
         ),
         ChangeNotifierProvider.value(
           value: animeTVModel,
@@ -31,6 +34,10 @@ class HomePageWidget extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: animeMovieModel,
           child: const AnimeMovieWidget(),
+        ),
+        ChangeNotifierProvider.value(
+          value: animeOngoingModel,
+          child: const AnimeOngoingWidget(),
         )
       ],
       child: CustomScrollView(
@@ -66,7 +73,7 @@ class HomePageWidget extends StatelessWidget {
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: ComingSoonAnimeWidget(),
+              child: TrendingAnimeWidget(),
             ),
           ),
 
@@ -74,7 +81,7 @@ class HomePageWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 16, bottom: 16),
               child: Text(
-                'Coming Soon',
+                'Ongoing',
                 style: TextStyle(fontSize: 26),
               ),
             ),
@@ -82,7 +89,7 @@ class HomePageWidget extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: PopularAnime(),
+              child: AnimeOngoingWidget(),
             ),
           ),
 

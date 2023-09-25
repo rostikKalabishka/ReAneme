@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../../domain/anime_api/anime_api.dart';
 import '../../../../../domain/entity/anime/anime_entity.dart';
 
-class AnimeMovieModel extends ChangeNotifier {
+class AnimeOngoingModel extends ChangeNotifier {
   final int limit = 20;
   final AnimeApi _animeApi = AnimeApi();
   AnimeEntity? _anime;
@@ -15,7 +15,7 @@ class AnimeMovieModel extends ChangeNotifier {
   }
 
   Future<void> _loadMovieAnime() async {
-    _anime = await _animeApi.getAnimeType(limit, 'movie');
+    _anime = await _animeApi.getStatus(limit, 'current');
 
     notifyListeners();
   }
