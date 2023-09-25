@@ -10,15 +10,13 @@ AnimeEntity _$AnimeEntityFromJson(Map<String, dynamic> json) => AnimeEntity(
       data: (json['data'] as List<dynamic>)
           .map((e) => Data.fromJson(e as Map<String, dynamic>))
           .toList(),
-      meta: json['meta'] == null
-          ? null
-          : MetaCount.fromJson(json['meta'] as Map<String, dynamic>),
+      meta: MetaCount.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnimeEntityToJson(AnimeEntity instance) =>
     <String, dynamic>{
       'data': instance.data.map((e) => e.toJson()).toList(),
-      'meta': instance.meta?.toJson(),
+      'meta': instance.meta.toJson(),
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(

@@ -11,10 +11,10 @@ class AnimeTVModel extends ChangeNotifier {
   AnimeEntity? get anime => _anime;
 
   Future<void> setup() async {
-    await _loadTrendingAnime();
+    await _loadAnimeTVModel();
   }
 
-  Future<void> _loadTrendingAnime() async {
+  Future<void> _loadAnimeTVModel() async {
     _anime = await _animeApi.getAnimeType(limit, 'TV');
 
     notifyListeners();

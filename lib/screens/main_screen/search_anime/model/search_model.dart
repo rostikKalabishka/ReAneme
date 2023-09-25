@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:re_anime/domain/anime_api/anime_api.dart';
@@ -12,7 +13,7 @@ class SearchModel extends ChangeNotifier {
   var offset = 0;
   AnimeEntity? _anime;
   final _animeList = <Data>[];
-
+  int count = 0;
   String? _searchQuery;
   Timer? searchDebounce;
   List<Data> get animeList => List.unmodifiable(_animeList);
@@ -42,22 +43,20 @@ class SearchModel extends ChangeNotifier {
 
   Future<void> loadPage(ScrollController controller) async {
     if (isLoading) return;
+
     isLoading = true;
 
     await loadAnime(offset);
+
     controller.addListener(() {
       if (controller.position.pixels == controller.position.maxScrollExtent) {
         print(offset);
-        // _animeList.clear();
-        // && _anime.meta.count >= limit
-        if (isLoading) {
-          offset += 20;
-        } else {
-          offset += 0;
+
+        if (count < limit && !isLoading) {
+          offset += limit;
+          loadAnime(offset);
         }
-        loadAnime(offset);
       }
-      // if (_anime!.meta.count < limit) {
     });
   }
 
@@ -72,15 +71,21 @@ class SearchModel extends ChangeNotifier {
 
     if (query == null) {
       final newItems = await _animeApi.getAnime(limit, offset);
+      newItems.meta.count;
       _animeList.addAll(newItems.data);
+
+      count = newItems.meta.count;
     } else {
       final searchAnime =
           await _animeApi.searchAnime(query.trim(), limit, offset);
       // offset = 0;
       _animeList.addAll(searchAnime.data);
+
+      count = searchAnime.meta.count;
     }
 
     isLoading = true;
+
     notifyListeners();
   }
 }

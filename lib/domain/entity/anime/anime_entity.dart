@@ -5,7 +5,7 @@ part 'anime_entity.g.dart';
 @JsonSerializable(explicitToJson: true)
 class AnimeEntity {
   final List<Data> data;
-  final MetaCount? meta;
+  final MetaCount meta;
   // final Links links;
   AnimeEntity({
     required this.data,
