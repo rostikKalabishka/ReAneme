@@ -14,13 +14,13 @@ class TrendingAnimeEntity {
 
 @JsonSerializable()
 class DataTrending {
-  // final String id;
+  final String id;
   // final String type;
   // final Links links;
   final AttributesTrending attributes;
   // final Relationships relationships;
   DataTrending({
-    // required this.id,
+    required this.id,
     // required this.type,
     // required this.links,
     required this.attributes,

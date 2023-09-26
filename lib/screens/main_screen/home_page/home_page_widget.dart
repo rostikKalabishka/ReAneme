@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:re_anime/screens/main_screen/home_page/popular_anime/pipular_anime.dart';
-
 import 'anime_ongoing/anime_ongoing.dart';
 import 'anime_ongoing/anime_ongoing_model/anime_ongoing_model.dart';
 import 'anime_tv/anime_tv_widget.dart';
 import 'anime_tv/model/anime_tv_model.dart';
-import 'coming_son_anime/coming_soon_anime_widget.dart';
-import 'coming_son_anime/models/coming_soon_anime_model.dart';
+import 'trending anime/trending_anime_widget.dart';
+import 'trending anime/models/trending_anime_model.dart';
 import 'movie/movie_anime.dart';
 import 'movie/movie_anime_model/movie_anime_model.dart';
 

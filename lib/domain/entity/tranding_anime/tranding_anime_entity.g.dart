@@ -20,12 +20,14 @@ Map<String, dynamic> _$TrendingAnimeEntityToJson(
     };
 
 DataTrending _$DataTrendingFromJson(Map<String, dynamic> json) => DataTrending(
+      id: json['id'] as String,
       attributes: AttributesTrending.fromJson(
           json['attributes'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DataTrendingToJson(DataTrending instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'attributes': instance.attributes,
     };
 

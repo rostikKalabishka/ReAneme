@@ -69,6 +69,7 @@ class _DetailsState extends State<Details> {
     final title = model.animeEntity?.data.attributes.titles.en;
     final tiny = model.animeEntity?.data.attributes.coverImage?.tiny;
     final small = model.animeEntity?.data.attributes.coverImage?.small;
+    final large = model.animeEntity?.data.attributes.coverImage?.large;
 
     final description = model.animeEntity?.data.attributes.description;
 
@@ -88,7 +89,12 @@ class _DetailsState extends State<Details> {
                         small,
                         fit: BoxFit.cover,
                       )
-                    : const SizedBox.shrink(),
+                    : large != null
+                        ? Image.network(
+                            large,
+                            fit: BoxFit.cover,
+                          )
+                        : const SizedBox.shrink(),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

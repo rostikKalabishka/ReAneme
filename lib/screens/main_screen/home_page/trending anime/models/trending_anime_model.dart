@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../domain/anime_api/anime_api.dart';
 
 import '../../../../../domain/entity/tranding_anime/tranding_anime_entity.dart';
+import '../../../../../router/router.dart';
 
 class ComingSoonAnimeModel extends ChangeNotifier {
   final _animeApi = AnimeApi();
@@ -12,6 +13,12 @@ class ComingSoonAnimeModel extends ChangeNotifier {
 
   Future<void> setup() async {
     await loadTrendingAnime();
+  }
+
+  void onAnimeTap(BuildContext context, int index) {
+    final id = _anime?.data[index].id;
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteName.animeDetails, arguments: id);
   }
 
   Future<void> loadTrendingAnime() async {

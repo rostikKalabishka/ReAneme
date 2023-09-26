@@ -13,10 +13,10 @@ class AnimeTVWidget extends StatefulWidget {
 
 class _AnimeTVWidgetState extends State<AnimeTVWidget> {
   @override
-  void initState() {
+  void didChangeDependencies() {
     final model = context.read<AnimeTVModel>();
     model.setup();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -43,41 +43,44 @@ class _AnimeTVWidgetState extends State<AnimeTVWidget> {
           final titleEnJp = animeList?.attributes.titles.enJp;
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              child: Container(
-                width: 190, // Set a fixed width for each item
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: small != null
-                          ? Image.network(small)
-                          : const SizedBox.shrink(),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextWidget(
-                            label: title ?? titleEnJp ?? 'None',
-                            fontSize: 16,
-                            maxLines: 1,
-                            fontWeight: FontWeight.normal,
-                          )
-                        ],
+            child: GestureDetector(
+              onTap: () => model.onAnimeTap(context, index),
+              child: ClipRRect(
+                child: Container(
+                  width: 190, // Set a fixed width for each item
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: small != null
+                            ? Image.network(small)
+                            : const SizedBox.shrink(),
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              label: title ?? titleEnJp ?? 'None',
+                              fontSize: 16,
+                              maxLines: 1,
+                              fontWeight: FontWeight.normal,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'models/coming_soon_anime_model.dart';
+import 'models/trending_anime_model.dart';
 
 class TrendingAnimeWidget extends StatefulWidget {
   const TrendingAnimeWidget({super.key});
@@ -17,10 +17,10 @@ class _TrendingAnimeWidgetState extends State<TrendingAnimeWidget> {
   final Cubic customCurves = const Cubic(0.0, 0.0, 0.0, 0.0);
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     final model = context.read<ComingSoonAnimeModel>();
     model.setup();
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -57,27 +57,30 @@ class _TrendingAnimeWidgetState extends State<TrendingAnimeWidget> {
           final medium = animeList.attributes.posterImage.medium;
           return Padding(
             padding: const EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(medium)),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, left: 10),
-                        child: Text(
-                          animeList.attributes.titles.enJp,
-                          style: const TextStyle(fontSize: 20),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+            child: GestureDetector(
+              onTap: () => model.onAnimeTap(context, index),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(medium)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, left: 10),
+                          child: Text(
+                            animeList.attributes.titles.enJp,
+                            style: const TextStyle(fontSize: 20),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );
