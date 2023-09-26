@@ -190,10 +190,6 @@ class AnimeApi {
     try {
       final response = await dio.get(
         AllUrl.trendingUrl,
-        // queryParameters: {
-        //   'page[limit]': limit.toString(),
-        //   'page[offset]': offset.toString()
-        // }
       );
 
       if (response.statusCode == 200) {

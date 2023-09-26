@@ -30,20 +30,35 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
+      createdAt: parseMovieDateFromString(json['createdAt'] as String?),
       description: json['description'] as String,
       titles: Titles.fromJson(json['titles'] as Map<String, dynamic>),
+      averageRating: json['averageRating'] as String,
+      userCount: json['userCount'] as int,
       startDate: json['startDate'] as String?,
+      ageRating: json['ageRating'] as String?,
+      status: json['status'] as String?,
+      posterImage:
+          PosterImage.fromJson(json['posterImage'] as Map<String, dynamic>),
       coverImage: json['coverImage'] == null
           ? null
           : CoverImage.fromJson(json['coverImage'] as Map<String, dynamic>),
+      episodeCount: json['episodeCount'] as int?,
     );
 
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
     <String, dynamic>{
+      'createdAt': instance.createdAt?.toIso8601String(),
       'description': instance.description,
       'titles': instance.titles,
+      'averageRating': instance.averageRating,
+      'userCount': instance.userCount,
       'startDate': instance.startDate,
+      'ageRating': instance.ageRating,
+      'status': instance.status,
+      'posterImage': instance.posterImage,
       'coverImage': instance.coverImage,
+      'episodeCount': instance.episodeCount,
     };
 
 Titles _$TitlesFromJson(Map<String, dynamic> json) => Titles(
@@ -56,6 +71,23 @@ Map<String, dynamic> _$TitlesToJson(Titles instance) => <String, dynamic>{
       'en': instance.en,
       'en_jp': instance.enJp,
       'ja_jp': instance.jaJp,
+    };
+
+PosterImage _$PosterImageFromJson(Map<String, dynamic> json) => PosterImage(
+      tiny: json['tiny'] as String?,
+      large: json['large'] as String?,
+      small: json['small'] as String?,
+      medium: json['medium'] as String?,
+      meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PosterImageToJson(PosterImage instance) =>
+    <String, dynamic>{
+      'tiny': instance.tiny,
+      'large': instance.large,
+      'small': instance.small,
+      'medium': instance.medium,
+      'meta': instance.meta,
     };
 
 Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(

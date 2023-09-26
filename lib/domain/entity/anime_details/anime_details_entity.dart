@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../data_parser/date_parser.dart';
+
 part 'anime_details_entity.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -41,7 +43,8 @@ class Data {
 
 @JsonSerializable()
 class Attributes {
-  // final String createdAt;
+  @JsonKey(fromJson: parseMovieDateFromString)
+  final DateTime? createdAt;
   // final String updatedAt;
   // final String slug;
   // final String synopsis;
@@ -50,30 +53,30 @@ class Attributes {
   final Titles titles;
   // final String canonicalTitle;
   // final List<String> abbreviatedTitles;
-  // final String averageRating;
+  final String averageRating;
   // final RatingFrequencies ratingFrequencies;
-  // final int userCount;
+  final int userCount;
   // final int favoritesCount;
   final String? startDate;
   // final String endDate;
   // final NextRelease nextRelease;
   // final int popularityRank;
   // final int ratingRank;
-  // final String ageRating;
+  final String? ageRating;
   // final String ageRatingGuide;
   // final String subtype;
-  // final String status;
+  final String? status;
   // final Tba tba;
-  // final PosterImage posterImage;
+  final PosterImage posterImage;
   final CoverImage? coverImage;
-  // final int episodeCount;
-  // final int episodeLength;
+  final int? episodeCount;
+  // final int? episodeLength;
   // final int totalLength;
   // final String youtubeVideoId;
   // final String showType;
   // final bool nsfw;
   Attributes({
-    // required this.createdAt,
+    required this.createdAt,
     // required this.updatedAt,
     // required this.slug,
     // required this.synopsis,
@@ -82,23 +85,23 @@ class Attributes {
     required this.titles,
     // required this.canonicalTitle,
     // required this.abbreviatedTitles,
-    // required this.averageRating,
+    required this.averageRating,
     // required this.ratingFrequencies,
-    // required this.userCount,
+    required this.userCount,
     // required this.favoritesCount,
     required this.startDate,
     // required this.endDate,
     // required this.nextRelease,
     // required this.popularityRank,
     // required this.ratingRank,
-    // required this.ageRating,
+    required this.ageRating,
     // required this.ageRatingGuide,
     // required this.subtype,
-    // required this.status,
+    required this.status,
     // required this.tba,
-    // required this.posterImage,
+    required this.posterImage,
     required this.coverImage,
-    // required this.episodeCount,
+    required this.episodeCount,
     // required this.episodeLength,
     // required this.totalLength,
     // required this.youtubeVideoId,
@@ -172,26 +175,26 @@ class Titles {
 // class NextRelease {}
 
 // class Tba {}
-// @JsonSerializable()
-// class PosterImage {
-//   final String? tiny;
-//   final String? large;
-//   final String? small;
-//   final String? medium;
-//   // final String? original;
-//   final Meta meta;
-//   PosterImage({
-//     required this.tiny,
-//     required this.large,
-//     required this.small,
-//     required this.medium,
-//     // required this.original,
-//     required this.meta,
-//   });
-//   factory PosterImage.fromJson(Map<String, dynamic> json) =>
-//       _$PosterImageFromJson(json);
-//   Map<String, dynamic> toJson() => _$PosterImageToJson(this);
-// }
+@JsonSerializable()
+class PosterImage {
+  final String? tiny;
+  final String? large;
+  final String? small;
+  final String? medium;
+  // final String? original;
+  final Meta meta;
+  PosterImage({
+    required this.tiny,
+    required this.large,
+    required this.small,
+    required this.medium,
+    // required this.original,
+    required this.meta,
+  });
+  factory PosterImage.fromJson(Map<String, dynamic> json) =>
+      _$PosterImageFromJson(json);
+  Map<String, dynamic> toJson() => _$PosterImageToJson(this);
+}
 
 @JsonSerializable()
 class Meta {

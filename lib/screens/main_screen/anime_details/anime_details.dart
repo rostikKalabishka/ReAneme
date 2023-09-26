@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:re_anime/widget/text_widget.dart';
 
 import 'anime_details_model/anime_details_model.dart';
 
@@ -66,56 +67,204 @@ class _DetailsState extends State<Details> {
         ),
       );
     }
-    final title = model.animeEntity?.data.attributes.titles.en;
-    final tiny = model.animeEntity?.data.attributes.coverImage?.tiny;
+    final titleEn = model.animeEntity?.data.attributes.titles.en;
+    final titleEnJp = model.animeEntity?.data.attributes.titles.enJp;
+    final titleJaJp = model.animeEntity?.data.attributes.titles.jaJp;
+    final tiny = model.animeEntity?.data.attributes.posterImage.small;
     final small = model.animeEntity?.data.attributes.coverImage?.small;
     final large = model.animeEntity?.data.attributes.coverImage?.large;
-
+    final createdAt = model.animeEntity?.data.attributes.createdAt;
+    final status = model.animeEntity?.data.attributes.status;
+    final ageRating = model.animeEntity?.data.attributes.ageRating;
     final description = model.animeEntity?.data.attributes.description;
+    final userCount = model.animeEntity?.data.attributes.userCount;
+    final averageRating =
+        (double.parse((model.animeEntity!.data.attributes.averageRating)) / 10)
+            .toStringAsFixed(1);
 
+    // final biba = DateTime.parse(createdAt!);
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.6,
-            child: tiny != null
-                ? Image.network(
-                    tiny,
-                    fit: BoxFit.cover,
-                  )
-                : small != null
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width * 1.35,
+                child: tiny != null
                     ? Image.network(
-                        small,
+                        tiny,
                         fit: BoxFit.cover,
                       )
-                    : large != null
+                    : small != null
                         ? Image.network(
-                            large,
+                            small,
                             fit: BoxFit.cover,
                           )
-                        : const SizedBox.shrink(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: title != null
-                ? Text(
-                    title,
+                        : large != null
+                            ? Image.network(
+                                large,
+                                fit: BoxFit.cover,
+                              )
+                            : const SizedBox.shrink(),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: titleEn != null
+                  ? Text(
+                      titleEn,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                    )
+                  : titleEnJp != null
+                      ? Text(
+                          titleEnJp,
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                        )
+                      : titleJaJp != null
+                          ? Text(
+                              titleJaJp,
+                              style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.05,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: Row(
+                children: [
+                  const TextWidget(
+                    label: 'Rating: ',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20,
+                  ),
+                  Text(
+                    averageRating,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                    size: 20,
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: Row(
+                children: [
+                  const TextWidget(
+                    label: 'Status:',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20,
+                  ),
+                  Text(
+                    status == 'current' ? '  it`s coming out' : '$status ',
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.05,
                     ),
                   )
-                : const SizedBox.shrink(),
-          ),
-          const Text('Description'),
-          description != null
-              ? Text(
-                  description,
-                  maxLines: 12,
-                  overflow: TextOverflow.ellipsis,
-                )
-              : const SizedBox.shrink(),
-        ],
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: Row(
+                children: [
+                  const TextWidget(
+                    label: 'Age rating:',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20,
+                  ),
+                  Text(
+                    ' $ageRating',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    const TextWidget(
+                      label: 'Created at: ',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+                    ),
+                    createdAt != null
+                        ? Text(
+                            model.stringFromDate(createdAt),
+                            style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.05,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ],
+                )),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    const TextWidget(
+                      label: 'Viewers: ',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+                    ),
+                    userCount != null
+                        ? Text(
+                            '$userCount',
+                            style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.05,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ],
+                )),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  TextWidget(
+                    label: 'Description',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: description != null
+                  ? Text(
+                      description,
+                      maxLines: 30,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+          ],
+        ),
       ),
     );
   }
