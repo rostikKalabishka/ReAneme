@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:re_anime/theme/constants.dart';
+
 import 'package:re_anime/widget/text_widget.dart';
 
 import 'anime_details_model/anime_details_model.dart';
@@ -68,48 +68,61 @@ class BottomAppBarAnimeDetails extends StatelessWidget {
               )),
           IconButton(
               onPressed: () => showModalBottomSheet(
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => DraggableScrollableSheet(
-                        initialChildSize: 0.90,
-                        builder: (_, controller) => Scaffold(
-                          body: SafeArea(
-                            child: ListView(
-                              children: [
-                                Column(
-                                  children: [
-                                    Row(children: [
-                                      IconButton(
-                                        icon: const Icon(Icons.arrow_downward),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ]),
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: TextWidget(
-                                        label: model.animeEntity!.data
-                                            .attributes.description,
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                        maxLines: 40,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )),
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => ChangeNotifierProvider.value(
+                      value: model,
+                      child: const FullScreenSheetWidget(),
+                    ),
+                  ),
               icon: const Icon(Icons.more_horiz))
         ],
       ),
 
       // child: bottomAppBarContents,
+    );
+  }
+}
+
+class FullScreenSheetWidget extends StatelessWidget {
+  const FullScreenSheetWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<AnimeDetailsModel>();
+    return DraggableScrollableSheet(
+      initialChildSize: 0.90,
+      builder: (_, controller) => Scaffold(
+        body: SafeArea(
+          child: ListView(
+            children: [
+              Column(
+                children: [
+                  Row(children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_downward),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ]),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextWidget(
+                      label: model.animeEntity!.data.attributes.description,
+                      fontSize: MediaQuery.of(context).size.width * 0.045,
+                      maxLines: 40,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
