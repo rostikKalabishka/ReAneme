@@ -195,43 +195,34 @@ class AnimeApi {
     String image,
   ) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final userFavoriteRef = FirebaseFirestore.instance
+
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    final List<String> favoriteAnimeIds =
+        List<String>.from(userDoc.data()?['favoriteAnimeIds']);
+
+    favoriteAnimeIds.add(animeId);
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(userId)
-        .collection('favorite');
-
-    await userFavoriteRef.add({
-      'animeId': animeId,
-      'image': image,
-      'title': title,
-    });
+        .update({'favoriteAnimeIds': favoriteAnimeIds});
   }
 
   Future<void> removeFavoriteAnime(String animeId) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final userFavoriteRef = FirebaseFirestore.instance
+
+    final userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    final List<String> favoriteAnimeIds =
+        List<String>.from(userDoc.data()?['favoriteAnimeIds']);
+
+    favoriteAnimeIds.remove(animeId);
+
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(userId)
-        .collection('favorite');
-
-    // Находим все документы с заданным animeId.
-    final querySnapshot =
-        await userFavoriteRef.where('animeId', isEqualTo: animeId).get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      // Создаем список ссылок на документы, чтобы удалить их позже.
-      final List<DocumentReference> documentReferences =
-          querySnapshot.docs.map((doc) => doc.reference).toList();
-
-      // Удаляем все найденные документы одновременно.
-      final batch = FirebaseFirestore.instance.batch();
-      for (final docReference in documentReferences) {
-        batch.delete(docReference);
-      }
-
-      // Применяем пакетное удаление.
-      await batch.commit();
-    }
+        .update({'favoriteAnimeIds': favoriteAnimeIds});
   }
 
   Future<TrendingAnimeEntity> getTrendingAnime() async {

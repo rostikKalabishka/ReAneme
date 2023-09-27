@@ -46,6 +46,10 @@ class AuthServices {
         'email': email,
         // 'favorite_anime': favoriteAnimeList
       });
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set({'favoriteAnimeIds': []}, SetOptions(merge: true));
     }
   }
 
