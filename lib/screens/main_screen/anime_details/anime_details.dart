@@ -55,17 +55,18 @@ class BottomAppBarAnimeDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<AnimeDetailsModel>();
-    // final isFavorite = model.isFavorite;
+
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          IconButton(
-              onPressed: () => model.toggleAnimeFavorite(),
-              icon: Icon(
-                Icons.favorite,
-                color: model.isFavorite == true ? Colors.red : Colors.grey,
-              )),
+          model.isFavorite == true
+              ? IconButton(
+                  onPressed: () => model.toggleAnimeFavorite(),
+                  icon: const Icon(Icons.favorite, color: Colors.red))
+              : IconButton(
+                  onPressed: () => model.toggleAnimeFavorite(),
+                  icon: const Icon(Icons.favorite_outline, color: Colors.red)),
           IconButton(
               onPressed: () => showModalBottomSheet(
                     backgroundColor: Colors.transparent,
@@ -76,7 +77,7 @@ class BottomAppBarAnimeDetails extends StatelessWidget {
                       child: const FullScreenSheetWidget(),
                     ),
                   ),
-              icon: const Icon(Icons.more_horiz))
+              icon: const Icon(Icons.more_horiz, color: Colors.red))
         ],
       ),
 
@@ -320,6 +321,10 @@ class _DetailsState extends State<Details> {
                             ),
                           )
                         : const SizedBox.shrink(),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Icon(Icons.remove_red_eye)
                   ],
                 )),
           ],

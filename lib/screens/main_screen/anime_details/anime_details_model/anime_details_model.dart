@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/anime_api/anime_api.dart';
@@ -27,6 +28,17 @@ class AnimeDetailsModel extends ChangeNotifier {
 
   Future<void> toggleAnimeFavorite() async {
     _isFavorite = !_isFavorite;
+    final title = _animeEntity!.data.attributes.titles.enJp;
+    final image = _animeEntity!.data.attributes.posterImage.tiny;
+    _animeEntity = await _animeApi.getAnimeDetails(animeId);
+    if (_isFavorite == true) {
+      await _animeApi.addFavoriteAnime(animeId, title, image!);
+    } else if (_isFavorite == false) {
+      await _animeApi.removeFavoriteAnime(
+        animeId,
+      );
+    }
+
     notifyListeners();
   }
 }

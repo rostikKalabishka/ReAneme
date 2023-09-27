@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../entity/anime/anime_entity.dart';
@@ -163,10 +165,7 @@ class AnimeApi {
   Future<AnimeDetailsEntity> getAnimeDetails(String animeId) async {
     final finalUrl = '${AllUrl.baseUrl}/anime/$animeId';
     try {
-      final response = await dio.get(
-        finalUrl,
-        // queryParameters: {'page[offset]': offset.toString()},
-      );
+      final response = await dio.get(finalUrl);
 
       if (response.statusCode == 200) {
         final json = response.data;
@@ -187,6 +186,51 @@ class AnimeApi {
     } catch (e) {
       log('There was an error: $e');
       throw Exception(e);
+    }
+  }
+
+  Future<void> addFavoriteAnime(
+    String animeId,
+    String title,
+    String image,
+  ) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userFavoriteRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorite');
+
+    await userFavoriteRef.add({
+      'animeId': animeId,
+      'image': image,
+      'title': title,
+    });
+  }
+
+  Future<void> removeFavoriteAnime(String animeId) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userFavoriteRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorite');
+
+    // Находим все документы с заданным animeId.
+    final querySnapshot =
+        await userFavoriteRef.where('animeId', isEqualTo: animeId).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      // Создаем список ссылок на документы, чтобы удалить их позже.
+      final List<DocumentReference> documentReferences =
+          querySnapshot.docs.map((doc) => doc.reference).toList();
+
+      // Удаляем все найденные документы одновременно.
+      final batch = FirebaseFirestore.instance.batch();
+      for (final docReference in documentReferences) {
+        batch.delete(docReference);
+      }
+
+      // Применяем пакетное удаление.
+      await batch.commit();
     }
   }
 
