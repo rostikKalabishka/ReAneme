@@ -12,6 +12,8 @@ class AnimeDetailsModel extends ChangeNotifier {
   late DateFormat _dateFormat;
   AnimeDetailsEntity? _animeEntity;
   AnimeDetailsEntity? get animeEntity => _animeEntity;
+  bool _isFavorite = false;
+  bool get isFavorite => _isFavorite;
 
   final _animeApi = AnimeApi();
   String stringFromDate(DateTime? date) =>
@@ -20,6 +22,11 @@ class AnimeDetailsModel extends ChangeNotifier {
   Future<void> setup() async {
     _animeEntity = await _animeApi.getAnimeDetails(animeId);
     _dateFormat = DateFormat.yMMMEd();
+    notifyListeners();
+  }
+
+  Future<void> toggleAnimeFavorite() async {
+    _isFavorite = !_isFavorite;
     notifyListeners();
   }
 }

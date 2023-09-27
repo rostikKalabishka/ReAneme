@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:re_anime/theme/constants.dart';
 import 'package:re_anime/widget/text_widget.dart';
 
 import 'anime_details_model/anime_details_model.dart';
@@ -21,10 +22,11 @@ class _AnimeDetailsState extends State<AnimeDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<AnimeDetailsModel>();
+    final model = context.read<AnimeDetailsModel>();
     final titlesEn = model.animeEntity?.data.attributes.titles.en;
     final titlesEnJp = model.animeEntity?.data.attributes.titles.enJp;
     return Scaffold(
+      bottomNavigationBar: const BottomAppBarAnimeDetails(),
       appBar: AppBar(
         title: titlesEn != null
             ? Text(
@@ -41,6 +43,73 @@ class _AnimeDetailsState extends State<AnimeDetails> {
                 : const Text('Loading...'),
       ),
       body: const SafeArea(child: Details()),
+    );
+  }
+}
+
+class BottomAppBarAnimeDetails extends StatelessWidget {
+  const BottomAppBarAnimeDetails({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<AnimeDetailsModel>();
+    // final isFavorite = model.isFavorite;
+    return BottomAppBar(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+              onPressed: () => model.toggleAnimeFavorite(),
+              icon: Icon(
+                Icons.favorite,
+                color: model.isFavorite == true ? Colors.red : Colors.grey,
+              )),
+          IconButton(
+              onPressed: () => showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) => DraggableScrollableSheet(
+                        initialChildSize: 0.90,
+                        builder: (_, controller) => Scaffold(
+                          body: SafeArea(
+                            child: ListView(
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.arrow_downward),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ]),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: TextWidget(
+                                        label: model.animeEntity!.data
+                                            .attributes.description,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.045,
+                                        maxLines: 40,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )),
+              icon: const Icon(Icons.more_horiz))
+        ],
+      ),
+
+      // child: bottomAppBarContents,
     );
   }
 }
@@ -76,7 +145,7 @@ class _DetailsState extends State<Details> {
     final createdAt = model.animeEntity?.data.attributes.createdAt;
     final status = model.animeEntity?.data.attributes.status;
     final ageRating = model.animeEntity?.data.attributes.ageRating;
-    final description = model.animeEntity?.data.attributes.description;
+
     final userCount = model.animeEntity?.data.attributes.userCount;
     final averageRating =
         (double.parse((model.animeEntity!.data.attributes.averageRating)) / 10)
@@ -89,41 +158,43 @@ class _DetailsState extends State<Details> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.width * 1.35,
-                child: tiny != null
-                    ? Image.network(
-                        tiny,
-                        fit: BoxFit.cover,
-                      )
-                    : small != null
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.width * 1.35,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: tiny != null
                         ? Image.network(
-                            small,
+                            tiny,
                             fit: BoxFit.cover,
                           )
-                        : large != null
+                        : small != null
                             ? Image.network(
-                                large,
+                                small,
                                 fit: BoxFit.cover,
                               )
-                            : const SizedBox.shrink(),
-              ),
-            ),
+                            : large != null
+                                ? Image.network(
+                                    large,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const SizedBox.shrink(),
+                  ),
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: titleEn != null
                   ? Text(
                       titleEn,
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontSize: MediaQuery.of(context).size.width * 0.045,
                       ),
                     )
                   : titleEnJp != null
                       ? Text(
                           titleEnJp,
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.05,
+                            fontSize: MediaQuery.of(context).size.width * 0.045,
                           ),
                         )
                       : titleJaJp != null
@@ -131,7 +202,7 @@ class _DetailsState extends State<Details> {
                               titleJaJp,
                               style: TextStyle(
                                 fontSize:
-                                    MediaQuery.of(context).size.width * 0.05,
+                                    MediaQuery.of(context).size.width * 0.045,
                               ),
                             )
                           : const SizedBox.shrink(),
@@ -167,7 +238,7 @@ class _DetailsState extends State<Details> {
               child: Row(
                 children: [
                   const TextWidget(
-                    label: 'Status:',
+                    label: 'Status: ',
                     fontWeight: FontWeight.normal,
                     fontSize: 20,
                   ),
@@ -238,31 +309,6 @@ class _DetailsState extends State<Details> {
                         : const SizedBox.shrink(),
                   ],
                 )),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  TextWidget(
-                    label: 'Description',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 20,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: description != null
-                  ? Text(
-                      description,
-                      maxLines: 30,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
           ],
         ),
       ),

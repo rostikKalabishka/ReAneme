@@ -7,6 +7,7 @@ ThemeData basicTheme() => ThemeData(
         selectedItemColor:
             Color.fromARGB(255, 194, 81, 73), // Change to your desired color
       ),
+      bottomAppBarTheme: BottomAppBarTheme(color: scaffoldBackgroundColor),
       splashColor: Colors.transparent,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       inputDecorationTheme: const InputDecorationTheme(),

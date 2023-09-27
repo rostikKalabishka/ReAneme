@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../entity/anime/anime_entity.dart';
 import '../entity/anime_details/anime_details_entity.dart';
@@ -37,16 +38,16 @@ class AnimeApi {
 
           return apiResponse;
         } else {
-          print('Error: Invalid JSON data');
+          log('Error: Invalid JSON data');
           throw Exception('Incorrect JSON data');
         }
       } else {
-        print('Error: ${response.statusCode}');
+        log('Error: ${response.statusCode}');
         throw Exception(
             'HTTP request failed with status ${response.statusCode}');
       }
     } catch (e) {
-      print('There was an error: $e');
+      log('There was an error: $e');
       throw Exception(e);
     }
   }
@@ -70,16 +71,16 @@ class AnimeApi {
 
           return apiResponse;
         } else {
-          print('Error: Invalid JSON data');
+          log('Error: Invalid JSON data');
           throw Exception('Incorrect JSON data');
         }
       } else {
-        print('Error: ${response.statusCode}');
+        log('Error: ${response.statusCode}');
         throw Exception(
             'HTTP request failed with status ${response.statusCode}');
       }
     } catch (e) {
-      print('There was an error: $e');
+      log('There was an error: $e');
       throw Exception(e);
     }
   }
@@ -107,16 +108,16 @@ class AnimeApi {
           final apiResponse = AnimeEntity.fromJson(json);
           return apiResponse;
         } else {
-          print('Error: Invalid JSON data');
+          log('Error: Invalid JSON data');
           throw Exception('Incorrect JSON data');
         }
       } else {
-        print('Error: ${response.statusCode}');
+        log('Error: ${response.statusCode}');
         throw Exception(
             'HTTP request failed with status ${response.statusCode}');
       }
     } catch (e) {
-      print('There was an error: $e');
+      log('There was an error: $e');
       throw Exception(e);
     }
   }
@@ -142,16 +143,19 @@ class AnimeApi {
           final apiResponse = AnimeEntity.fromJson(json);
           return apiResponse;
         } else {
-          print('Error: Invalid JSON data');
+          log('Error: Invalid JSON data');
           throw Exception('Incorrect JSON data');
         }
       } else {
-        print('Error: ${response.statusCode}');
+        log('Error: ${response.statusCode}');
         throw Exception(
             'HTTP request failed with status ${response.statusCode}');
       }
+    } on NetworkImageLoadException {
+      log('NetworkImageLoadException');
+      throw Exception;
     } catch (e) {
-      print('There was an error: $e');
+      log('There was an error: $e');
       throw Exception(e);
     }
   }
@@ -213,19 +217,3 @@ class AnimeApi {
     }
   }
 }
-
-// class AnimeApi {
-//   final Dio dio = Dio();
-
-//   Future<List<AnimeEntity>> getAnime() async {
-//     final response = await dio.get('https://kitsu.io/api/edge/anime');
-//     final json = response.data;
-//     final jsonList = json['data'] as List;
-
-//     final apiResponse = jsonList
-//         .map((dynamic e) => AnimeEntity.fromJson(e as Map<String, dynamic>))
-//         .toList();
-
-//     return apiResponse;
-//   }
-// }
