@@ -189,40 +189,35 @@ class AnimeApi {
     }
   }
 
-  Future<void> addFavoriteAnime(
-    String animeId,
-    String title,
-    String image,
-  ) async {
+  Future<void> addFavoriteAnime(String animeId) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
-    final userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
-    final List<String> favoriteAnimeIds =
-        List<String>.from(userDoc.data()?['favoriteAnimeIds']);
+    final userDoc = FirebaseFirestore.instance.collection('users').doc(userId);
 
-    favoriteAnimeIds.add(animeId);
+    final userData = await userDoc.get();
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .update({'favoriteAnimeIds': favoriteAnimeIds});
+    final List<String> favoriteAnime =
+        List<String>.from(userData.data()!['favoriteAnime'] ?? []);
+
+    favoriteAnime.add(animeId);
+
+    await userDoc
+        .set({'favoriteAnime': favoriteAnime}, SetOptions(merge: true));
   }
 
   Future<void> removeFavoriteAnime(String animeId) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
-    final userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
-    final List<String> favoriteAnimeIds =
-        List<String>.from(userDoc.data()?['favoriteAnimeIds']);
+    final userDoc = FirebaseFirestore.instance.collection('users').doc(userId);
 
-    favoriteAnimeIds.remove(animeId);
+    final userData = await userDoc.get();
+    final List<String> favoriteAnime =
+        List<String>.from(userData.data()!['favoriteAnime'] ?? []);
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .update({'favoriteAnimeIds': favoriteAnimeIds});
+    favoriteAnime.remove(animeId);
+
+    await userDoc
+        .set({'favoriteAnime': favoriteAnime}, SetOptions(merge: true));
   }
 
   Future<TrendingAnimeEntity> getTrendingAnime() async {

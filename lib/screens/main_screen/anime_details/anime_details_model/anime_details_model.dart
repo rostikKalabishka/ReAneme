@@ -32,7 +32,7 @@ class AnimeDetailsModel extends ChangeNotifier {
     final image = _animeEntity!.data.attributes.posterImage.tiny;
     _animeEntity = await _animeApi.getAnimeDetails(animeId);
     if (_isFavorite == true) {
-      await _animeApi.addFavoriteAnime(animeId, title, image!);
+      await _animeApi.addFavoriteAnime(animeId);
     } else if (_isFavorite == false) {
       await _animeApi.removeFavoriteAnime(
         animeId,

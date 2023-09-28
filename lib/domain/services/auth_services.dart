@@ -33,23 +33,17 @@ class AuthServices {
     }
   }
 
-  Future addUserDetails(
-    String email,
-    String username,
-  ) async {
-    // final List favoriteAnimeList = [];
+  Future<void> addUserDetails(String email, String username) async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     if (uid.isNotEmpty) {
-      await FirebaseFirestore.instance.collection('users').add({
+      final userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+      await userDoc.set({
         'uid': uid,
         'username': username,
         'email': email,
-        // 'favorite_anime': favoriteAnimeList
+        'favoriteAnime': [],
       });
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .set({'favoriteAnimeIds': []}, SetOptions(merge: true));
     }
   }
 
