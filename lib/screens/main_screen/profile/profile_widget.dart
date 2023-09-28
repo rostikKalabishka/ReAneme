@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -93,23 +96,33 @@ class UserNameWidget extends StatefulWidget {
 }
 
 class _UserNameWidgetState extends State<UserNameWidget> {
+  final _auth = FirebaseAuth.instance;
+  String? _name;
+  String? _uid;
+// String _name;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+    final DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    _name = userDoc.get('username');
+    log('name $_name');
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final model = context.read<ProfileModel>();
-    // FirebaseFirestore.instance.collection('users').get().
-    final user = FirebaseAuth.instance.currentUser;
-
     return Center(
-      child: user != null
-          ? TextWidget(
-              label: '${user.email}',
-              fontSize: 22,
-            )
-          : const TextWidget(
-              label: 'None',
-              fontSize: 22,
-            ),
-    );
+        child: TextWidget(
+      label: '${_name}',
+      fontSize: 22,
+    ));
   }
 }
 
