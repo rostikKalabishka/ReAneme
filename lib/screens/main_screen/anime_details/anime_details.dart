@@ -14,10 +14,9 @@ class AnimeDetails extends StatefulWidget {
 
 class _AnimeDetailsState extends State<AnimeDetails> {
   @override
-  void didChangeDependencies() {
-    context.watch<AnimeDetailsModel>().setup();
-
-    super.didChangeDependencies();
+  void initState() {
+    context.read<AnimeDetailsModel>().setup();
+    super.initState();
   }
 
   @override
@@ -26,7 +25,10 @@ class _AnimeDetailsState extends State<AnimeDetails> {
     final titlesEn = model.animeEntity?.data.attributes.titles.en;
     final titlesEnJp = model.animeEntity?.data.attributes.titles.enJp;
     return Scaffold(
-      bottomNavigationBar: const BottomAppBarAnimeDetails(),
+      bottomNavigationBar: ChangeNotifierProvider.value(
+        value: context.watch<AnimeDetailsModel>(),
+        child: const BottomAppBarAnimeDetails(),
+      ),
       appBar: AppBar(
         title: titlesEn != null
             ? Text(
@@ -47,26 +49,37 @@ class _AnimeDetailsState extends State<AnimeDetails> {
   }
 }
 
-class BottomAppBarAnimeDetails extends StatelessWidget {
+class BottomAppBarAnimeDetails extends StatefulWidget {
   const BottomAppBarAnimeDetails({
     super.key,
   });
 
   @override
+  State<BottomAppBarAnimeDetails> createState() =>
+      _BottomAppBarAnimeDetailsState();
+}
+
+class _BottomAppBarAnimeDetailsState extends State<BottomAppBarAnimeDetails> {
+  @override
+  void initState() {
+    context.read<AnimeDetailsModel>().isFavorite;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final model = context.watch<AnimeDetailsModel>();
-
+    final isFavorite = model.isFavorite;
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          model.isFavorite == true
-              ? IconButton(
-                  onPressed: () => model.toggleAnimeFavorite(),
-                  icon: const Icon(Icons.favorite, color: Colors.red))
-              : IconButton(
-                  onPressed: () => model.toggleAnimeFavorite(),
-                  icon: const Icon(Icons.favorite_outline, color: Colors.red)),
+          IconButton(
+            icon: Icon(
+                isFavorite == false ? Icons.favorite_outline : Icons.favorite,
+                color: Colors.red),
+            onPressed: () => model.toggleAnimeFavorite(),
+          ),
           IconButton(
               onPressed: () => showModalBottomSheet(
                     backgroundColor: Colors.transparent,

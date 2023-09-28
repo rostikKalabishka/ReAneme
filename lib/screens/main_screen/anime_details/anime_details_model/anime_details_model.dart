@@ -17,27 +17,27 @@ class AnimeDetailsModel extends ChangeNotifier {
   bool get isFavorite => _isFavorite;
 
   final _animeApi = AnimeApi();
+
   String stringFromDate(DateTime? date) =>
       date != null ? _dateFormat.format(date) : '';
 
   Future<void> setup() async {
     _animeEntity = await _animeApi.getAnimeDetails(animeId);
     _dateFormat = DateFormat.yMMMEd();
+    _isFavorite = await _animeApi.checkIsFavoriteInList(animeId);
     notifyListeners();
   }
 
   Future<void> toggleAnimeFavorite() async {
-    _isFavorite = !_isFavorite;
-    final title = _animeEntity!.data.attributes.titles.enJp;
-    final image = _animeEntity!.data.attributes.posterImage.tiny;
-    _animeEntity = await _animeApi.getAnimeDetails(animeId);
+    _isFavorite = await _animeApi.checkIsFavoriteInList(animeId);
+
     if (_isFavorite == true) {
-      await _animeApi.addFavoriteAnime(animeId);
+      await _animeApi.removeFavoriteAnime(animeId);
     } else if (_isFavorite == false) {
-      await _animeApi.removeFavoriteAnime(
-        animeId,
-      );
+      await _animeApi.addFavoriteAnime(animeId);
     }
+
+    _isFavorite = !_isFavorite;
 
     notifyListeners();
   }

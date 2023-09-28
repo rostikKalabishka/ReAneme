@@ -189,6 +189,16 @@ class AnimeApi {
     }
   }
 
+  Future<bool> checkIsFavoriteInList(String animeId) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userDoc = FirebaseFirestore.instance.collection('users').doc(userId);
+    final userData = await userDoc.get();
+
+    final List<String> favoriteAnime =
+        List<String>.from(userData.data()!['favoriteAnime'] ?? []);
+    return favoriteAnime.contains(animeId);
+  }
+
   Future<void> addFavoriteAnime(String animeId) async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
@@ -197,9 +207,11 @@ class AnimeApi {
     final userData = await userDoc.get();
 
     final List<String> favoriteAnime =
-        List<String>.from(userData.data()!['favoriteAnime'] ?? []);
+        List<String>.from(userData.data()!['favoriteAnime']);
 
-    favoriteAnime.add(animeId);
+    if (!favoriteAnime.contains(animeId)) {
+      favoriteAnime.add(animeId);
+    }
 
     await userDoc
         .set({'favoriteAnime': favoriteAnime}, SetOptions(merge: true));
@@ -212,9 +224,11 @@ class AnimeApi {
 
     final userData = await userDoc.get();
     final List<String> favoriteAnime =
-        List<String>.from(userData.data()!['favoriteAnime'] ?? []);
+        List<String>.from(userData.data()!['favoriteAnime']);
 
-    favoriteAnime.remove(animeId);
+    if (favoriteAnime.contains(animeId)) {
+      favoriteAnime.remove(animeId);
+    }
 
     await userDoc
         .set({'favoriteAnime': favoriteAnime}, SetOptions(merge: true));

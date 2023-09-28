@@ -110,9 +110,9 @@ class _UserNameWidgetState extends State<UserNameWidget> {
   void getData() async {
     User? user = _auth.currentUser;
     _uid = user!.uid;
-    final DocumentSnapshot userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    _name = userDoc.get('username');
+    // final DocumentSnapshot userDoc =
+    //     await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    // _name = userDoc.get('username');
     log('name $_name');
   }
 
@@ -120,7 +120,7 @@ class _UserNameWidgetState extends State<UserNameWidget> {
   Widget build(BuildContext context) {
     return Center(
         child: TextWidget(
-      label: '${_name}',
+      label: 'sad',
       fontSize: 22,
     ));
   }
