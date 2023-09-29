@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:re_anime/router/router.dart';
 
 import '../../../../domain/anime_api/anime_api.dart';
 import '../../anime_details/anime_details.dart';
@@ -14,6 +16,7 @@ class ProfileModel extends ChangeNotifier {
   String? _uid;
   String? name;
   List<String> animeList = [];
+
   Future<void> setup() async {
     await getData();
     await favoriteAnimeList();
@@ -35,6 +38,12 @@ class ProfileModel extends ChangeNotifier {
         animeList.add(item);
       }
     }
+  }
+
+  void onAnimeTap(BuildContext context, int index) {
+    final animeId = animeList[index]; // Получите идентификатор аниме по индексу
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteName.animeDetails, arguments: animeId);
   }
 
   Future<void> getData() async {

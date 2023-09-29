@@ -43,7 +43,7 @@ class UserInfoWidget extends StatelessWidget {
           child: const UserNameWidget(),
         ),
         ChangeNotifierProvider(
-          create: (_) => model,
+          create: (_) => ProfileModel(),
           child: const YourFavoriteWidget(),
         ),
       ],
@@ -184,63 +184,82 @@ class YourFavoriteWidget extends StatefulWidget {
 
 class _YourFavoriteWidgetState extends State<YourFavoriteWidget> {
   @override
-  @override
-  void didChangeDependencies() {
-    context.watch<ProfileModel>().setup();
-    super.didChangeDependencies();
+  void initState() {
+    context.read<ProfileModel>().setup();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final model = context.watch<ProfileModel>();
-    return model == null
-        ? const Center(
+
+    return FutureBuilder(
+      future: model.setup(), // Используйте setup() вместо animeList
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
             child: CircularProgressIndicator(
-            color: Colors.red,
-          ))
-        : SizedBox(
-            height: 3000,
-            width: double.infinity,
-            child: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(10),
-              crossAxisSpacing: 1,
-              mainAxisSpacing: 1,
-              crossAxisCount: 2,
-              children: model.animeList.map((animeId) {
-                return FutureBuilder(
-                  future: model.animeDetails(animeId),
-                  builder: (context, animeSnapshot) {
-                    if (animeSnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: Colors.red,
-                      ));
-                    } else if (animeSnapshot.hasError) {
-                      return const Text('Error downloading anime');
-                    } else {
-                      final animeDetails =
-                          animeSnapshot.data as AnimeDetailsEntity;
-                      return Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              '${animeDetails.data.attributes.posterImage.tiny}',
-                            ),
-                          ),
-                          TextWidget(
-                            label:
-                                '${animeDetails.data.attributes.titles.en ?? animeDetails.data.attributes.titles.enJp ?? animeDetails.data.attributes.titles.jaJp}',
-                          ),
-                        ],
-                      );
-                    }
-                  },
-                );
-              }).toList(),
+              color: Colors.red,
             ),
           );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          if (model.animeList.isEmpty) {
+            return const Text('No favorite anime found');
+          } else {
+            return SizedBox(
+                height: 3000,
+                width: double.infinity,
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.all(10),
+                  crossAxisSpacing: 1,
+                  mainAxisSpacing: 1,
+                  crossAxisCount: 2,
+                  children: model.animeList.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final animeId = entry.value;
+                    return FutureBuilder(
+                      future: model.animeDetails(animeId),
+                      builder: (context, animeSnapshot) {
+                        if (animeSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.red,
+                            ),
+                          );
+                        } else if (animeSnapshot.hasError) {
+                          return const Text('Error downloading anime');
+                        } else {
+                          final animeDetails =
+                              animeSnapshot.data as AnimeDetailsEntity;
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () => model.onAnimeTap(context, index),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    '${animeDetails.data.attributes.posterImage.tiny}',
+                                  ),
+                                ),
+                              ),
+                              TextWidget(
+                                label:
+                                    '${animeDetails.data.attributes.titles.en ?? animeDetails.data.attributes.titles.enJp ?? animeDetails.data.attributes.titles.jaJp}',
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                    );
+                  }).toList(),
+                ));
+          }
+        }
+      },
+    );
   }
 }
