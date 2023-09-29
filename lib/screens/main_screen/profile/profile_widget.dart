@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:re_anime/domain/entity/anime_details/anime_details_entity.dart';
 
 import '../../../router/router.dart';
 import '../../../theme/constants.dart';
 import '../../../widget/text_widget.dart';
-import '../home_page/popular_anime/model/popular_anime_model.dart';
 import 'model/profile_model.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -33,42 +33,41 @@ class UserInfoWidget extends StatelessWidget {
   UserInfoWidget({Key? key}) : super(key: key);
 
   final model = ProfileModel();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => model,
-          child: UserNameWidget(),
-        )
-      ],
-      child: const SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ImageProfileWidget(),
-            SizedBox(
-              height: 20,
-            ),
-            UserNameWidget(),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextWidget(
-                label: 'Stats',
-                fontSize: 22,
-              ),
-            ),
-            StatsWidget(),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextWidget(
-                label: 'Your favorite',
-                fontSize: 22,
-              ),
-            ),
-            // YourFavoriteWidget(),
-          ],
+          child: const UserNameWidget(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => model,
+          child: const YourFavoriteWidget(),
+        ),
+      ],
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ImageProfileWidget(),
+          SizedBox(
+            height: 20,
+          ),
+          UserNameWidget(),
+
+          // StatsWidget(),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TextWidget(
+              label: 'Your favorite',
+              fontSize: 22,
+            ),
+          ),
+          Expanded(
+            child: YourFavoriteWidget(),
+          ),
+        ],
       ),
     );
   }
@@ -176,52 +175,72 @@ class StatsWidget extends StatelessWidget {
   }
 }
 
-class YourFavoriteWidget extends StatelessWidget {
-  YourFavoriteWidget({Key? key}) : super(key: key);
+class YourFavoriteWidget extends StatefulWidget {
+  const YourFavoriteWidget({Key? key}) : super(key: key);
 
-  final popularAnimeList = [
-    PopularAnimeModel(
-        id: 1,
-        imageSmall: 'assets/images/small.jpg',
-        name: 'Beebop1sssssssssssss'),
-    PopularAnimeModel(
-        id: 2, imageSmall: 'assets/images/small.jpg', name: 'Beebop2'),
-    PopularAnimeModel(
-        id: 3, imageSmall: 'assets/images/small.jpg', name: 'Beebop3'),
-    PopularAnimeModel(
-        id: 4, imageSmall: 'assets/images/small.jpg', name: 'Beebop4'),
-    PopularAnimeModel(
-        id: 5, imageSmall: 'assets/images/small.jpg', name: 'Beebop5'),
-  ];
+  @override
+  State<YourFavoriteWidget> createState() => _YourFavoriteWidgetState();
+}
+
+class _YourFavoriteWidgetState extends State<YourFavoriteWidget> {
+  @override
+  @override
+  void didChangeDependencies() {
+    context.watch<ProfileModel>().setup();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      width: double.infinity,
-      child: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(10),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        children: popularAnimeList.map((anime) {
-          return Column(
-            children: [
-              Image.asset(
-                anime.imageSmall,
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                anime.name,
-                style: const TextStyle(fontSize: 16),
-              ),
-            ],
+    final model = context.watch<ProfileModel>();
+    return model == null
+        ? const Center(
+            child: CircularProgressIndicator(
+            color: Colors.red,
+          ))
+        : SizedBox(
+            height: 3000,
+            width: double.infinity,
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 1,
+              mainAxisSpacing: 1,
+              crossAxisCount: 2,
+              children: model.animeList.map((animeId) {
+                return FutureBuilder(
+                  future: model.animeDetails(animeId),
+                  builder: (context, animeSnapshot) {
+                    if (animeSnapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: Colors.red,
+                      ));
+                    } else if (animeSnapshot.hasError) {
+                      return const Text('Error downloading anime');
+                    } else {
+                      final animeDetails =
+                          animeSnapshot.data as AnimeDetailsEntity;
+                      return Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              '${animeDetails.data.attributes.posterImage.tiny}',
+                            ),
+                          ),
+                          TextWidget(
+                            label:
+                                '${animeDetails.data.attributes.titles.en ?? animeDetails.data.attributes.titles.enJp ?? animeDetails.data.attributes.titles.jaJp}',
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                );
+              }).toList(),
+            ),
           );
-        }).toList(),
-      ),
-    );
   }
 }
