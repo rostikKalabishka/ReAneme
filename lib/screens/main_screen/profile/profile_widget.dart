@@ -1,13 +1,11 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../router/router.dart';
 import '../../../theme/constants.dart';
 import '../../../widget/text_widget.dart';
 import '../home_page/popular_anime/model/popular_anime_model.dart';
+import 'model/profile_model.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -26,42 +24,51 @@ class ProfileWidget extends StatelessWidget {
               icon: const Icon(Icons.settings))
         ],
       ),
-      body: const UserInfoWidget(),
+      body: UserInfoWidget(),
     );
   }
 }
 
 class UserInfoWidget extends StatelessWidget {
-  const UserInfoWidget({Key? key}) : super(key: key);
+  UserInfoWidget({Key? key}) : super(key: key);
 
+  final model = ProfileModel();
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ImageProfileWidget(),
-          SizedBox(
-            height: 20,
-          ),
-          UserNameWidget(),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextWidget(
-              label: 'Stats',
-              fontSize: 22,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => model,
+          child: UserNameWidget(),
+        )
+      ],
+      child: const SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ImageProfileWidget(),
+            SizedBox(
+              height: 20,
             ),
-          ),
-          StatsWidget(),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextWidget(
-              label: 'Your favorite',
-              fontSize: 22,
+            UserNameWidget(),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextWidget(
+                label: 'Stats',
+                fontSize: 22,
+              ),
             ),
-          ),
-          // YourFavoriteWidget(),
-        ],
+            StatsWidget(),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextWidget(
+                label: 'Your favorite',
+                fontSize: 22,
+              ),
+            ),
+            // YourFavoriteWidget(),
+          ],
+        ),
       ),
     );
   }
@@ -96,33 +103,28 @@ class UserNameWidget extends StatefulWidget {
 }
 
 class _UserNameWidgetState extends State<UserNameWidget> {
-  final _auth = FirebaseAuth.instance;
-  String? _name;
-  String? _uid;
-// String _name;
-
   @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
-  void getData() async {
-    User? user = _auth.currentUser;
-    _uid = user!.uid;
-    // final DocumentSnapshot userDoc =
-    //     await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    // _name = userDoc.get('username');
-    log('name $_name');
+  void didChangeDependencies() {
+    context.watch<ProfileModel>().setup();
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: TextWidget(
-      label: 'sad',
-      fontSize: 22,
-    ));
+    // final _username = model.name;
+    final model = context.watch<ProfileModel>();
+    return FutureBuilder(
+        future: model.getData(),
+        builder: (context, snapshot) {
+          final username = context.watch<ProfileModel>().name;
+          return username != null
+              ? Center(
+                  child: TextWidget(
+                  label: username,
+                  fontSize: 22,
+                ))
+              : const Text('Loading...');
+        });
   }
 }
 

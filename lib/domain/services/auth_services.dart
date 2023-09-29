@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class AuthServices {
   final _firebaseAuth = FirebaseAuth.instance;
-// final _fireStore =FirebaseFire
-// _firebaseAuth.currentUser;
 
   Future<String?> registration(
       {required String email,
