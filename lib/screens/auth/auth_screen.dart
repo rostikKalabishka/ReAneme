@@ -42,7 +42,7 @@ class AuthWidget extends StatelessWidget {
                 height: 60,
                 child: TextFormFiledWidget(
                   controller: emailTextEditingController,
-                  hintText: 'Username',
+                  hintText: 'Email',
                   obscureText: false,
                 )),
           ),

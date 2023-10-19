@@ -194,7 +194,7 @@ class _YourFavoriteWidgetState extends State<YourFavoriteWidget> {
     final model = context.watch<ProfileModel>();
 
     return FutureBuilder(
-      future: model.setup(), // Используйте setup() вместо animeList
+      future: model.setup(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(

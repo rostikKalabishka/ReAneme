@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
           child: const SearchAnimeWidget(),
         ),
         ChangeNotifierProvider.value(
-          value: profileModel,
+          value: ProfileModel(),
           child: const ProfileWidget(),
         )
       ],
