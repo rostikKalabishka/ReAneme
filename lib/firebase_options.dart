@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,37 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBLfdwCvy25yvwt2BTI5_xDwQXolsjH2es',
-    appId: '1:215414974777:web:2097daf963d5d4dfce60e8',
-    messagingSenderId: '215414974777',
-    projectId: 'reanime2-7a26b',
-    authDomain: 'reanime2-7a26b.firebaseapp.com',
-    storageBucket: 'reanime2-7a26b.appspot.com',
+    apiKey: 'AIzaSyC-cNQ9N9VN6m02a3l1EqDBFKyAYfRFo70',
+    appId: '1:75887363249:web:ac2c0f64d6d95334850e90',
+    messagingSenderId: '75887363249',
+    projectId: 'test-reanime',
+    authDomain: 'test-reanime.firebaseapp.com',
+    storageBucket: 'test-reanime.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCY_2MpiLNlgAGKWNVC68zop59mVoBEguU',
-    appId: '1:215414974777:android:affb9e0785f0b576ce60e8',
-    messagingSenderId: '215414974777',
-    projectId: 'reanime2-7a26b',
-    storageBucket: 'reanime2-7a26b.appspot.com',
+    apiKey: 'AIzaSyCmWa0wLQP-0Aj74IBnwXpK8fxotO-gZGs',
+    appId: '1:75887363249:android:23316c2f8f3ab526850e90',
+    messagingSenderId: '75887363249',
+    projectId: 'test-reanime',
+    storageBucket: 'test-reanime.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyANyZrnGPdPlUC3OUG6Usyh9y_4aciqspY',
-    appId: '1:215414974777:ios:f7099a6d115c558fce60e8',
-    messagingSenderId: '215414974777',
-    projectId: 'reanime2-7a26b',
-    storageBucket: 'reanime2-7a26b.appspot.com',
+    apiKey: 'AIzaSyC97HOwAr26ROdbcF2zIuPtU1iLUm5K31M',
+    appId: '1:75887363249:ios:f645d9cb36e15f7f850e90',
+    messagingSenderId: '75887363249',
+    projectId: 'test-reanime',
+    storageBucket: 'test-reanime.appspot.com',
     iosBundleId: 'com.example.reAnime',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyANyZrnGPdPlUC3OUG6Usyh9y_4aciqspY',
-    appId: '1:215414974777:ios:83970b97a1421a76ce60e8',
-    messagingSenderId: '215414974777',
-    projectId: 'reanime2-7a26b',
-    storageBucket: 'reanime2-7a26b.appspot.com',
-    iosBundleId: 'com.example.reAnime.RunnerTests',
   );
 }

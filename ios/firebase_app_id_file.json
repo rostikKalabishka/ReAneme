@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:215414974777:ios:f7099a6d115c558fce60e8",
-  "FIREBASE_PROJECT_ID": "reanime2-7a26b",
-  "GCM_SENDER_ID": "215414974777"
+  "GOOGLE_APP_ID": "1:75887363249:ios:f645d9cb36e15f7f850e90",
+  "FIREBASE_PROJECT_ID": "test-reanime",
+  "GCM_SENDER_ID": "75887363249"
 }

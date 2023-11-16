@@ -24,16 +24,13 @@ class ProfileModel extends ChangeNotifier {
   }
 
   Future<void> favoriteAnimeList() async {
-    CollectionReference collection =
-        FirebaseFirestore.instance.collection('users');
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    List<dynamic> dataArray = userSnapshot.get('favoriteAnime');
 
-    QuerySnapshot querySnapshot = await collection.get();
     animeList.clear();
-    for (QueryDocumentSnapshot docSnapshot in querySnapshot.docs) {
-      List<dynamic> dataArray = docSnapshot['favoriteAnime'];
-      for (var item in dataArray) {
-        animeList.add(item);
-      }
+    for (var item in dataArray) {
+      animeList.add(item);
     }
   }
 

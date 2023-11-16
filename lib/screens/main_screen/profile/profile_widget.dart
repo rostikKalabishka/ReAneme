@@ -24,7 +24,12 @@ class ProfileWidget extends StatelessWidget {
               icon: const Icon(Icons.settings))
         ],
       ),
-      body: UserInfoWidget(),
+      body: RefreshIndicator(
+        child: UserInfoWidget(),
+        onRefresh: () async {
+          await context.watch<ProfileModel>().setup();
+        },
+      ),
     );
   }
 }
@@ -247,8 +252,8 @@ class _YourFavoriteWidgetState extends State<YourFavoriteWidget> {
                                 ),
                               ),
                               TextWidget(
-                                label:
-                                    '${animeDetails.data.attributes.titles.en ?? animeDetails.data.attributes.titles.enJp ?? animeDetails.data.attributes.titles.jaJp}',
+                                label: animeDetails.data.attributes.titles.en ??
+                                    animeDetails.data.attributes.titles.enJp,
                               ),
                             ],
                           );
